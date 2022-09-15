@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|EB Garamond:300,300italic,400,400italic,700,700italic|Source Code Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zodical416.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="哒哒哒">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 基础">
+<meta property="og:url" content="https://zodical416.github.io/2022/08/15/Linux/index.html">
+<meta property="og:site_name" content="Zodiacal">
+<meta property="og:description" content="哒哒哒">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-08-15T12:29:23.072Z">
+<meta property="article:modified_time" content="2022-09-15T13:42:03.944Z">
+<meta property="article:author" content="Zodiacal">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="Linux 服务器">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://zodical416.github.io/2022/08/15/Linux/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Linux 基础 | Zodiacal</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zodiacal</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://zodical416.github.io/2022/08/15/Linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zodiacal">
+      <meta itemprop="description" content="引出魔鬼的一种试炼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zodiacal">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux 基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-15 20:29:23" itemprop="dateCreated datePublished" datetime="2022-08-15T20:29:23+08:00">2022-08-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-15 21:42:03" itemprop="dateModified" datetime="2022-09-15T21:42:03+08:00">2022-09-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+            <div class="post-description">哒哒哒</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Linux-中的进程与线程"><a href="#Linux-中的进程与线程" class="headerlink" title="Linux 中的进程与线程"></a>Linux 中的进程与线程</h1><h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><h3 id="创建与执行"><a href="#创建与执行" class="headerlink" title="创建与执行"></a>创建与执行</h3><p>Linux 中进程的创建与执行分为两个函数，分别是 fork 与 exec。fork 从当前进程创建一个子进程，该函数会返回两次，对于父进程而言，返回的是子进程的进程号，对于子进程而言返回0。子进程是父进程的副本，拥有和父进程一样的数据空间、堆和栈的副本，并且共享代码段。</p>
+<p>对于子进程通常为了调用 exec 装载其他程序执行，因此 Linux 采用了 写时拷贝 技术，即数据段、堆以及栈的副本并不会在 fork 之后就真的拷贝，只是将这些内存区域的访问权限变为只读。如果父子进程中有任一个要修改这些区域，才会修改对应的内存页生成新的副本，从而提高性能。</p>
+<p>fork 之后父进程先执行还是子进程先执行是不确定的，所以如果要求父子进程进行同步，往往需要使用进程间通信。fork 之后子进程会继承父进程的许多东西，包括：</p>
+<ul>
+<li>打开的文件</li>
+<li>实际用户 ID、组用户 ID 等</li>
+<li>进程组</li>
+<li>当前工作目录</li>
+<li>信号屏蔽和安排</li>
+</ul>
+<p>父子进程的区别在于：</p>
+<ul>
+<li>进程 ID 不同</li>
+<li>子进程不继承父进程的文件锁</li>
+<li>子进程的未处理信号集为空</li>
+</ul>
+<p>fork 之后，子进程可以执行不同的代码段，也可以使用 exec 函数执行其他的程序</p>
+<h3 id="进程描述符"><a href="#进程描述符" class="headerlink" title="进程描述符"></a>进程描述符</h3><p>进程在运行的时候，除了加载程序，还会打开文件、占用一些资源，并且会进入睡眠等其它状态。操作系统为了支持进程的运行，必然有一个数据结构保存运行时信息。Linux 中利用名为 task_struct 的结构保存系统运行时的所有信息，成为进程描述符：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct task_struct &#123;</span><br><span class="line">    unsigned <span class="keyword">long</span> state;</span><br><span class="line">    <span class="keyword">int</span> prio;</span><br><span class="line">    pid_t pid;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>进程描述符完整描述了一个进程：打开的文件、进程的地址空间、挂起的信号以及进程的信号等。系统将所有的进程描述符放在一个双端循环列表中。</p>
+<p>进程描述符具体存放在内存中内核栈的末尾。众所周知，进程中占用的内存一部分是栈，主要用于函数调用，不过这里说的栈一般指的是用户空间的栈，其实进程还有内核栈。当进程调用系统调用时，进程陷入内核，此时内核代表进程执行某个操作，此时使用了内核空间的栈。</p>
+<h3 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h3><p>进程描述符中的 state 描述了进程当前的状态，有如下 5 种：</p>
+<ol>
+<li>TASK_RUNNING：进程是可执行的，此时进程要么是正在执行，要么是在运行队列中等待被调度</li>
+<li>TASK_INTERRUPTIBLE：进程正在睡眠（阻塞），等待条件达成。如果条件达成或者收到信号，进程会被唤醒并进入可运行状态</li>
+<li>TASK_UNINTERRUPTIBLE：进程处于不可中断状态，就算信号也无法唤醒</li>
+<li>TASK_TRACED：进程正在被其他进程追踪，通常是为了调试</li>
+<li>TASK_STOPPED：进程停止运行，通常是接收到 SIGINT、SIGTSTP 信号时</li>
+</ol>
+<h3 id="fork-与-vfork"><a href="#fork-与-vfork" class="headerlink" title="fork 与 vfork"></a>fork 与 vfork</h3><p>在使用写时拷贝后，fork 的实际开销就是复制父进程的页表以及给子进程创建唯一的进程描述符。fork 为了创建一个进程做了什么呢？fork 其实是调用了 clone，这是一个系统调用，通过给 clone 传递函数，表明父子进程需要共享的资源，clone 内部会调用 do_fork，而 do_fork 的主要逻辑在 copy_process 中，大致有以下几步：</p>
+<ol>
+<li>为新进程创建一个内核栈以及 task_struct，此时它们的值与父进程相同</li>
+<li>将 task_struct 中某些变量，如统计信息，设置为 0</li>
+<li>将子进程状态设置为 TASK_UNINTERRUPTIBLE，保证其不会被投入运行</li>
+<li>分配 pid</li>
+<li>根据传递给 clone 的参数，拷贝或者共享打开的文件、文件系统信息、信号处理函数以及进程的地址空间等</li>
+<li>返回指向子进程的指针</li>
+</ol>
+<p>除了 fork 之外还有一个类似的函数 vfork，其功能与 fork 类似，子进程在父进程的地址空间运行。不过，父进程会阻塞，直到子进程退出或者执行 exec。需要注意的是，子进程不能向地址空间写入数据。</p>
+<h3 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h3><p>有 8 种方法可以让进程终止，其中 5 种为正常终止：</p>
+<ol>
+<li>从 main 返回</li>
+<li>调用 exit</li>
+<li>调用 _exit 或 _Exit</li>
+<li>最后一个线程从其启动例程返回</li>
+<li>从最后一个线程调用 pthread_exit</li>
+</ol>
+<p>异常终止方式包括三种：调用 abort、接收到一个信号、最后一个线程对取消请求做出回应</p>
+<p>上文中，exit 函数会执行标准 I/O 库的清理关闭操作：对所有打开的流调用 fclose 函数，所有缓冲中的数据会被清洗。进程退出最终会执行到系统的 <code>do_exit</code> 函数，主要有以下步骤：</p>
+<ol>
+<li>删除进程定时器</li>
+<li>释放进程占用的页表</li>
+<li>递减文件描述符的引用计数，如果某个引用计数为 0，则关闭文件</li>
+<li>向父进程发信号，给子进程重新找养父，并且把进程状态设置为 EXIT_ZOMBIE</li>
+<li>调度其它进程</li>
+</ol>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><p>Linux 中没有真正的内核线程，线程是以进程的方式实现的，不过后来出现了线程库，目前 Linux 中使用新的线程库 NPTL，其同样采用 clone 方法创建线程，线程中的部分参数如下：</p>
+<ul>
+<li>CLONE_VM：所有线程都共享同一个进程地址空间</li>
+<li>CLONE_FILES：所有线程都共享进程的文件描述符列表</li>
+<li>CLONE_THREAD：所有线程都共享同一个进程 ID 以及 父进程 ID</li>
+</ul>
+<h2 id="僵尸进程"><a href="#僵尸进程" class="headerlink" title="僵尸进程"></a>僵尸进程</h2><p>在 Linux 系统中，当用 ps 查看进程的执行状态时，经常看到某些进程的状态栏为 defunct ，这些进程就是所谓的僵尸进程。“僵尸”进程是一个早已死亡的进程，但在进程表（processs table）中仍占了一个位置（slot）。由于进程表的容量是有限的，所以，defunct进程不仅占用系统的<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%86%85%E5%AD%98&spm=1001.2101.3001.7020">内存</a>资源，影响系统的性能，而且如果其数目太多，还会导致系统瘫痪。</p>
+<h3 id="产生原因"><a href="#产生原因" class="headerlink" title="产生原因"></a>产生原因</h3><p>每个进程在进程表中都有一个进入点 Entry，核心程序执行该进程时所用到的一切信息都存储在进入点，当用 ps 命令查看系统中的进程信息时，看到的就是进程表中的相关数据。因此，当一个父进程以fork()系统调用建立一个新的子进程后，核心进程就会在进程表中给这个子进程分配一个进入点，然后将相关信息存储在该进入点所对应的进程表内。这些信息中有一项是其父进程的识别码。</p>
+<p>当一个子进程结束时，其实它没有被真正地销毁，而是会留下一个数据结构，这个剩下来的数据结构就是所谓的僵尸进程。原来进程表中的数据会被该进程的退出码、执行时所用的 CPU 时间等数据所取代，这些数据会一直保存到系统将它传递给它的父进程为止。因此，僵尸进程的出现时间就是在子进程终止、父进程尚未接收这些数据之间。</p>
+<p>此时，该僵尸子进程已经放弃了几乎所有的内存空间，没有任何可执行代码，也不能被调度，仅仅在进程列表中保留一个位置，记载该进程的退出状态信息供其他进程收集，除此之外，僵尸进程不再占有任何存储空间。僵尸进程需要父进程对其进行处理，如果父进程先于子进程结束了，那么子进程会变为孤儿进程，孤儿进程将被 init 进程领养，并由 init 进程完成状态收集工作。但是，如果父进程是一个循环，不会结束，那么子进程就会一直保存僵尸状态，造成系统中大量僵尸进程的残留。</p>
+<h3 id="如何杀死僵尸进程"><a href="#如何杀死僵尸进程" class="headerlink" title="如何杀死僵尸进程"></a>如何杀死僵尸进程</h3><p>僵尸进程不能被 kill 命令杀死，因此可以找到僵尸进程的父进程，将该进程的父进程杀死，之后僵尸进程会被 init 进程所领养，并合理地对资源进行回收。</p>
+<h1 id="基础指令"><a href="#基础指令" class="headerlink" title="基础指令"></a>基础指令</h1><h1 id="查看端口"><a href="#查看端口" class="headerlink" title="查看端口"></a>查看端口</h1><p>查看端口占用情况可以使用 Lsof 和 netstat 命令</p>
+<p>Lsof 是一个列出当前系统打开文件的工具，查看端口占用的语法格式为：Lsof -i: 端口号</p>
+<p>netstat -tunlp 用于显示 tcp、udp 的端口和进程等相关情况，语法格式：netstat -tunlp | grep 端口号</p>
+<p>在查看到端口占用的进程后，可以用 kill 命令杀掉进程，语法格式： kill -9 PID</p>
+<h2 id="ps-命令"><a href="#ps-命令" class="headerlink" title="ps 命令"></a>ps 命令</h2><p>使用格式：“ps[参数]”</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li>-a：显示所有进程</li>
+<li>-u：用户以及其他详细信息</li>
+<li>-x：显示没有控制终端的进程</li>
+</ul>
+<p>Linux 中包含 5 种进程状态，分别为运行、中断、不可中断、僵死与停止：</p>
+<ul>
+<li>R（运行）：进程正在运行或者在运行队列中等待</li>
+<li>S（中断）：进程处于休眠中，当某个条件形成后或接收到信号时，脱离该状态</li>
+<li>D（不可中断）：进程不响应系统异步信号，即使 kill 命令也不能将其中断</li>
+<li>Z（僵死）：进程已经终止，但进程描述符依然存在，直到父进程调用 wait4() 系统函数后将进程释放</li>
+<li>T（停止）：系统收到停止信号后停止运行</li>
+</ul>
+<h2 id="top-命令"><a href="#top-命令" class="headerlink" title="top 命令"></a>top 命令</h2><p>用于动态监视进程活动与系统负载等信息</p>
+<h2 id="pidof-命令"><a href="#pidof-命令" class="headerlink" title="pidof 命令"></a>pidof 命令</h2><p>用于查询某个指定服务进程的 PID 值，例如</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">pidof</span> sshd</span><br><span class="line"><span class="number">2156</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="CPU-使用情况"><a href="#CPU-使用情况" class="headerlink" title="CPU 使用情况"></a>CPU 使用情况</h2><ol>
+<li>top：使用 top 查看 CPU 使用情况，能够看到总体的系统运行状态与 CPU 的利用率</li>
+<li>vmstat</li>
+<li>free-m：查看内存占用率</li>
+</ol>
+<h2 id="磁盘空间满了怎么解决"><a href="#磁盘空间满了怎么解决" class="headerlink" title="磁盘空间满了怎么解决"></a>磁盘空间满了怎么解决</h2><ol>
+<li>查看是不是真的磁盘空间不足，输入命令：df -lh 查看磁盘信息</li>
+<li>定位最大文件目录，输入命令：cd/ 进入根目录，du -h max-depth = 1，寻找当前目录，看哪个文件夹占用空间最大</li>
+<li>定位最大文件，输入命令：ls -lhs：将文件按从大到小顺序排列</li>
+<li>确认文件未被占用：用 rm -f + 文件名 删除文件，不过通过 rm 删除文件只是会让文件从文件系统的目录结构上解除链接，如果文件是打开的，那么进程仍然可以读取文件，磁盘空间也会被一直占用。因此需要判断文件是否被占用，用 isof|grep deleted，意思是查找带有 deleted 字段的文件，并根据所得结果找到占用该文件的进程号，并用 kill 杀掉进程</li>
+</ol>
+<h2 id="怎么查日志"><a href="#怎么查日志" class="headerlink" title="怎么查日志"></a>怎么查日志</h2><h3 id="tail"><a href="#tail" class="headerlink" title="tail"></a>tail</h3><p>tail -f info.log：动态查看实时输出 info.log 日志</p>
+<p>tail -n 200 info.log：查看 info.log 日志的后 200 行</p>
+<p>tail -f info.log | grep “11”：动态查看含有关键字 11 的日志</p>
+<h3 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h3><p>cat info.log：查看info.log的全部日志内容</p>
+<p>cat info.log | grep  “java”：查看info.log的java关键字关联的全部内容</p>
+<p>cat info.log | grep -A 5 “java”：查看info.log的java关键字后5行关联的全部内容</p>
+<p>cat info.log | grep -B 10 “java”：查看info.log的java关键字前10行关联的全部内容</p>
+<p>cat info.log | grep -C 20 “java”：查看info.log的java关键字前后20行关联的全部内容</p>
+<h3 id="less"><a href="#less" class="headerlink" title="less"></a>less</h3><p>less info.log：从头开始查看info.log日志内容</p>
+<h3 id="more"><a href="#more" class="headerlink" title="more"></a>more</h3><p><strong>more info.log：</strong> 查看info.log的日志内容，按下方<strong>附加</strong>操作滚动日志内容</p>
+<p><strong>more info.log |grep “test”：</strong> 查看全部<strong>关键字test关联内容</strong></p>
+<h3 id="head"><a href="#head" class="headerlink" title="head"></a>head</h3><p><strong>head -n 20 info.log：</strong> 查看info.log日志的前20行内容</p>
+<h2 id="怎么查看文件"><a href="#怎么查看文件" class="headerlink" title="怎么查看文件"></a>怎么查看文件</h2><p>可以通过 less、cat、more 等命令均可用来查看文件内容，主要区别有“</p>
+<p>cat 是一次性显示整个文件的内容，还可以将多个文件连接起来显示，适用于文件内容比较少的情况；</p>
+<p>more 和 less 一般适用于显示文件内容超过一屏的情况，并且提供翻页的功能。more 比 cat 更加强大，提供分页显示的功能，less 比 more 更加强大，提供翻页、跳转、查找等命令。而且 more 和 less 都支持用空格显示下一页，按键 b 显示上一页</p>
+<h2 id="统计日志里出现的最多的-ip"><a href="#统计日志里出现的最多的-ip" class="headerlink" title="统计日志里出现的最多的 ip"></a>统计日志里出现的最多的 ip</h2><p>采用强大的文本分析工具 awk，用法：awk ‘BEGIN { commands } pattern {commands} END { commands }’</p>
+<p>第一步：运行 BEGIN 语句块中的语句</p>
+<p>第二步：从文件中读取一行，然后运行 patern 语句块，逐行扫描文件，直到文件读取完成</p>
+<p>第三步：读取到输入流末尾时，运行 END 语句块</p>
+<p>要统计出现次数最多的 ip 可以采用以下的脚本：</p>
+<p>cat test.txt | awk ‘{print }’</p>
+<h2 id="日志内容很多怎么办"><a href="#日志内容很多怎么办" class="headerlink" title="日志内容很多怎么办"></a>日志内容很多怎么办</h2><p>每天对日志文件进行归档整理，或者每当日志文件满 500M 就进行归档。具体方法为首先获取当天日期，然后对日志进行切割，切割的大小能够自定义，如定义为按 60M 大小对日志进行切割。</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">split</span>  -b <span class="number">65535000</span> -d -a <span class="number">4</span>  myout.txt  ./<span class="keyword">log</span>/<span class="keyword">log</span><span class="number">_</span>$&#123;current_date&#125;<span class="number">_</span> </span><br></pre></td></tr></table></figure>
+
+<p>-d -a 4 表示文件后缀为 4 为，将文件切割后按照次序编号，如 0000，0001……，这个 4 就是编号的位数。再之后的 ./log/log${current_date} 就是切割后日志文件的前缀，里面就带入了当前日期。所以，最终的输出格式类似于：log_20181005_0001。</p>
+<p>日志文件切割完之后，就可以将日志文件删除了，否则就失去切割文件的意义了。删除的方法可以用以下方式：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat <span class="regexp">/dev/</span><span class="keyword">null</span> &gt; nohup.out </span><br></pre></td></tr></table></figure>
+
+<h1 id="Git-命令"><a href="#Git-命令" class="headerlink" title="Git 命令"></a>Git 命令</h1>
+      
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
+              <a href="/tags/Linux-%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"># Linux 服务器</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/08/15/Java%20%E5%9F%BA%E7%A1%80/" rel="prev" title="Java 基础">
+      <i class="fa fa-chevron-left"></i> Java 基础
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/09/15/Spring%20%E5%9F%BA%E7%A1%80/" rel="next" title="Spring 基础">
+      Spring 基础 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">Linux 中的进程与线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%8E%E6%89%A7%E8%A1%8C"><span class="nav-number">1.1.1.</span> <span class="nav-text">创建与执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-number">1.1.2.</span> <span class="nav-text">进程描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="nav-number">1.1.3.</span> <span class="nav-text">进程状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fork-%E4%B8%8E-vfork"><span class="nav-number">1.1.4.</span> <span class="nav-text">fork 与 vfork</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%80%E5%87%BA"><span class="nav-number">1.1.5.</span> <span class="nav-text">退出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.3.</span> <span class="nav-text">僵尸进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A7%E7%94%9F%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.3.1.</span> <span class="nav-text">产生原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%9D%80%E6%AD%BB%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">如何杀死僵尸进程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">基础指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%AB%AF%E5%8F%A3"><span class="nav-number">3.</span> <span class="nav-text">查看端口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ps-%E5%91%BD%E4%BB%A4"><span class="nav-number">3.1.</span> <span class="nav-text">ps 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0"><span class="nav-number">3.1.1.</span> <span class="nav-text">参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#top-%E5%91%BD%E4%BB%A4"><span class="nav-number">3.2.</span> <span class="nav-text">top 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pidof-%E5%91%BD%E4%BB%A4"><span class="nav-number">3.3.</span> <span class="nav-text">pidof 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU-%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5"><span class="nav-number">3.4.</span> <span class="nav-text">CPU 使用情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E6%BB%A1%E4%BA%86%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3"><span class="nav-number">3.5.</span> <span class="nav-text">磁盘空间满了怎么解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E6%9F%A5%E6%97%A5%E5%BF%97"><span class="nav-number">3.6.</span> <span class="nav-text">怎么查日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tail"><span class="nav-number">3.6.1.</span> <span class="nav-text">tail</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cat"><span class="nav-number">3.6.2.</span> <span class="nav-text">cat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#less"><span class="nav-number">3.6.3.</span> <span class="nav-text">less</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#more"><span class="nav-number">3.6.4.</span> <span class="nav-text">more</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#head"><span class="nav-number">3.6.5.</span> <span class="nav-text">head</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6"><span class="nav-number">3.7.</span> <span class="nav-text">怎么查看文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E6%97%A5%E5%BF%97%E9%87%8C%E5%87%BA%E7%8E%B0%E7%9A%84%E6%9C%80%E5%A4%9A%E7%9A%84-ip"><span class="nav-number">3.8.</span> <span class="nav-text">统计日志里出现的最多的 ip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E5%86%85%E5%AE%B9%E5%BE%88%E5%A4%9A%E6%80%8E%E4%B9%88%E5%8A%9E"><span class="nav-number">3.9.</span> <span class="nav-text">日志内容很多怎么办</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">Git 命令</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zodiacal</p>
+  <div class="site-description" itemprop="description">引出魔鬼的一种试炼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zodiacal</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">453k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:52</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

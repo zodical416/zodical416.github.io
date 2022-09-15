@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|EB Garamond:300,300italic,400,400italic,700,700italic|Source Code Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zodical416.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="山崖复远望">
+<meta property="og:type" content="article">
+<meta property="og:title" content="URL 短链实现">
+<meta property="og:url" content="https://zodical416.github.io/2022/05/18/URL%20%E7%9F%AD%E9%93%BE%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="Zodiacal">
+<meta property="og:description" content="山崖复远望">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-05-18T13:23:19.220Z">
+<meta property="article:modified_time" content="2022-05-18T13:24:41.270Z">
+<meta property="article:author" content="Zodiacal">
+<meta property="article:tag" content="项目实战">
+<meta property="article:tag" content="小程序">
+<meta property="article:tag" content="Spring Boot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://zodical416.github.io/2022/05/18/URL%20%E7%9F%AD%E9%93%BE%E5%AE%9E%E7%8E%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>URL 短链实现 | Zodiacal</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zodiacal</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://zodical416.github.io/2022/05/18/URL%20%E7%9F%AD%E9%93%BE%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zodiacal">
+      <meta itemprop="description" content="引出魔鬼的一种试炼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zodiacal">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          URL 短链实现
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-18 21:23:19 / 修改时间：21:24:41" itemprop="dateCreated datePublished" datetime="2022-05-18T21:23:19+08:00">2022-05-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">办公系统</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+            <div class="post-description">山崖复远望</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="URL-短链实现"><a href="#URL-短链实现" class="headerlink" title="URL 短链实现"></a>URL 短链实现</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>当在浏览器输入短链后：</p>
+<ol>
+<li>DNS 首先解析短链前缀地址的 IP 地址</li>
+<li>当 DNS 获得 IP 地址后，会向该地址发送 HTTP GET 请求，查询短码</li>
+<li>服务器会通过短码获得长码的 URL</li>
+<li>通过 302 重定向到长连接</li>
+</ol>
+<p>为什么用 302？</p>
+<p>这是因为 301 状态码代表永久重定向，浏览器拿到长链后会对其进行缓存，从而无法对短链进行相关分析，例如点击率等</p>
+<h2 id="如何生成唯一的短链"><a href="#如何生成唯一的短链" class="headerlink" title="如何生成唯一的短链"></a>如何生成唯一的短链</h2><p>也就是如何通过唯一的字符串来表示长链。可以采用哈希算法对长链进行去哈希。一般采用非加密型哈希算法，如 MurmurHash，因为相比于 MD5 等加密型哈希，非加密型的效率更高。</p>
+<p>对于生成的哈希值，通常是十进制的，可以将其转为 62 进制，将转换后的值作为短链的唯一标识即可。</p>
+<h2 id="如何存储？"><a href="#如何存储？" class="headerlink" title="如何存储？"></a>如何存储？</h2><p>可以使用 Redis 这类 K-V 内存数据库来存储，性能更好。</p>
+<p>当存放一个长链时，首先判断是否已经被转换过短链。</p>
+<p>如果需要对长链进行区分，例如不同用户的长链不同，那么在判断的时候加上对应的条件即可，例如这个长链所对应的用户 ID</p>
+<h2 id="如何判断是否发生了哈希冲突？"><a href="#如何判断是否发生了哈希冲突？" class="headerlink" title="如何判断是否发生了哈希冲突？"></a>如何判断是否发生了哈希冲突？</h2><p>如果用 MySQL 数据库存储了短链，那么可以给短链字段加上唯一索引。当获得一个短链后，直接将长短链对应关系插入 db 中，如果 db 里不含有此短链的记录，则插入，如果包含了，说明违反了唯一性索引。</p>
+<p>为了提高性能并且应对高并发，可以采用布隆过滤器，用所有生成的短网址构建布隆过滤器，当一个新的长链生成短链后，先将此短链在布隆过滤器中进行查找，通过布隆过滤器中的哈希函数将短链映射到位函数上，从而判断是否存在该短链。如果不存在，说明 db 里不存在此短网址，可以插入！</p>
+<h2 id="如何解决哈希冲突？"><a href="#如何解决哈希冲突？" class="headerlink" title="如何解决哈希冲突？"></a>如何解决哈希冲突？</h2><p>如果发生哈希冲突，就在长链后面再加一个随机的字符串</p>
+<h2 id="自增序列算法"><a href="#自增序列算法" class="headerlink" title="自增序列算法"></a>自增序列算法</h2><p>除了哈希算法外，还可以通过自增序列算法生成短链。</p>
+<p>可以维护一个 ID 自增生成器，比如 1，2，3 这样的整数递增 ID，当收到一个长链转短链的请求时，ID 生成器为其分配一个 ID，再将其转化为 62 进制，拼接到短链域名后面就得到了最终的短网址</p>
+<p>主要有以下四种获取 id 的方法</p>
+<ul>
+<li><p>类 UUID</p>
+<p>随机生成全局唯一标识符 UUID，保证在同一时空中所有机器都是唯一的。但这种方式生成的 id 比较长，且无序，在插入 db 时可能会频繁导致页分裂，影响插入性能。</p>
+</li>
+<li><p>Redis</p>
+<p>用 Redis 是个不错的选择，性能好，单机可支撑 10 w+ 请求，足以应付大部分的业务场景，但有人说如果一台机器扛不住呢，可以设置多台嘛，比如我布置 10 台机器，每台机器分别只生成尾号 0，1，2，… 9 的 ID, 每次加 10 即可，只要设置一个 ID 生成器代理随机分配给发号器生成 ID 就行了。</p>
+<p>不过用 Redis 这种方案，需要考虑持久化（短链 ID 总不能一样吧），灾备，成本有点高。</p>
+</li>
+<li><p>Snowflake</p>
+</li>
+<li><p>MySQL 自增主键</p>
+<p>高并发下写的压力很大，为了解决这一问题，可以提前生成自增 id。方案如下：</p>
+<p>设计一个专门的发号表，每插入一条记录，为短链 id 预留 （主键 id * 1000 - 999） 到 (主键 id * 1000) 的号段，例如：</p>
+<p>发号表：url_sender_num</p>
+<p>当长链转短链的请求打到某台机器时，先看这台机器是否分配了短链号段，未分配就往发号表插入一条记录，则这台机器将为短链分配范围在 tmp_start_num 到 tmp_end_num 之间的 id。从tmp_start_num 开始分配，一直分配到 tmp_end_num，如果发号 id 达到了 tmp_end_num，说明这个区间段的 id 已经分配完了，则再往发号表插入一条记录就又获取了一个发号 id 区间。</p>
+<p>解决了发号器问题，接下来就简单了，从发号器拿过来的 id ，即为短链 id，接下来我们再创建一个长短链的映射表即可， 短链 id 即为主键</p>
+<p>不过这里有个需要注意的地方，我们可能需要防止多次相同的长链生成不同的短链 id 这种情况，这就需要每次先根据长链来查找 db 看是否存在相关记录</p>
+<p>一般的做法是给长链加索引，但这样的话索引的空间会很大，所以我们可以对长链适当的压缩，比如 md5，再对长链的 md5 字段做索引，索引就会小很多。这样只要根据长链的 md5 去表里查是否存在相同的记录即可。</p>
+</li>
+</ul>
+
+      
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/" rel="tag"># 项目实战</a>
+              <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag"># 小程序</a>
+              <a href="/tags/Spring-Boot/" rel="tag"># Spring Boot</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/" rel="prev" title="面试总结">
+      <i class="fa fa-chevron-left"></i> 面试总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/19/HTTPS/" rel="next" title="HTTPS">
+      HTTPS <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#URL-%E7%9F%AD%E9%93%BE%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">URL 短链实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90%E5%94%AF%E4%B8%80%E7%9A%84%E7%9F%AD%E9%93%BE"><span class="nav-number">1.2.</span> <span class="nav-text">如何生成唯一的短链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AD%98%E5%82%A8%EF%BC%9F"><span class="nav-number">1.3.</span> <span class="nav-text">如何存储？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%8F%91%E7%94%9F%E4%BA%86%E5%93%88%E5%B8%8C%E5%86%B2%E7%AA%81%EF%BC%9F"><span class="nav-number">1.4.</span> <span class="nav-text">如何判断是否发生了哈希冲突？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%93%88%E5%B8%8C%E5%86%B2%E7%AA%81%EF%BC%9F"><span class="nav-number">1.5.</span> <span class="nav-text">如何解决哈希冲突？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%A2%9E%E5%BA%8F%E5%88%97%E7%AE%97%E6%B3%95"><span class="nav-number">1.6.</span> <span class="nav-text">自增序列算法</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zodiacal</p>
+  <div class="site-description" itemprop="description">引出魔鬼的一种试炼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zodiacal</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">453k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:52</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

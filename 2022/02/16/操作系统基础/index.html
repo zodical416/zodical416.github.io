@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|EB Garamond:300,300italic,400,400italic,700,700italic|Source Code Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zodical416.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="光明只是你隐匿的哀愁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统基础">
+<meta property="og:url" content="https://zodical416.github.io/2022/02/16/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Zodiacal">
+<meta property="og:description" content="光明只是你隐匿的哀愁">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220216160222.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220216162037.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220216163355.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220216165746.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220216170627.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220216180122.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220216180206.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220216180813.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220216181022.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220216210909.png">
+<meta property="og:image" content="https://s2.loli.net/2022/05/20/OudBlmR3AMQhVrG.png">
+<meta property="article:published_time" content="2022-02-16T13:32:02.598Z">
+<meta property="article:modified_time" content="2022-08-27T10:40:37.500Z">
+<meta property="article:author" content="Zodiacal">
+<meta property="article:tag" content="计算机基础">
+<meta property="article:tag" content="八股">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220216160222.png">
+
+<link rel="canonical" href="https://zodical416.github.io/2022/02/16/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>操作系统基础 | Zodiacal</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zodiacal</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://zodical416.github.io/2022/02/16/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zodiacal">
+      <meta itemprop="description" content="引出魔鬼的一种试炼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zodiacal">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-02-16 21:32:02" itemprop="dateCreated datePublished" datetime="2022-02-16T21:32:02+08:00">2022-02-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-27 18:40:37" itemprop="dateModified" datetime="2022-08-27T18:40:37+08:00">2022-08-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">计算机基础</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>21k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>19 分钟</span>
+            </span>
+            <div class="post-description">光明只是你隐匿的哀愁</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="什么是操作系统？"><a href="#什么是操作系统？" class="headerlink" title="什么是操作系统？"></a>什么是操作系统？</h1><ol>
+<li>操作系统（Operating System，简称 OS）是管理计算机硬件与软件资源的程序，是计算机的基石。</li>
+<li>操作系统本质上是一个运行在计算机上的软件程序 ，用于管理计算机硬件和软件资源。</li>
+<li>操作系统的存在屏蔽了硬件层的复杂性。</li>
+<li>操作系统的内核（Kernel）是操作系统的核心部分，它负责系统的内存管理，硬件设备的管理，文件系统的管理以及应用程序的管理。内核是连接应用程序和硬件的桥梁，决定着系统的性能和稳定性。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220216160222.png"></p>
+<h1 id="堆和栈的区别"><a href="#堆和栈的区别" class="headerlink" title="堆和栈的区别"></a>堆和栈的区别</h1><p>这里说的堆和栈是操作系统中的堆和栈，主要区别有以下几点：</p>
+<p>Java 的堆是一个运行时数据区，其中存储类的对象，也是垃圾回收的主要目标区域。对象通过 new 等指令建立，堆内存一般不需要代码显式释放，而是由垃圾回收来自动负责，堆的存储顺序是随意的。</p>
+<h1 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h1><h2 id="用户态和系统态"><a href="#用户态和系统态" class="headerlink" title="用户态和系统态"></a>用户态和系统态</h2><p>根据进程访问资源的特点，我们可以把进程在系统上的运行分为两个级别：</p>
+<ol>
+<li>用户态：用户态运行的进程可以直接读取用户程序的数据。</li>
+<li>系统态：系统态运行的进程或程序几乎可以访问计算机的任何资源，不受限制。</li>
+</ol>
+<p>我们运行的程序基本都是运行在用户态，如果需要调用操作系统提供的内核态级别的功能的时候，就需要使用系统调用，通过系统调用方式向操作系统提出服务请求，并由操作系统代为完成。</p>
+<p>系统调用按功能大致可分为如下几类：</p>
+<ul>
+<li>设备管理。完成设备的请求或释放，以及设备启动等功能；</li>
+<li>文件管理。完成文件的读、写、创建及删除等功能；</li>
+<li>进程控制。完成进程的创建、撤销、阻塞及唤醒等功能；</li>
+<li>进程通信。完成进程之间的消息传递或信号传递等功能；</li>
+<li>内存管理。完成内存的分配、回收以及获取作业占用内存区大小及地址等功能</li>
+</ul>
+<h1 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h1><h2 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h2><p>线程是进程划分成的更小的运行单位,一个进程在其执行的过程中可以产生多个线程。线程和进程最大的不同在于基本上各进程是独立的，而各线程则不一定，因为同一进程中的线程极有可能会相互影响。多个线程共享进程的堆和方法区 (JDK1.8 之后的元空间)资源，但是每个线程有自己的程序计数器、虚拟机栈 和 本地方法栈。线程执行开销小，但不利于资源的管理和保护；而进程正相反。</p>
+<h2 id="什么是协程"><a href="#什么是协程" class="headerlink" title="什么是协程"></a>什么是协程</h2><p>操作系统在线程等待IO的时候，会阻塞当前线程，切换到其它线程，这样在当前线程等待IO的过程中，其它线程可以继续执行。当系统线程较少的时候没有什么问题，但是当线程数量非常多的时候，却产生了问题。<strong>一是系统线程会占用非常多的内存空间，二是过多的线程切换会占用大量的系统时间。</strong></p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220216162037.png"></p>
+<p>协程刚好可以解决上述2个问题。协程运行在线程之上，当一个协程执行完成后，可以选择主动让出，让另一个协程运行在当前线程之上。协程并没有增加线程数量，只是在线程的基础之上通过分时复用的方式运行多个协程，而且协程的切换在用户态完成，切换的代价比线程从用户态到内核态的代价小很多。</p>
+<p>假如需要同时处理10000个读取数据库的任务，如果只用线程的话，需要10000个线程，但是加入协程之后，我们只需要启动100个线程，每个线程上运行100个协程。这样就显著减小了所需的开销。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220216163355.png"></p>
+<h2 id="线程和协程的区别"><a href="#线程和协程的区别" class="headerlink" title="线程和协程的区别"></a>线程和协程的区别</h2><ul>
+<li>线程和进程都是同步机制，而协程是异步机制。</li>
+<li>线程是抢占式，而协程是非抢占式的。协程需要用户释放使用权切换到其他协程，因此同一时间其实只有一个协程拥有运行权，相当于单线程的能力。</li>
+<li>一个线程可以有多个协程，一个进程也可以有多个协程。</li>
+<li>协程不被操作系统内核管理，而完全是由程序控制。</li>
+<li>线程是被分割的CPU资源，协程是组织好的代码流程，线程是协程的资源。但协程不会直接使用线程，协程直接利用的是执行器关联任意线程或线程池。</li>
+<li>协程能保留上一次调用时的状态。</li>
+</ul>
+<h2 id="并发和并行有什么区别"><a href="#并发和并行有什么区别" class="headerlink" title="并发和并行有什么区别"></a>并发和并行有什么区别</h2><ul>
+<li>并发就是在一段时间内，多个任务都会被处理；但在某一时刻，只有一个任务在执行。单核处理器可以做到并发。比如有两个进程A和B，A运行一个时间片之后，切换到B，B运行一个时间片之后又切换到A。因为切换速度足够快，所以宏观上表现为在一段时间内能同时运行多个程序。</li>
+<li>并行就是在同一时刻，有多个任务在执行。这个需要多核处理器才能完成，在微观上就能同时执行多条指令，不同的程序被放到不同的处理器上运行，这个是物理上的多个进程同时进行。</li>
+</ul>
+<h2 id="进程有哪几种状态"><a href="#进程有哪几种状态" class="headerlink" title="进程有哪几种状态"></a>进程有哪几种状态</h2><p>我们一般把进程大致分为 5 种状态</p>
+<ul>
+<li>创建状态(new) ：进程正在被创建，尚未到就绪状态。</li>
+<li>就绪状态(ready) ：进程已处于准备运行状态，即进程获得了除了处理器之外的一切所需资源，一旦得到处理器资源(处理器分配的时间片)即可运行。</li>
+<li>运行状态(running) ：进程正在处理器上上运行(单核 CPU 下任意时刻只有一个进程处于运行状态)。</li>
+<li>阻塞状态(waiting) ：又称为等待状态，进程正在等待某一事件而暂停运行如等待某资源为可用或等待 IO 操作完成。即使处理器空闲，该进程也不能运行。</li>
+<li>结束状态(terminated) ：进程正在从系统中消失。可能是进程正常结束或其他原因中断退出运行。</li>
+</ul>
+<h2 id="进程间的通信方式"><a href="#进程间的通信方式" class="headerlink" title="进程间的通信方式"></a>进程间的通信方式</h2><p>每个进程各自有不同的用户地址空间，任何一个进程的全局变量在另一个进程中都看不到。所以进程之间要交换数据，必须通过内核，在内核中开辟一块缓冲区。进程1把数据从用户空间拷到内核缓冲区，进程2再从内核缓冲区把数据读走，内核提供的这种机制称为进程间通信（IPC，InterProcess Communication）。</p>
+<p>大概有七种常见的进程间通信方式。</p>
+<h3 id="管道-匿名管道"><a href="#管道-匿名管道" class="headerlink" title="管道/匿名管道"></a>管道/匿名管道</h3><ul>
+<li>管道是半双工的，数据只能向一个方向流动；需要双方通信时，需要建立起两个管道；</li>
+<li>只能用于父子进程或者兄弟进程之间(具有亲缘关系的进程)；</li>
+<li>管道对于管道两端的进程而言，就是一个文件，但它不是普通的文件，它不属于某种文件系统，而是自立门户，单独构成一种文件系统，并且只存在与内存中；</li>
+<li>一个进程向管道中写的内容被管道另一端的进程读出。写入的内容每次都添加在管道缓冲区的末尾，并且每次都是从缓冲区的头部读出数据。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220216165746.png"></p>
+<h3 id="有名管道-FIFO"><a href="#有名管道-FIFO" class="headerlink" title="有名管道(FIFO)"></a>有名管道(FIFO)</h3><ul>
+<li>有名管道不同于匿名管道之处在于它提供了一个路径名与之关联，以有名管道的文件形式存在于文件系统中，这样，即使与有名管道的创建进程不存在亲缘关系的进程，只要可以访问该路径，就能够彼此通过有名管道相互通信；</li>
+<li>有名管道严格遵循先进先出；</li>
+<li>有名管道的名字存在于文件系统中，内容存放在内存中。</li>
+</ul>
+<h3 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h3><ul>
+<li>信号是Linux系统中用于进程间互相通信或者操作的一种机制，信号可以在任何时候发给某一进程，而无需知道该进程的状态；</li>
+<li>如果该进程当前并未处于执行状态，则该信号就有内核保存起来，直到该进程回复执行并传递给它为止；</li>
+<li>如果一个信号被进程设置为阻塞，则该信号的传递被延迟，直到其阻塞被取消时才被传递给进程。</li>
+</ul>
+<h3 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h3><ul>
+<li>消息队列是存放在内核中的消息链表，每个消息队列由消息队列标识符表示；</li>
+<li>与管道（匿名管道：只存在于内存中的文件；命名管道：存在于实际的磁盘介质或者文件系统）不同的是消息队列存放在内核中，只有在内核重启(即，操作系统重启)或者显式地删除一个消息队列时，该消息队列才会被真正的删除；</li>
+<li>另外与管道不同的是，消息队列在某个进程往一个队列写入消息之前，并不需要另外某个进程在该队列上等待消息的到达。</li>
+</ul>
+<h3 id="共享内存-share-memory"><a href="#共享内存-share-memory" class="headerlink" title="共享内存(share memory)"></a>共享内存(share memory)</h3><ul>
+<li>使得多个进程可以直接读写同一块内存空间，是最快的可用IPC形式。是针对其他通信机制运行效率较低而设计的。</li>
+<li>为了在多个进程间交换信息，内核专门留出了一块内存区，可以由需要访问的进程将其映射到自己的私有地址空间。进程就可以直接读写这一块内存而不需要进行数据的拷贝，从而大大提高效率。</li>
+<li>由于多个进程共享一段内存，因此需要依靠某种同步机制（如信号量）来达到进程间的同步及互斥。</li>
+</ul>
+<h3 id="信号量-semaphore"><a href="#信号量-semaphore" class="headerlink" title="信号量(semaphore)"></a>信号量(semaphore)</h3><p>信号量是一个计数器，用于多进程对共享数据的访问，信号量的意图在于进程间同步。</p>
+<p>为了获得共享资源，进程需要执行下列操作：</p>
+<ol>
+<li>创建一个信号量：这要求调用者指定初始值，对于二值信号量来说，它通常是1，也可是0。</li>
+<li>等待一个信号量：该操作会测试这个信号量的值，如果小于0，就阻塞。也称为P操作。</li>
+<li>挂出一个信号量：该操作将信号量的值加1，也称为V操作。</li>
+</ol>
+<h3 id="套接字（Socket）"><a href="#套接字（Socket）" class="headerlink" title="套接字（Socket）"></a>套接字（Socket）</h3><p>套接字是一种通信机制，凭借这种机制，客户/服务器（即要进行通信的进程）系统的开发工作既可以在本地单机上进行，也可以跨网络进行。也就是说它可以让不在同一台计算机但通过网络连接计算机上的进程进行通信。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220216170627.png"></p>
+<p>套接字是支持TCP/IP的网络通信的基本操作单元，可以看做是不同主机之间的进程进行双向通信的端点，简单的说就是通信的两方的一种约定，用套接字中的相关函数来完成通信过程。</p>
+<h2 id="线程间的同步的方式"><a href="#线程间的同步的方式" class="headerlink" title="线程间的同步的方式"></a>线程间的同步的方式</h2><p>线程同步是两个或多个共享关键资源的线程的并发执行，应该同步线程以避免关键的资源使用冲突。操作系统一般有下面三种线程同步的方式：</p>
+<ul>
+<li>互斥量(Mutex)：采用互斥对象机制，只有拥有互斥对象的线程才有访问公共资源的权限。因为互斥对象只有一个，所以可以保证公共资源不会被多个线程同时访问。比如 Java 中的 synchronized 关键词和各种 Lock 都是这种机制。</li>
+<li>信号量：它允许同一时刻多个线程访问同一资源，但是需要控制同一时刻访问此资源的最大线程数量。</li>
+<li>事件(Event)： 用来通知线程有一些事件已发生，从而启动后继任务的开始。事件对象通过通知操作的方式来保持线程的同步，并且可以实现不同进程中的线程同步操作。</li>
+</ul>
+<h2 id="进程的调度算法"><a href="#进程的调度算法" class="headerlink" title="进程的调度算法"></a>进程的调度算法</h2><p>为了确定首先执行哪个进程以及最后执行哪个进程以实现最大 CPU 利用率，计算机科学家已经定义了一些算法，这些就是进程的调度算法</p>
+<ul>
+<li>先到先服务(FCFS)调度算法 : 从就绪队列中选择一个最先进入该队列的进程为之分配资源，使它立即执行并一直执行到完成或发生某事件而被阻塞放弃占用 CPU 时再重新调度。</li>
+<li>短作业优先(SJF)的调度算法 : 从就绪队列中选出一个估计运行时间最短的进程为之分配资源，使它立即执行并一直执行到完成或发生某事件而被阻塞放弃占用 CPU 时再重新调度。</li>
+<li>时间片轮转调度算法 : 时间片轮转调度是一种最古老，最简单，最公平且使用最广的算法，又称 RR(Round robin)调度。每个进程被分配一个时间段，称作它的时间片，即该进程允许运行的时间。</li>
+<li>多级反馈队列调度算法 ：前面介绍的几种进程调度的算法都有一定的局限性。如短进程优先的调度算法，仅照顾了短进程而忽略了长进程。而多级反馈队列调度算法既能使高优先级的作业得到响应又能使短作业（进程）迅速完成，因而它是目前被公认的一种较好的进程调度算法，UNIX 操作系统采取的便是这种调度算法。</li>
+<li>优先级调度 ：为每个流程分配优先级，首先执行具有最高优先级的进程，依此类推。具有相同优先级的进程以 FCFS 方式执行。可以根据内存要求，时间要求或任何其他资源要求来确定优先级。</li>
+</ul>
+<h2 id="什么是死锁，死锁的产生条件"><a href="#什么是死锁，死锁的产生条件" class="headerlink" title="什么是死锁，死锁的产生条件"></a>什么是死锁，死锁的产生条件</h2><p>多个进程可以竞争有限数量的资源。当一个进程申请资源时，如果这时没有可用资源，那么这个进程进入等待状态。有时，如果所申请的资源被其他等待进程占有，那么该等待进程有可能再也无法改变状态。这种情况称为 <strong>死锁</strong>。</p>
+<p>如果系统中以下四个条件同时成立，那么就能引起死锁：</p>
+<ul>
+<li>互斥：资源必须处于非共享模式，即一次只有一个进程可以使用。如果另一进程申请该资源，那么必须等待直到该资源被释放为止；</li>
+<li>占有并等待：一个进程至少应该占有一个资源，并等待另一资源，而该资源被其他进程所占有；</li>
+<li>非抢占：资源不能被抢占。只能在持有资源的进程完成任务后，该资源才会被释放；</li>
+<li>循环等待：有一组等待进程 <code>&#123;P0, P1,..., Pn&#125;</code>，P0 等待的资源被 P1 占有，P1 等待的资源被 P2 占有，……，Pn-1 等待的资源被 Pn 占有，Pn 等待的资源被 P0 占有。</li>
+</ul>
+<h1 id="操作系统内存管理基础"><a href="#操作系统内存管理基础" class="headerlink" title="操作系统内存管理基础"></a>操作系统内存管理基础</h1><p>操作系统的内存管理主要负责内存的分配与回收，同时负责内存中的地址转换，即将逻辑地址转换成相应的物理地址</p>
+<h2 id="常见的几种内存管理机制"><a href="#常见的几种内存管理机制" class="headerlink" title="常见的几种内存管理机制"></a>常见的几种内存管理机制</h2><p>内存管理机制可以简单分为连续分配管理方式和非连续分配管理方式这两种。连续分配管理方式是指为一个用户程序分配一个连续的内存空间，常见的如 <strong>块式管理</strong> 。同样地，非连续分配管理方式允许一个程序使用的内存分布在离散或者说不相邻的内存中，常见的如 <strong>页式管理</strong> 和 <strong>段式管理</strong>。</p>
+<ul>
+<li>块式管理：远古时代的计算机操作系统的内存管理方式。将内存分为几个固定大小的块，每个块中只包含一个进程。如果程序运行需要内存的话，操作系统就分配给它一块，如果程序运行只需要很小的空间的话，分配的这块内存很大一部分几乎被浪费了。这些在每个块中未被利用的空间，我们称之为碎片。</li>
+<li>页式管理 ：把主存分为大小相等且固定的一页一页的形式，页的内存空间较小，相比于块式管理的划分力度更大，提高了内存利用率，减少了碎片。</li>
+<li>段式管理 ： 页式管理虽然提高了内存利用率，但是页式管理其中的页并无任何实际意义。 段式管理把主存分为一段段的，段是有实际意义的，每个段定义了一组逻辑信息，例如有主程序段、子程序段、数据段和栈段。</li>
+<li>段页式管理机制：段页式管理机制结合了段式管理和页式管理的优点，简单来说就是先把主存分为若干段，再将每段分为若干页，也就是说 段页式管理机制 中段与段之间以及段的内部都是离散的内存空间。</li>
+</ul>
+<p>页是物理单位，段是逻辑单位。分页可以有效提高内存利用率，分段可以更好满足用户需求。</p>
+<blockquote>
+<p>什么是逻辑地址和物理地址？</p>
+<p>在计算机运行时，CPU是需要从内存中取数据来进行运算的，或者需要把一些数据存放到内存中的。如下图所示，左边是内存的结构图，右边是CPU，CPU和内存之间数据进行交互。为了使CPU知道把数据放到内存中的哪个位置，或者应该在内存中的哪个位置把数据取出来，提出了地址这一概念。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220216180122.png"></p>
+<p>我们的程序分为了代码段和数据段，代码段是存放着要执行的指令，数据段存放着数据。图中所有数值的表示都是采用十六进制表示法表示的。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220216180206.png"></p>
+<p>所以CPU从代码段开始取出指令，然后就开始执行指令，可以看到，CPU取出的第一条指令是 <code>mov ax, [0001]</code>，这条指令的意思就是把内存地址为[0001]上的数据取出来，放到AX寄存器中。其中的[0001]就是所谓的物理地址，一个绝对的固定的地址。</p>
+<p>但是在实际加载中，不能确定操作系统将数据存放在哪个具体的物理地址，也就是说所需的数据很可能没有加载到[0001]这个地址，而是放在了[0003]，如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220216180813.png"></p>
+<p>在实际的执行过程中，会将 <code>mov ax,[0001]</code>这条指令转换为 <code>mov ax,[0000]</code>，其中的[0000]是偏移地址，而逻辑地址 = 偏移地址 + 段基址，段基址就说[0003]，从而能够得到正确的数据。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220216181022.png"></p>
+<p>简单来说，我们编程一般只有可能和逻辑地址打交道，比如在 C 语言中，指针里面存储的数值就可以理解成为内存里的一个地址，这个地址也就是我们说的逻辑地址，逻辑地址由操作系统决定。物理地址指的是真实物理内存中地址，更具体一点来说就是内存地址寄存器中的地址。物理地址是内存单元真正的地址。</p>
+</blockquote>
+<h2 id="快表和多级页表"><a href="#快表和多级页表" class="headerlink" title="快表和多级页表"></a>快表和多级页表</h2><p>在分页内存管理中，很重要的两点是：</p>
+<ol>
+<li>虚拟地址到物理地址的转换要快；</li>
+<li>解决虚拟地址空间大，页表也会很大的问题。</li>
+</ol>
+<blockquote>
+<p>现代操作系统都提供了一种内存管理的抽象，即虚拟内存（virtual memory）。进程使用虚拟内存中的地址，由操作系统协助相关硬件，把它“转换”成真正的物理地址。</p>
+</blockquote>
+<h3 id="快表"><a href="#快表" class="headerlink" title="快表"></a>快表</h3><p>为了解决虚拟地址到物理地址的转换速度，操作系统在 页表方案 基础之上引入了 快表 来加速虚拟地址到物理地址的转换。我们可以把快表理解为一种特殊的高速缓冲存储器（Cache），其中的内容是页表的一部分或者全部内容。作为页表的 Cache，它的作用与页表相似，但是提高了访问速率。</p>
+<p>由于采用页表做地址转换，读写内存数据时 CPU 要访问两次主存。有了快表，有时只要访问一次高速缓冲存储器，一次主存，这样可加速查找并提高指令执行速度。</p>
+<p>使用快表之后的地址转换流程是这样的：</p>
+<ol>
+<li>根据虚拟地址中的页号查找快表；</li>
+<li>如果该页在快表中，直接从快表中读取相应的物理地址；</li>
+<li>如果该页不在快表中，就访问内存中的页表，再从页表中得到物理地址，同时将页表中的该映射表项添加到快表中；</li>
+<li>当快表填满后，又要登记新页时，就按照一定的淘汰策略淘汰掉快表中的一个页。</li>
+</ol>
+<p>类似于 Redis</p>
+<h3 id="多级页表"><a href="#多级页表" class="headerlink" title="多级页表"></a>多级页表</h3><p>引入多级页表的主要目的是为了避免把全部页表一直放在内存中占用过多空间，特别是那些根本就不需要的页表就不需要保留在内存中。多级页表属于时间换空间的典型场景。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>为了提高内存的空间性能，提出了多级页表的概念，但是提高空间性能是以浪费时间性能为基础的。因此，为了补充损失的时间性能，提出了快表（即 TLB）的概念。不论是快表还是多级页表实际上都利用到了程序的局部性原理。</p>
+<h2 id="分页机制和分段机制的共同点和区别"><a href="#分页机制和分段机制的共同点和区别" class="headerlink" title="分页机制和分段机制的共同点和区别"></a>分页机制和分段机制的共同点和区别</h2><h3 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h3><ol>
+<li>分页机制和分段机制都是为了提高内存利用率，减少内存碎片；</li>
+<li>页和段都是离散存储的，所以两者都是离散分配内存的方式。但是，每个页和段中的内存是连续的。</li>
+</ol>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><ol>
+<li>页的大小是固定的，由操作系统决定；而段的大小不固定，取决于我们当前运行的程序。</li>
+<li>分页仅仅是为了满足操作系统内存管理的需求，而段是逻辑信息的单位，在程序中可以体现为代码段，数据段，能够更好满足用户的需要。</li>
+</ol>
+<h2 id="什么是-CPU-寻址，为什么需要虚拟地址空间？"><a href="#什么是-CPU-寻址，为什么需要虚拟地址空间？" class="headerlink" title="什么是 CPU 寻址，为什么需要虚拟地址空间？"></a>什么是 CPU 寻址，为什么需要虚拟地址空间？</h2><p>现代处理器使用的是一种称为 虚拟寻址(Virtual Addressing) 的寻址方式。使用虚拟寻址，CPU 需要将虚拟地址翻译成物理地址，这样才能访问到真实的物理内存。 实际上完成虚拟地址转换为物理地址转换的硬件是 CPU 中含有一个被称为 内存管理单元（Memory Management Unit, MMU） 的硬件。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220216210909.png"></p>
+<h3 id="为什么要有虚拟地址空间呢？"><a href="#为什么要有虚拟地址空间呢？" class="headerlink" title="为什么要有虚拟地址空间呢？"></a>为什么要有虚拟地址空间呢？</h3><p>没有虚拟地址空间的时候，程序都是直接访问和操作的都是物理内存。这样做的问题是：</p>
+<ol>
+<li>用户程序可以访问任意内存，寻址内存的每个字节，这样就很容易（有意或者无意）破坏操作系统，造成操作系统崩溃。</li>
+<li>想要同时运行多个程序特别困难，比如你想同时运行一个微信和一个 QQ 音乐都不行。为什么呢？举个简单的例子：微信在运行的时候给内存地址 1xxx 赋值后，QQ 音乐也同样给内存地址 1xxx 赋值，那么 QQ 音乐对内存的赋值就会覆盖微信之前所赋的值，这就造成了微信这个程序就会崩溃。</li>
+</ol>
+<p><strong>总结来说：如果直接把物理地址暴露出来的话会带来严重问题，比如可能对操作系统造成伤害以及给同时运行多个程序造成困难。</strong></p>
+<p>通过虚拟地址访问内存有以下优势：</p>
+<ul>
+<li>程序可以使用一系列相邻的虚拟地址来访问物理内存中不相邻的大内存缓冲区。</li>
+<li>程序可以使用一系列虚拟地址来访问大于可用物理内存的内存缓冲区。当物理内存的供应量变小时，内存管理器会将物理内存页（通常大小为 4 KB）保存到磁盘文件。数据或代码页会根据需要在物理内存与磁盘之间移动。</li>
+<li>不同进程使用的虚拟地址彼此隔离。一个进程中的代码无法更改正在由另一进程或操作系统使用的物理内存。</li>
+</ul>
+<h1 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h1><h2 id="什么是虚拟内存"><a href="#什么是虚拟内存" class="headerlink" title="什么是虚拟内存"></a>什么是虚拟内存</h2><p>很多时候我们使用点开了很多占内存的软件，这些软件占用的内存可能已经远远超出了我们电脑本身具有的物理内存，而这正是因为虚拟内存的存在。通过 虚拟内存 可以让程序可以拥有超过系统物理内存大小的可用内存空间。另外，虚拟内存为每个进程提供了一个一致的、私有的地址空间，它让每个进程产生了一种自己在独享主存的错觉（每个进程拥有一片连续完整的内存空间）。这样会更加有效地管理内存并减少出错。</p>
+<p>虚拟内存是计算机系统内存管理的一种技术，我们可以手动设置自己电脑的虚拟内存。不要单纯认为虚拟内存只是“使用硬盘空间来扩展内存“的技术。虚拟内存的重要意义是 <strong>它定义了一个连续的虚拟地址空间，并且把内存扩展到硬盘空间。</strong></p>
+<h2 id="局部性原理"><a href="#局部性原理" class="headerlink" title="局部性原理"></a>局部性原理</h2><p>局部性原理是虚拟内存技术的基础，正是因为程序运行具有局部性原理，才可以只装入部分程序到内存就开始运行。</p>
+<p>早在 1968 年的时候，就有人指出我们的程序在执行的时候往往呈现局部性规律，也就是说在某个较短的时间段内，程序执行局限于某一小部分，程序访问的存储空间也局限于某个区域。</p>
+<p>局部性原理表现在以下两个方面：</p>
+<ul>
+<li>时间局部性 ：如果程序中的某条指令一旦执行，不久以后该指令可能再次执行；如果某数据被访问过，不久以后该数据可能再次被访问。产生时间局部性的典型原因，是由于在程序中存在着大量的循环操作。</li>
+<li>空间局部性 ：一旦程序访问了某个存储单元，在不久之后，<strong>其附近的存储单元</strong>也将被访问，即程序在一段时间内所访问的地址，可能集中在一定的范围之内。这是因为指令通常是顺序存放、顺序执行的，数据也一般是以向量、数组、表等形式簇聚存储的。</li>
+</ul>
+<p>时间局部性是通过将近来使用的指令和数据保存到高速缓存存储器中，并使用高速缓存的层次结构实现。空间局部性通常是使用较大的高速缓存，并将预取机制集成到高速缓存控制逻辑中实现。</p>
+<p>虚拟内存技术实际上就是建立了 “内存一外存”的两级存储器的结构，利用局部性原理实现髙速缓存。</p>
+<p>基于局部性原理，在程序装入时，可以将程序的一部分装入内存，而将其他部分留在外存，就可以启动程序执行。由于外存往往比内存大很多，所以我们运行的软件的内存大小实际上是可以比计算机系统实际的内存大小大的。在程序执行过程中，当所访问的信息不在内存时，由操作系统将所需要的部分调入内存，然后继续执行程序。另一方面，操作系统将内存中暂时不使用的内容换到外存上，从而腾出空间存放将要调入内存的信息。这样，计算机好像为用户提供了一个比实际内存大的多的存储器——虚拟内存（又译作虚拟存储器）。</p>
+<p>虚拟内存同样是一种时间换空间的策略，你用 CPU 的计算时间，页的调入调出花费的时间，换来了一个虚拟的更大的空间来支持程序的运行。</p>
+<h2 id="虚拟内存的技术实现"><a href="#虚拟内存的技术实现" class="headerlink" title="虚拟内存的技术实现"></a>虚拟内存的技术实现</h2><p>虚拟内存的实现需要建立在离散分配的内存管理方式的基础上。 虚拟内存的实现有以下三种方式：</p>
+<ul>
+<li>请求分页存储管理 ：建立在分页管理之上，为了支持虚拟存储器功能而增加了请求调页功能和页面置换功能。请求分页是目前最常用的一种实现虚拟存储器的方法。请求分页存储管理系统中，在作业开始运行之前，仅装入当前要执行的部分段即可运行。假如在作业运行的过程中发现要访问的页面不在内存，则由处理器通知操作系统按照对应的页面置换算法将相应的页面调入到主存，同时操作系统也可以将暂时不用的页面置换到外存中。</li>
+<li>请求分段存储管理 ：建立在分段存储管理之上，增加了请求调段功能、分段置换功能。请求分段储存管理方式就如同请求分页储存管理方式一样，在作业开始运行之前，仅装入当前要执行的部分段即可运行；在执行过程中，可使用请求调入中断动态装入要访问但又不在内存的程序段；当内存空间已满，而又需要装入新的段时，根据置换功能适当调出某个段，以便腾出空间而装入新的段。</li>
+<li>请求段页式存储管理</li>
+</ul>
+<p>不管是哪种实现方式，一般都需要：</p>
+<ol>
+<li>一定容量的内存和外存：在载入程序的时候，只需要将程序的一部分装入内存，而将其他部分留在外存，然后程序就可以执行了；</li>
+<li>缺页中断：如果需执行的指令或访问的数据尚未在内存（称为缺页或缺段），则由处理器通知操作系统将相应的页面或段调入到内存，然后继续执行程序；</li>
+<li>虚拟地址空间 ：逻辑地址到物理地址的变换。</li>
+</ol>
+<h2 id="页面置换算法"><a href="#页面置换算法" class="headerlink" title="页面置换算法"></a>页面置换算法</h2><p>虚拟内存管理很重要的一个概念就是页面置换算法。</p>
+<p>地址映射过程中，若在页面中发现所要访问的页面不在内存中，则发生缺页中断。</p>
+<blockquote>
+<p>缺页中断 就是要访问的页不在主存，需要操作系统将其调入主存后再进行访问。 在这个时候，被内存映射的文件实际上成了一个分页交换文件。</p>
+</blockquote>
+<p>当发生缺页中断时，如果当前内存中并没有空闲的页面，操作系统就必须在内存选择一个页面将其移出内存，以便为即将调入的页面让出空间。用来选择淘汰哪一页的规则叫做页面置换算法，我们可以把页面置换算法看成是淘汰页面的规则。</p>
+<ul>
+<li>OPT 页面置换算法（最佳页面置换算法） ：最佳(Optimal, OPT)置换算法所选择的被淘汰页面将是以后永不使用的，或者是在最长时间内不再被访问的页面，这样可以保证获得最低的缺页率。但由于人们目前无法预知进程在内存下的若干页面中哪个是未来最长时间内不再被访问的，因而该算法无法实现。一般作为衡量其他置换算法的方法。</li>
+<li>FIFO（First In First Out） 页面置换算法（先进先出页面置换算法） : 总是淘汰最先进入内存的页面，即选择在内存中驻留时间最久的页面进行淘汰。</li>
+<li>LRU （Least Recently Used）页面置换算法（最近最久未使用页面置换算法） ：LRU算法赋予每个页面一个访问字段，用来记录一个页面自上次被访问以来所经历的时间 T，当须淘汰一个页面时，选择现有页面中其 T 值最大的，即最近最久未使用的页面予以淘汰。</li>
+<li>LFU （Least Frequently Used）页面置换算法（最少使用页面置换算法） : 该置换算法选择在之前时期使用最少的页面作为淘汰页。</li>
+</ul>
+<h1 id="什么是-inode"><a href="#什么是-inode" class="headerlink" title="什么是 inode"></a>什么是 inode</h1><p>文件存储在硬盘上，硬盘的最小存储单位叫做”扇区”（Sector）。每个扇区储存512字节（相当于0.5KB）。操作系统读取硬盘的时候，不会一个个扇区地读取，这样效率太低，而是一次性连续读取多个扇区，即一次性读取一个”块”（block）。这种由多个扇区组成的”块”，是文件存取的最小单位。”块”的大小，最常见的是4KB，即连续八个 sector组成一个 block。</p>
+<p>具体的文件数据都存储在块内，那么就还需要另外一个地方存储文件的元信息，如文件的创建者、创建日期、大小等数据，存储文件元信息的区域就是 inode，即“索引节点”</p>
+<h2 id="inode-的内容"><a href="#inode-的内容" class="headerlink" title="inode 的内容"></a>inode 的内容</h2><ul>
+<li>文件的字节数</li>
+<li>文件拥有者的User ID</li>
+<li>文件的Group ID</li>
+<li>文件的读、写、执行权限</li>
+<li>文件的时间戳，共有三个：ctime指inode上一次变动的时间，mtime指文件内容上一次变动的时间，atime指文件上一次打开的时间。</li>
+<li>链接数，即有多少文件名指向这个inode</li>
+<li>文件数据block的位置</li>
+</ul>
+<p>在 linux 系统中，可以通过 stat 命令，查看某个文件的 inode 信息</p>
+<h2 id="inode-的大小"><a href="#inode-的大小" class="headerlink" title="inode 的大小"></a>inode 的大小</h2><p>inode 的存储也会消耗硬盘空间，因此操作系统会自动将硬盘分为两个区域：一个是数据区，用于存储文件数据，一个是 inode 区，用于存放 inode 所包含的信息。</p>
+<p>查看每个硬盘分区的inode总数和已经使用的数量，可以使用df命令。</p>
+<p>由于每个文件都必须有一个inode，因此有可能发生inode已经用光，但是硬盘还未存满的情况。这时，就无法在硬盘上创建新文件。</p>
+<h2 id="inode-的号码"><a href="#inode-的号码" class="headerlink" title="inode 的号码"></a>inode 的号码</h2><p>每个inode都有一个号码，操作系统用inode号码来识别不同的文件。对于系统来说，文件名只是inode号码便于识别的别称或者绰号。</p>
+<p>表面上，用户通过文件名，打开文件。实际上，系统内部这个过程分成三步：首先，系统找到这个文件名对应的inode号码；其次，通过inode号码，获取inode信息；最后，根据inode信息，找到文件数据所在的block，读出数据。</p>
+<p>使用ls -i命令，可以看到文件名对应的inode号码</p>
+<h2 id="目录文件"><a href="#目录文件" class="headerlink" title="目录文件"></a>目录文件</h2><p>在 Linux 系统中，目录本质上也是一种文件，打开目录实际上就是打开目录文件。目录文件的结构非常简单，就是一系列目录项（dirent）的列表。每个目录项，由两部分组成：所包含文件的文件名，以及该文件名对应的inode号码。</p>
+<p>ls命令只列出目录文件中的所有文件名，ls -i命令列出整个目录文件，即文件名和inode号码</p>
+<p>如果要查看文件的详细信息，就必须根据inode号码，访问inode节点，读取信息。ls -l命令列出文件的详细信息。</p>
+<p>目录文件的读权限（r）和写权限（w），都是针对目录文件本身。由于目录文件内只有文件名和inode号码，所以如果只有读权限，只能获取文件名，无法获取其他信息，因为其他信息都储存在inode节点中，而读取inode节点内的信息需要目录文件的执行权限（x）。</p>
+<h2 id="硬链接"><a href="#硬链接" class="headerlink" title="硬链接"></a>硬链接</h2><p>一般情况下，文件名和inode号码是”一一对应”关系，每个inode号码对应一个文件名。但是，Unix/Linux系统允许，多个文件名指向同一个inode号码。</p>
+<p>这意味着，可以用不同的文件名访问同样的内容；对文件内容进行修改，会影响到所有文件名；但是，删除一个文件名，不影响另一个文件名的访问。这种情况就被称为”硬链接”（hard link）。</p>
+<p>ln 命令可以创建硬链接，运行这条命令以后，源文件与目标文件的inode号码相同，都指向同一个inode。inode信息中有一项叫做”链接数”，记录指向该inode的文件名总数，这时就会增加1。</p>
+<p>反过来，删除一个文件名，就会使得inode节点中的”链接数”减1。当这个值减到0，表明没有文件名指向这个inode，系统就会回收这个inode号码，以及其所对应block区域。</p>
+<h2 id="软链接"><a href="#软链接" class="headerlink" title="软链接"></a>软链接</h2><p>除了硬链接以外，还有一种特殊情况。</p>
+<p>文件A和文件B的inode号码虽然不一样，但是文件A的内容是文件B的路径。读取文件A时，系统会自动将访问者导向文件B。因此，无论打开哪一个文件，最终读取的都是文件B。这时，文件A就称为文件B的”软链接”（soft link）或者”符号链接（symbolic link）。</p>
+<p>这意味着，文件A依赖于文件B而存在，如果删除了文件B，打开文件A就会报错：”No such file or directory”。这是软链接与硬链接最大的不同：文件A指向文件B的文件名，而不是文件B的inode号码，文件B的inode”链接数”不会因此发生变化。</p>
+<p>ln -s命令可以创建软链接。</p>
+<h2 id="inode-的特殊作用"><a href="#inode-的特殊作用" class="headerlink" title="inode 的特殊作用"></a>inode 的特殊作用</h2><p>由于inode号码与文件名分离，这种机制导致了一些Unix/Linux系统特有的现象。</p>
+<ol>
+<li>有时，文件名包含特殊字符，无法正常删除。这时，直接删除inode节点，就能起到删除文件的作用。</li>
+<li>移动文件或重命名文件，只是改变文件名，不影响inode号码。</li>
+<li>打开一个文件以后，系统就以inode号码来识别这个文件，不再考虑文件名。因此，通常来说，系统无法从inode号码得知文件名。</li>
+</ol>
+<p>第3点使得软件更新变得简单，可以在不关闭软件的情况下进行更新，不需要重启。因为系统通过inode号码，识别运行中的文件，不通过文件名。更新的时候，新版文件以同样的文件名，生成一个新的inode，不会影响到运行中的文件。等到下一次运行这个软件的时候，文件名就自动指向新版文件，旧版文件的inode则被回收。</p>
+<h1 id="几种-IO-模型"><a href="#几种-IO-模型" class="headerlink" title="几种 IO 模型"></a>几种 IO 模型</h1><h2 id="同步与异步"><a href="#同步与异步" class="headerlink" title="同步与异步"></a>同步与异步</h2><p>同步和异步指的是一个执行流程中每个方法是否必须依赖前一个方法完成后才可以继续执行。同步指的是调用一旦开始，调用者必须等到方法调用返回后，才能继续后续的行为。异步指的是调用立刻返回，调用者不必等待方法内的代码执行结束，就可以继续后续的行为。</p>
+<h2 id="阻塞与非阻塞"><a href="#阻塞与非阻塞" class="headerlink" title="阻塞与非阻塞"></a>阻塞与非阻塞</h2><p>阻塞与非阻塞指的是单个线程内遇到同步等待时，是否在原地不做任何操作。</p>
+<p>阻塞指的是遇到同步等待后，一直在原地等待同步方法处理完成。</p>
+<p>非阻塞指的是遇到同步等待，不在原地等待，先去做其他的操作，隔断时间再来观察同步方法是否完成。</p>
+<p>阻塞与非阻塞关注的是线程是否在原地等待。</p>
+<h2 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h2><p>同步并阻塞（传统阻塞型），服务器实现模式为一个连接一个线程，即客户端有连接请求时服务器端就需要启动一个线程进行处理，如果这个连接不作任何事情会造成不必要的线程开销。</p>
+<h2 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h2><p>同步非阻塞，服务器实现模式为一个线程处理多个请求(连接)，即客户端发送的连接请求会被注册到多路复用器上，多路复用器轮询到有 I/O 请求就会进行处理。</p>
+<h2 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h2><p>异步非阻塞，AIO 引入了异步通道的概念，采用了 Proactor 模式，简化了程序编写，有效的请求才启动线程，它的特点是先由操作系统完成后才通知服务端程序启动线程去处理，一般适用于连接数较多且连接时间较长的应用。</p>
+<h2 id="什么是-IO-多路复用"><a href="#什么是-IO-多路复用" class="headerlink" title="什么是 IO 多路复用"></a>什么是 IO 多路复用</h2><p>为每个 IO 请求分配一个进程/线程的方式不现实，因此采用 IO 多路复用技术来使一个线程维护多个 socket</p>
+<p>一个进程虽然任一时刻只能处理一个请求，但是处理每个请求的事件时，耗时控制在 1 毫秒以内，这样 1 秒内就可以处理上千个请求，把时间拉长来看，多个请求复用了一个进程，这就是多路复用，这种思想很类似一个 CPU 并发多个进程，所以也叫做时分多路复用。</p>
+<p>我们熟悉的 select/poll/epoll 内核提供给用户态的多路复用系统调用，进程可以通过一个系统调用函数从内核中获取多个事件。</p>
+<h2 id="select-poll"><a href="#select-poll" class="headerlink" title="select / poll"></a>select / poll</h2><p>select 实现多路复用的方式是，将已连接的 Socket 都放到一个文件描述符集合，然后调用 select 函数将这个集合拷贝到操作系统内核里，让内核来检查是否有网络事件产生。</p>
+<p>内核检查的方式很粗暴，就是通过遍历文件描述符集合的方式，当检查到有事件产生后，将此 Socket 标记为可读或可写， 接着再把整个文件描述符集合拷贝回用户态里，然后用户态还需要再通过遍历的方法找到可读或可写的 Socket，然后再对其处理。</p>
+<p>所以，对于 select 这种方式，需要进行 2 次「遍历」文件描述符集合，一次是在内核态里，一个次是在用户态里 ，而且还会发生 2 次「拷贝」文件描述符集合，先从用户空间传入内核空间，由内核修改后，再传出到用户空间中。</p>
+<p>select 使用固定长度的 BitsMap，表示文件描述符集合，而且所支持的文件描述符的个数是有限制的，在 Linux 系统中，由内核中的 FD_SETSIZE 限制， 默认最大值为 1024，只能监听 0~1023 的文件描述符。</p>
+<p>poll 与 select 的差异在于，不再用 BitsMap 来存储所关注的文件描述符，取而代之用动态数组，以链表形式来组织，突破了 select 的文件描述符个数限制，当然还会受到系统文件描述符限制。</p>
+<p>但是 poll 和 select 并没有太大的本质区别，都是使用「线性结构」存储进程关注的 Socket 集合，因此都需要遍历文件描述符集合来找到可读或可写的 Socket，时间复杂度为 O(n)，而且也需要在用户态与内核态之间拷贝文件描述符集合，这种方式随着并发数上来，性能的损耗会呈指数级增长。</p>
+<h2 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h2><p>epoll 通过两个方面，很好解决了 select/poll 的问题。</p>
+<p>第一点，epoll 在内核里使用红黑树来跟踪进程所有待检测的文件描述字，每当向 epoll 对象添加一个新事件时，该事件都会被挂载到红黑树上。由于红黑树是一个高效的数据结构，时间复杂度为 O(logn)，通过对红黑树进行操作，避免了每次操作都需要传入整个 socket 集合，减少了内存分配。</p>
+<p>第二点：epoll 使用事件驱动的机制，内核里维护了一个链表来记录就绪事件，当某个 socket 有事件发生时，通过回调函数内核会将其加入到这个就绪事件列表中，当用户调用 epoll_wait() 函数时，只会返回有事件发生的文件描述符的个数，不需要像 select/poll 那样轮询扫描整个 socket 集合，大大提高了检测的效率。</p>
+<p>采用 epoll 的方式，即使监听的 Socket 数量很多的时候，效率不会大幅度降低，能够同时监听的 Socket 的数目也非常的多了，上限就为系统定义的进程打开的最大文件描述符个数。</p>
+<p>epoll 支持两种事件触发模式，分别是边缘触发（edge-triggered，ET）和水平触发（level-triggered，LT）。</p>
+<ul>
+<li>使用边缘触发模式时，当被监控的 Socket 描述符上有可读事件发生时，服务器端只会从 epoll_wait 中苏醒一次，即使进程没有调用 read 函数从内核读取数据，也依然只苏醒一次，因此我们程序要保证一次性将内核缓冲区的数据读取完；</li>
+<li>使用水平触发模式时，当被监控的 Socket 上有可读事件发生时，服务器端不断地从 epoll_wait 中苏醒，直到内核缓冲区数据被 read 函数读完才结束，目的是告诉我们有数据需要读取；</li>
+</ul>
+<p>举个例子，你的快递被放到了一个快递箱里，如果快递箱只会通过短信通知你一次，即使你一直没有去取，它也不会再发送第二条短信提醒你，这个方式就是边缘触发；如果快递箱发现你的快递没有被取出，它就会不停地发短信通知你，直到你取出了快递，它才消停，这个就是水平触发的方式。</p>
+<p>这就是两者的区别，水平触发的意思是只要满足事件的条件，比如内核中有数据需要读，就一直不断地把这个事件传递给用户；而边缘触发的意思是只有第一次满足条件的时候才触发，之后就不会再传递同样的事件了。</p>
+<h1 id="进程调度过程"><a href="#进程调度过程" class="headerlink" title="进程调度过程"></a>进程调度过程</h1><h2 id="进程调度类型与时机"><a href="#进程调度类型与时机" class="headerlink" title="进程调度类型与时机"></a>进程调度类型与时机</h2><p>进程调度，即按照某种算法从就绪队列中选择一个进程为其分配处理机。进程调度的时机又分为两种：</p>
+<ol>
+<li>主动放弃</li>
+<li>被动放弃</li>
+</ol>
+<p>以及有三种情况不能进行进程调度与切换：</p>
+<ol>
+<li>在处理中断的过程中</li>
+<li>进程在操作性内核程序临界区中</li>
+<li>在院子操作过程中</li>
+</ol>
+<p>临界资源：一个时间段内只允许一个进程使用的资源，各进程需要互斥地访问临界资源</p>
+<p>临界区：访问临界资源的那段代码</p>
+<p>内核程序临界区一般是用来访问某种内核数据结构的，比如进程的就绪队列（由各就绪队列的 PCB 组成）</p>
+<p>调度触发有两种类型，主动调度与被动调度，被动调度又被称为抢占式调度。</p>
+<ol>
+<li><p>非剥夺调度，即主动调度、非抢占方式，只允许进程主动放弃处理机。在运行过程中即使有更紧迫的任务到达，当前进程仍然会继续使用处理机，直到该进程终止或主动要求进入阻塞态。</p>
+<p>实现简单，系统开销小但是无法及时处理紧急任务</p>
+</li>
+<li><p>剥夺调度，即被动调度、抢占式调度。当一个进程正在处理机上执行时，如果有一个更重要或更紧迫的进程需要使用处理机，则立即暂停正在执行的进程，将处理机分配给更紧急的进程。</p>
+<p>可以优先处理更紧急的进程，也可以实现各个进程按时间片轮流执行的功能。适合分时操作系统、实时操作系统</p>
+</li>
+</ol>
+<h2 id="进程的切换与过程"><a href="#进程的切换与过程" class="headerlink" title="进程的切换与过程"></a>进程的切换与过程</h2><p>进程切换的过程主要完成了：</p>
+<ol>
+<li>对原来运行进程各种数据的保存；</li>
+<li>对新进程各种数据的恢复<br>（如程序计数器、程序状态字、各种数据寄存器等处理机现场信息，这些信息一般保存在 PCB 中）</li>
+</ol>
+<p>进程切换是有代价的，如果过于频繁地进行上下文切换，使系统大部分时间都花在了进程切换上，导致真正用于执行进程的时间减少，造成系统效率降低。</p>
+<h1 id="进程的描述与控制"><a href="#进程的描述与控制" class="headerlink" title="进程的描述与控制"></a>进程的描述与控制</h1><h2 id="进程的描述"><a href="#进程的描述" class="headerlink" title="进程的描述"></a>进程的描述</h2><p>在多道程序环境下,程序的执行属于并发执行，。为了使参与并发执行的每个程序都能独立地运行，在操作系统中有一个与之相配的数据结构，称为进程控制块.(Process Control Block,PCB)。</p>
+<p>操作系统利用PCB来描述进程的基本情况和活动过程，进而控制和管理进程。这样，由程序段、相关的数据段和PCB三部分便构成了进程实体（又称进程映像）。一般情况下，我们把进程实体就简称为进程。例如，所谓创建进程就是创建进程中的PCB；而撤销进程就是撤销进程的PCB</p>
+<h2 id="进程的基本状态及转换"><a href="#进程的基本状态及转换" class="headerlink" title="进程的基本状态及转换"></a>进程的基本状态及转换</h2><ol>
+<li>就绪状态。等待 CPU</li>
+<li>执行状态。进程已获cpu，程序正在执行。</li>
+<li>阻塞状态。若处于执行状态的进程发生如IO，申请缓冲区失败，暂时无法继续执行的状态。此时引起进程调度，OS把处理机分配给另一个就绪进程，让受阻进程处于暂停状态。</li>
+</ol>
+<h2 id="进程的创建"><a href="#进程的创建" class="headerlink" title="进程的创建"></a>进程的创建</h2><ol>
+<li><p>申请空白 PCB</p>
+</li>
+<li><p>为新进程分配其运行所需的资源</p>
+</li>
+<li><p>初始化进程控制块<br>a. 初始化标识信息，将系统分配的标识符和父进程标识符填入新 PCB 中</p>
+<p>b. 初始化处理机控制信息，使程序计数器指向程序入口地址，使栈顶指针指向栈顶</p>
+<p>c. 初始化处理机控制信息，将其设为就绪或静止就绪状态</p>
+</li>
+<li><p>若进程就绪队列能够接纳新进程，则将其加入就绪队列</p>
+</li>
+</ol>
+<h2 id="PCB-的作用"><a href="#PCB-的作用" class="headerlink" title="PCB 的作用"></a>PCB 的作用</h2><ol>
+<li>作为独立运行基本单位的标志</li>
+<li>能实现间断性运行方式</li>
+<li>提供进程管理所需要的信息</li>
+<li>提供进程调度所需要的信息</li>
+<li>实现与其他进程的同步与通信</li>
+</ol>
+<h2 id="进程的控制"><a href="#进程的控制" class="headerlink" title="进程的控制"></a>进程的控制</h2><p>进程控制一般是由操作系统内核中的原语来实现的。操作系统内核包括一些与硬件紧密相关的模块(如中断处理程序)、各种常用设备的驱动程序以及运行频率较高的模块(如时钟管理、进程调度和许多模块所公用的一些基本操作) 将它们常驻内存。</p>
+<p>这种安排的目的有：1.便于对这些软件进行保护，防止遭受其他应用程序的破坏；2.可以提高os的运行效率</p>
+<h1 id="局部性原理-1"><a href="#局部性原理-1" class="headerlink" title="局部性原理"></a>局部性原理</h1><p>处理器在访问某些数据时，短时间内往往存在重复访问，某些数据和位置被访问的概率极大，大多数时间都只是在访问局部的数据</p>
+<h2 id="时间局部性"><a href="#时间局部性" class="headerlink" title="时间局部性"></a>时间局部性</h2><p>同一个内存位置，在较短时间内被多次引用，这是因为程序内往往存在大量循环</p>
+<h2 id="空间局部性"><a href="#空间局部性" class="headerlink" title="空间局部性"></a>空间局部性</h2><p>同一个内存位置，在空间维度看，其附近的内存位置能够被引用，这是因为很多数据在内存中都是连续存放的</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h3 id="计算机存储的层级结构"><a href="#计算机存储的层级结构" class="headerlink" title="计算机存储的层级结构"></a>计算机存储的层级结构</h3><p><img src="https://s2.loli.net/2022/05/20/OudBlmR3AMQhVrG.png"></p>
+<p>由于局部性原理的存在，每一层只会有很少部分数据被频繁访问，可以把这部分数据从底层存储挪到高层，从而降低大部分数据的读取时间</p>
+<h3 id="缓存数据"><a href="#缓存数据" class="headerlink" title="缓存数据"></a>缓存数据</h3><p>由于局部性的存在，部分数据可能被重复访问，因此可以把这部分数据缓存到像 Redis 这样的缓存数据库中</p>
+<h3 id="CopyOnWrite"><a href="#CopyOnWrite" class="headerlink" title="CopyOnWrite"></a>CopyOnWrite</h3><p>写时复制。Linux 调用 fork 生成子进程时，子进程应该拥有与父进程一样的指令与数据，由于子进程可能对数据进行修改，为了避免污染父进程的数据，需要单独给子进程拷贝一份。为了效率，fork 时不会直接复制，而是等到子进程各段数据需要写入时才会复制一份给子进程，这就是 写时复制</p>
+<p>这个是考虑到读写分布也是有局部性的，大部分时候只需要读而不需要写，写时复制的方式减少了大量不必要的复制。</p>
+<h1 id="操作系统惊群问题"><a href="#操作系统惊群问题" class="headerlink" title="操作系统惊群问题"></a>操作系统惊群问题</h1><p>在高并发中，会产生惊群的主要有：</p>
+<ul>
+<li>accept 惊群</li>
+<li>epoll 惊群<ul>
+<li>fork 之前创建 epollfd</li>
+<li>fork 之后创建 epollfd</li>
+</ul>
+</li>
+<li>线程池惊群</li>
+</ul>
+<h2 id="accept-惊群"><a href="#accept-惊群" class="headerlink" title="accept 惊群"></a>accept 惊群</h2><p>所谓惊群效应指的是，对于操作系统而言，多个线程/进程在等待同一资源，每当资源可用，所有的线程都来竞争，最终造成后果是：</p>
+<ol>
+<li>系统对于用户线程进行频繁的无效调度与上下文切换，系统性能下降</li>
+<li>为了确保只有一个线程能够获取资源，用户必须对资源操作进行加锁保护，从而进一步加大了系统开销</li>
+</ol>
+<p>操作系统中的惊群效应，最常见的是 socket 描述符的 accept 操作，当多个线程监听同一个端口时，实际上只会 accept 一次，因此会产生惊群。但是目前的操作系统内核已经基本解决了这一问题，当一个链接过来时，内核只会唤醒一个子进程出来 accept。</p>
+<h2 id="epoll-惊群"><a href="#epoll-惊群" class="headerlink" title="epoll 惊群"></a>epoll 惊群</h2><p>主进程创建 socket、bind、listen 后，将该 socket 加入 epoll 中，然后 fork 出多个子进程，每个子进程都阻塞在 epoll_wait 上，如果有事件到来，则判断该事件是否是该 socket 上的事件，如果是，说明有新的连接到来，进行 accept 操作。</p>
+<p>当新的连接到来时，每个阻塞在 epoll_wait 上的进程都会被唤醒，这就是 epoll 惊群。</p>
+<p>为什么内核不处理 epoll 惊群呢？可能是，尽管 accept 只能被一个进程调用成功，但是 epoll 不一样，其监听的文件描述符，除了可能被 accept 调用外，还有可能是其他网络 IO 的，而其他 IO 事件是否只能由一个进程处理是不一定的，这是一个由用户决定的事情，例如可能一个文件会由多个进程来读写。因此，内核不处理 epoll 惊群。</p>
+<h2 id="Nginx-如何处理惊群问题"><a href="#Nginx-如何处理惊群问题" class="headerlink" title="Nginx 如何处理惊群问题"></a>Nginx 如何处理惊群问题</h2><p>Nginx 利用 accept_mutex 锁来解决惊群问题。如果配置文件中没有开启 accept_mutex，那么所有的监听套接字都会加入每个子进程的 epoll 中，这样一个新的连接到来时，所有的子进程都会惊醒。</p>
+<p>如果配置文件开启了 accept_mutex，则只有一个子进程会将监听套接字添加到 epoll 中，这样当一个新的连接到来时，就只有一个 worker 子进程会被唤醒了。</p>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>accept 不会有惊群，epoll_wait 才会</li>
+<li>Nginx 的 accept_mutex 解决 epoll_wait 的惊群问题</li>
+<li>Nginx 并不是解决惊群问题，而是控制是否将监听套接字加入 epoll 中。当监听套接字只在一个子进程的 epoll 中，新的连接来到时，其他子进程当然不会惊醒了。</li>
+</ul>
+<h1 id="高效并发模式-——-半同步-半异步模式"><a href="#高效并发模式-——-半同步-半异步模式" class="headerlink" title="高效并发模式 —— 半同步/半异步模式"></a>高效并发模式 —— 半同步/半异步模式</h1><p>如果程序的 I/O 密集型的，当程序阻塞于 I/O 操作将浪费大量 CPU 时间，因此需要高效的并发模式。</p>
+<h2 id="半同步-半异步模型"><a href="#半同步-半异步模型" class="headerlink" title="半同步/半异步模型"></a>半同步/半异步模型</h2><p>半同步/半异步模型主要分为三层：异步 IO 层 + 队列层 + 同步处理层。</p>
+<p>该模型一般包括一个 IO 线程和多个工作线程。IO 线程可以是主线程，负责异步地从客户端文件描述符获取客户端的请求数据，而工作线程并发地对该数据进行处理。工作线程不关心通信，IO 线程不关心处理过程。</p>
+<p>从 IO 线程到工作线程之间依靠队列来交换数据，这也是利用了软件工程的经典思想，就是引入一个中间层。</p>
+<h3 id="异步-IO-与同步处理"><a href="#异步-IO-与同步处理" class="headerlink" title="异步 IO 与同步处理"></a>异步 IO 与同步处理</h3><p>所谓异步，指的是在接收客户端连接，获取请求数据，以及向队列中写入数据时是异步的。在写入完成时可能会执行预设的回调函数，进行预处理和其他通知操作，也就是 proactor 模式。</p>
+<p>所谓同步，指的是一个客户端连接的一次请求，其具体处理过程，也就是业务逻辑是同步的。虽然在消费队列的时候是多线程，但是并不会多个线程并行处理一次请求。</p>
+<p>综上，也就是说当一个客户端发送请求的时候，整个服务端的逻辑被一分为二了。第一部分，接收请求数据的异步的；第二部分，在收完数据之后的处理逻辑是同步的。因此被称为 半同步半异步。</p>
+<h3 id="返回数据"><a href="#返回数据" class="headerlink" title="返回数据"></a>返回数据</h3><p>返回数据的实现方式可以有很多，例如在工作线程中，处理完成之后直接在工作线程给客户端发送数据；或者再加一个写入队列，将返回数据和客户端信息，例如文件描述符，一同放入该队列。</p>
+<h2 id="半同步半反应堆"><a href="#半同步半反应堆" class="headerlink" title="半同步半反应堆"></a>半同步半反应堆</h2><p>用 IO 多路复用代替异步 IO，对半同步半异步模型进行改造，就是 半同步半反应堆模型</p>
+<p>开始时，Polling API (如 select/poll/epoll) 只监听服务端 socket，当监测到服务端 socket 可读时，就会进行 accept，获得客户端 socket 放入队列。也就是说，与半同步半异步模型不同的是，该模型的队列中存放的不是请求数据，而是 socket。工作线程从队列中取的不是模型，而是客户端 socket。工作线程从队列获得 socket 后，对 socket 进行 read/recv 获取请求数据，之后进行处理，然后之间 wirte/send 给客户端 socket，将数据返回客户端。</p>
+<p>由此可见，这种 IO 方式是一种 Reactor 模式，也是半反应堆这个名字的由来。</p>
+<h2 id="领导者追随者模式"><a href="#领导者追随者模式" class="headerlink" title="领导者追随者模式"></a>领导者追随者模式</h2><p>若干个线程组成一个线程池，其中一个线程作为领导者监听 IO 事件，其他线程睡眠，当有 IO 事件到来时，当前领导者从线程池中唤醒一个线程作为新的领导者来继续监听新的 IO 事件的到来，而原来的领导者转而去处理自己监听到的 IO 事件，在处理完毕之后加入到追随者中，直到再被选中成为领导者。</p>
+<p>该模式最大的优点是，它是自己监听 IO 事件并处理请求，也就是说从接收到处理都是在同一线程中完成的，所以不需要在线程之间传递额外的数据，也不需要线程间同步对请求队列的访问。但是该模式的缺点也很明显，就是只支持一种事件源集合，这导致这种模式不能像上述模式一样，让每个线程独立管理多个客户端连接。</p>
+<h1 id="线程模型-——-Reactor、Proactor"><a href="#线程模型-——-Reactor、Proactor" class="headerlink" title="线程模型 —— Reactor、Proactor"></a>线程模型 —— Reactor、Proactor</h1><h2 id="传统阻塞-IO-模型"><a href="#传统阻塞-IO-模型" class="headerlink" title="传统阻塞 IO 模型"></a>传统阻塞 IO 模型</h2><ol>
+<li>采用阻塞式 IO 模型获取输入数据</li>
+<li>每个连接都需要独立的线程完成数据输入、业务处理、数据返回的完成操作</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>并发数大时，需要创建大量线程来处理连接，系统资源占用大</li>
+<li>连接建立后，如果当前线程暂时没有数据可读，则线程会被阻塞，造成资源浪费</li>
+</ol>
+<h2 id="Reactor-模型"><a href="#Reactor-模型" class="headerlink" title="Reactor 模型"></a>Reactor 模型</h2><p>针对上述的两个传统阻塞式 IO 模型的缺点，解决方案有：</p>
+<ol>
+<li>基于 IO 复用模型：多个连接共用一个阻塞对象，应用程序只需要在一个阻塞对象上等待，无需阻塞等待所有连接。当某条连接有新的数据可处理时，系统通知应用程序，线程从阻塞状态返回，开始业务处理；</li>
+<li>基于线程池复用线程资源：不必为每个连接创建线程，将连接完成后的业务中的待处理任务分配给线程池中的线程进行处理，一个线程能够处理多个连接的业务。</li>
+</ol>
+<p>将 IO 复用与线程池相结合，就是 Reactor 模式</p>
+<p>Reactor 模式，指的是，服务端程序处理传入的多路请求，并将这些请求同步分派给所对应的处理线程，即通过 IO 多路复用统一监听事件，收到事件后分发给某线程。</p>
+<p>Reactor 模式中有 2 个关键组成：</p>
+<ol>
+<li>Reactor：在一个单独的线程中运行，负责监听和分发事件，分发给适当的处理程序来对 IO 事件做出反应</li>
+<li>Handlers：对要完成的 IO 实际事件进行执行</li>
+</ol>
+<p>Reactor 有三种典型实现：单 Reactor 单线程、单 Reactor 多线程、主从 Reactor 多线程</p>
+<h3 id="单-Reactor-单线程"><a href="#单-Reactor-单线程" class="headerlink" title="单 Reactor 单线程"></a>单 Reactor 单线程</h3><ol>
+<li>Reactor 对象通过 Select 监控客户端请求事件，收到事件后进行分发</li>
+<li>如果是建立连接请求事件，由 Acceptor 通过 Accept 处理连接请求，并创建一个 Handler 对象处理连接完成后的后续业务</li>
+<li>如果不是建立连接事件，则会分发调用对应的 Handler 来响应</li>
+<li>Handler 会完成 read、业务处理、send 的流程</li>
+</ol>
+<p>优点：简单、没有多线程通信与竞争的问题，全部在一个线程中完成</p>
+<p>缺点：性能差，只有一个线程；可靠性差</p>
+<p>使用场景：客户端数量有限，业务处理快，如 Redis</p>
+<h3 id="单-Reactor-多线程"><a href="#单-Reactor-多线程" class="headerlink" title="单 Reactor 多线程"></a>单 Reactor 多线程</h3><ol>
+<li>Reactor 对象通过 Select 监控客户端请求事件，收到事件后进行分发</li>
+<li>如果是建立连接请求事件，由 Acceptor 通过 Accept 处理连接请求，并创建一个 Handler 对象处理连接完成后的后续业务</li>
+<li>如果不是建立连接事件，则会分发调用对应的 Handler 来响应</li>
+<li>Handler 只负责响应事件，不做具体业务处理，通过 read 读取数据之后，会分发给后面的 worker 线程池进行业务处理</li>
+<li>worker 线程池分配独立线程完成业务处理，并将响应结果发给 Handler</li>
+<li>Handler 收到结果后 send 给客户端</li>
+</ol>
+<p>优点：充分利用了多核 CPU 的处理能力</p>
+<p>缺点：多线程数据共享与访问复杂；Reactor 承担所有事件的监听与响应，高并发下性能较差</p>
+<h3 id="主从-Reactor-多线程"><a href="#主从-Reactor-多线程" class="headerlink" title="主从 Reactor 多线程"></a>主从 Reactor 多线程</h3><ol>
+<li>Reactor 主线程通过 Select 监控建立连接请求事件，由 Acceptor 通过 Accept 处理连接请求</li>
+<li>Acceptor 处理连接请求后，MainReactor 将连接分配给 Reactor 子线程 SubReactor 进行处理</li>
+<li>SubReactor 将连接加入队列进行监听，并创建一个 Handler 对象处理连接完成后的后续业务</li>
+<li>当有新的事件发生时，SubReactor 会调用连接对应的 Handler 进行响应</li>
+<li>Handler 通过 read 读取数据之后，会分发给后面的 worker 线程池进行业务处理</li>
+<li>worker 线程池分配独立线程完成业务处理，并将响应结果发给 Handler</li>
+<li>Handler 收到结果后 send 给客户端</li>
+</ol>
+<p>优点：父线程与子线程数据交互简单、职责明确，父线程只需要接收新连接，子线程完成后续业务处理。</p>
+<p>应用：Nginx、Memcached、Netty</p>
+<h2 id="Proactor-模型"><a href="#Proactor-模型" class="headerlink" title="Proactor 模型"></a>Proactor 模型</h2><p>Reactor 模型中，Reactor等待某个事件的发生，之后将这个事件传递给事先注册的 Handler，由后者来同步完成实际的读写操作。因此其是一个 同步非阻塞 的网络模型</p>
+<p>如果将 IO 操作改为异步，就成为了异步网络模型 Proactor，其详细过程如下：</p>
+<ol>
+<li>Proactor Initiator 创建 Proactor 和 Handler 对象，并将其通过 AsyOptProcessor 注册到内核</li>
+<li>Processor 处理注册请求，并完成 IO 操作</li>
+<li>Processor 完成 IO 操作后通知 Proactor</li>
+<li>Proactor 根据不同的事件类型回调不同的 Handler 完成业务处理</li>
+</ol>
+<h2 id="Proactor-与-Reactor-的区别"><a href="#Proactor-与-Reactor-的区别" class="headerlink" title="Proactor 与 Reactor 的区别"></a>Proactor 与 Reactor 的区别</h2><p>Reactor 是同步非阻塞模型，感知的是就绪可读写事件。在每次感知到有事件发生后，就需要应用进程主动调用 read 方法读取数据，也就是主动将 socket 接收缓存中的数据读入应用进程内存，这个过程是同步的，读取完成后应用进程才能处理数据。</p>
+<p>Proactor 是异步非阻塞模型，感知的是已经完成了的读写事件。在发起异步读写请求时，需要传入数据缓冲区的地址(用来存放结果数据)等信息，这样系统内核才能够自动把数据读写工作完成。读写工作全程由操作系统来做，并不需要像 Reactor 那样还要应用进程主动发起 read/write 来读写数据，操作系统完成读写工作后，会通知应用进程直接处理数据。</p>
+<h2 id="Proactor-与-Reactor-的实现"><a href="#Proactor-与-Reactor-的实现" class="headerlink" title="Proactor 与 Reactor 的实现"></a>Proactor 与 Reactor 的实现</h2><p>在 Linux 中的异步 IO 是不完善的，AIO 系列函数是由 POSIX 定义的异步操作接口，并不是真正的操作系统级实现，而是在用户空间模拟出来的异步，并且仅仅支持基于本地文件的 AIO 操作，不支持网络编程中的 socket，所以 LINUX 一般使用 Reactor 方案</p>
+<p>在 windows 中实现了一套完整的异步编程接口 IOCP，是真正意义上的异步 IO，所以 Windows 可以使用 Proactor 方案。</p>
+
+      
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" rel="tag"># 计算机基础</a>
+              <a href="/tags/%E5%85%AB%E8%82%A1/" rel="tag"># 八股</a>
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" rel="prev" title="计算机网络基础">
+      <i class="fa fa-chevron-left"></i> 计算机网络基础
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/02/21/Shiro%20%E5%92%8C%20JWT%20%E5%9F%BA%E7%A1%80/" rel="next" title="Shiro 和 JWT 基础">
+      Shiro 和 JWT 基础 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是操作系统？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A0%86%E5%92%8C%E6%A0%88%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.</span> <span class="nav-text">堆和栈的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E6%80%81%E5%92%8C%E7%B3%BB%E7%BB%9F%E6%80%81"><span class="nav-number">3.1.</span> <span class="nav-text">用户态和系统态</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">进程和线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.1.</span> <span class="nav-text">进程和线程的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%8F%E7%A8%8B"><span class="nav-number">4.2.</span> <span class="nav-text">什么是协程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.3.</span> <span class="nav-text">线程和协程的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E5%92%8C%E5%B9%B6%E8%A1%8C%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="nav-number">4.4.</span> <span class="nav-text">并发和并行有什么区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E7%8A%B6%E6%80%81"><span class="nav-number">4.5.</span> <span class="nav-text">进程有哪几种状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F"><span class="nav-number">4.6.</span> <span class="nav-text">进程间的通信方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E9%81%93-%E5%8C%BF%E5%90%8D%E7%AE%A1%E9%81%93"><span class="nav-number">4.6.1.</span> <span class="nav-text">管道&#x2F;匿名管道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E5%90%8D%E7%AE%A1%E9%81%93-FIFO"><span class="nav-number">4.6.2.</span> <span class="nav-text">有名管道(FIFO)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7"><span class="nav-number">4.6.3.</span> <span class="nav-text">信号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">4.6.4.</span> <span class="nav-text">消息队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98-share-memory"><span class="nav-number">4.6.5.</span> <span class="nav-text">共享内存(share memory)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F-semaphore"><span class="nav-number">4.6.6.</span> <span class="nav-text">信号量(semaphore)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A5%97%E6%8E%A5%E5%AD%97%EF%BC%88Socket%EF%BC%89"><span class="nav-number">4.6.7.</span> <span class="nav-text">套接字（Socket）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E9%97%B4%E7%9A%84%E5%90%8C%E6%AD%A5%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">4.7.</span> <span class="nav-text">线程间的同步的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">4.8.</span> <span class="nav-text">进程的调度算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%AD%BB%E9%94%81%EF%BC%8C%E6%AD%BB%E9%94%81%E7%9A%84%E4%BA%A7%E7%94%9F%E6%9D%A1%E4%BB%B6"><span class="nav-number">4.9.</span> <span class="nav-text">什么是死锁，死锁的产生条件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E5%9F%BA%E7%A1%80"><span class="nav-number">5.</span> <span class="nav-text">操作系统内存管理基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%87%A0%E7%A7%8D%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6"><span class="nav-number">5.1.</span> <span class="nav-text">常见的几种内存管理机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E8%A1%A8%E5%92%8C%E5%A4%9A%E7%BA%A7%E9%A1%B5%E8%A1%A8"><span class="nav-number">5.2.</span> <span class="nav-text">快表和多级页表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E8%A1%A8"><span class="nav-number">5.2.1.</span> <span class="nav-text">快表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BA%A7%E9%A1%B5%E8%A1%A8"><span class="nav-number">5.2.2.</span> <span class="nav-text">多级页表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.2.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E9%A1%B5%E6%9C%BA%E5%88%B6%E5%92%8C%E5%88%86%E6%AE%B5%E6%9C%BA%E5%88%B6%E7%9A%84%E5%85%B1%E5%90%8C%E7%82%B9%E5%92%8C%E5%8C%BA%E5%88%AB"><span class="nav-number">5.3.</span> <span class="nav-text">分页机制和分段机制的共同点和区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E5%90%8C%E7%82%B9"><span class="nav-number">5.3.1.</span> <span class="nav-text">共同点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BA%E5%88%AB"><span class="nav-number">5.3.2.</span> <span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-CPU-%E5%AF%BB%E5%9D%80%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%EF%BC%9F"><span class="nav-number">5.4.</span> <span class="nav-text">什么是 CPU 寻址，为什么需要虚拟地址空间？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E5%91%A2%EF%BC%9F"><span class="nav-number">5.4.1.</span> <span class="nav-text">为什么要有虚拟地址空间呢？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="nav-number">6.</span> <span class="nav-text">虚拟内存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="nav-number">6.1.</span> <span class="nav-text">什么是虚拟内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E6%80%A7%E5%8E%9F%E7%90%86"><span class="nav-number">6.2.</span> <span class="nav-text">局部性原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%9A%84%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0"><span class="nav-number">6.3.</span> <span class="nav-text">虚拟内存的技术实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="nav-number">6.4.</span> <span class="nav-text">页面置换算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-inode"><span class="nav-number">7.</span> <span class="nav-text">什么是 inode</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#inode-%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">7.1.</span> <span class="nav-text">inode 的内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inode-%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="nav-number">7.2.</span> <span class="nav-text">inode 的大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inode-%E7%9A%84%E5%8F%B7%E7%A0%81"><span class="nav-number">7.3.</span> <span class="nav-text">inode 的号码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E6%96%87%E4%BB%B6"><span class="nav-number">7.4.</span> <span class="nav-text">目录文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AC%E9%93%BE%E6%8E%A5"><span class="nav-number">7.5.</span> <span class="nav-text">硬链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E9%93%BE%E6%8E%A5"><span class="nav-number">7.6.</span> <span class="nav-text">软链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#inode-%E7%9A%84%E7%89%B9%E6%AE%8A%E4%BD%9C%E7%94%A8"><span class="nav-number">7.7.</span> <span class="nav-text">inode 的特殊作用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%A0%E7%A7%8D-IO-%E6%A8%A1%E5%9E%8B"><span class="nav-number">8.</span> <span class="nav-text">几种 IO 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E4%B8%8E%E5%BC%82%E6%AD%A5"><span class="nav-number">8.1.</span> <span class="nav-text">同步与异步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E%E4%B8%8E%E9%9D%9E%E9%98%BB%E5%A1%9E"><span class="nav-number">8.2.</span> <span class="nav-text">阻塞与非阻塞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BIO"><span class="nav-number">8.3.</span> <span class="nav-text">BIO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NIO"><span class="nav-number">8.4.</span> <span class="nav-text">NIO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AIO"><span class="nav-number">8.5.</span> <span class="nav-text">AIO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-IO-%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-number">8.6.</span> <span class="nav-text">什么是 IO 多路复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select-poll"><span class="nav-number">8.7.</span> <span class="nav-text">select &#x2F; poll</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#epoll"><span class="nav-number">8.8.</span> <span class="nav-text">epoll</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E8%BF%87%E7%A8%8B"><span class="nav-number">9.</span> <span class="nav-text">进程调度过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%B1%BB%E5%9E%8B%E4%B8%8E%E6%97%B6%E6%9C%BA"><span class="nav-number">9.1.</span> <span class="nav-text">进程调度类型与时机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%87%E6%8D%A2%E4%B8%8E%E8%BF%87%E7%A8%8B"><span class="nav-number">9.2.</span> <span class="nav-text">进程的切换与过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%8F%8F%E8%BF%B0%E4%B8%8E%E6%8E%A7%E5%88%B6"><span class="nav-number">10.</span> <span class="nav-text">进程的描述与控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%8F%8F%E8%BF%B0"><span class="nav-number">10.1.</span> <span class="nav-text">进程的描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%8A%B6%E6%80%81%E5%8F%8A%E8%BD%AC%E6%8D%A2"><span class="nav-number">10.2.</span> <span class="nav-text">进程的基本状态及转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">10.3.</span> <span class="nav-text">进程的创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCB-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">10.4.</span> <span class="nav-text">PCB 的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%8E%A7%E5%88%B6"><span class="nav-number">10.5.</span> <span class="nav-text">进程的控制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E6%80%A7%E5%8E%9F%E7%90%86-1"><span class="nav-number">11.</span> <span class="nav-text">局部性原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E5%B1%80%E9%83%A8%E6%80%A7"><span class="nav-number">11.1.</span> <span class="nav-text">时间局部性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%B1%80%E9%83%A8%E6%80%A7"><span class="nav-number">11.2.</span> <span class="nav-text">空间局部性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">11.3.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%98%E5%82%A8%E7%9A%84%E5%B1%82%E7%BA%A7%E7%BB%93%E6%9E%84"><span class="nav-number">11.3.1.</span> <span class="nav-text">计算机存储的层级结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E6%95%B0%E6%8D%AE"><span class="nav-number">11.3.2.</span> <span class="nav-text">缓存数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CopyOnWrite"><span class="nav-number">11.3.3.</span> <span class="nav-text">CopyOnWrite</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%83%8A%E7%BE%A4%E9%97%AE%E9%A2%98"><span class="nav-number">12.</span> <span class="nav-text">操作系统惊群问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#accept-%E6%83%8A%E7%BE%A4"><span class="nav-number">12.1.</span> <span class="nav-text">accept 惊群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#epoll-%E6%83%8A%E7%BE%A4"><span class="nav-number">12.2.</span> <span class="nav-text">epoll 惊群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx-%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%83%8A%E7%BE%A4%E9%97%AE%E9%A2%98"><span class="nav-number">12.3.</span> <span class="nav-text">Nginx 如何处理惊群问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-1"><span class="nav-number">12.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AB%98%E6%95%88%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F-%E2%80%94%E2%80%94-%E5%8D%8A%E5%90%8C%E6%AD%A5-%E5%8D%8A%E5%BC%82%E6%AD%A5%E6%A8%A1%E5%BC%8F"><span class="nav-number">13.</span> <span class="nav-text">高效并发模式 —— 半同步&#x2F;半异步模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8A%E5%90%8C%E6%AD%A5-%E5%8D%8A%E5%BC%82%E6%AD%A5%E6%A8%A1%E5%9E%8B"><span class="nav-number">13.1.</span> <span class="nav-text">半同步&#x2F;半异步模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5-IO-%E4%B8%8E%E5%90%8C%E6%AD%A5%E5%A4%84%E7%90%86"><span class="nav-number">13.1.1.</span> <span class="nav-text">异步 IO 与同步处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE"><span class="nav-number">13.1.2.</span> <span class="nav-text">返回数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8A%E5%90%8C%E6%AD%A5%E5%8D%8A%E5%8F%8D%E5%BA%94%E5%A0%86"><span class="nav-number">13.2.</span> <span class="nav-text">半同步半反应堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%86%E5%AF%BC%E8%80%85%E8%BF%BD%E9%9A%8F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">13.3.</span> <span class="nav-text">领导者追随者模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B-%E2%80%94%E2%80%94-Reactor%E3%80%81Proactor"><span class="nav-number">14.</span> <span class="nav-text">线程模型 —— Reactor、Proactor</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F%E9%98%BB%E5%A1%9E-IO-%E6%A8%A1%E5%9E%8B"><span class="nav-number">14.1.</span> <span class="nav-text">传统阻塞 IO 模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reactor-%E6%A8%A1%E5%9E%8B"><span class="nav-number">14.2.</span> <span class="nav-text">Reactor 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95-Reactor-%E5%8D%95%E7%BA%BF%E7%A8%8B"><span class="nav-number">14.2.1.</span> <span class="nav-text">单 Reactor 单线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95-Reactor-%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">14.2.2.</span> <span class="nav-text">单 Reactor 多线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E-Reactor-%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">14.2.3.</span> <span class="nav-text">主从 Reactor 多线程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proactor-%E6%A8%A1%E5%9E%8B"><span class="nav-number">14.3.</span> <span class="nav-text">Proactor 模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proactor-%E4%B8%8E-Reactor-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">14.4.</span> <span class="nav-text">Proactor 与 Reactor 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proactor-%E4%B8%8E-Reactor-%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">14.5.</span> <span class="nav-text">Proactor 与 Reactor 的实现</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zodiacal</p>
+  <div class="site-description" itemprop="description">引出魔鬼的一种试炼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zodiacal</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">453k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:52</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

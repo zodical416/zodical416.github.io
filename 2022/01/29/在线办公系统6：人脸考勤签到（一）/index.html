@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|EB Garamond:300,300italic,400,400italic,700,700italic|Source Code Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zodical416.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="寂寞当年箫鼓，荒烟依旧平楚。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="办公系统 6. 人脸考勤签到（一）">
+<meta property="og:url" content="https://zodical416.github.io/2022/01/29/%E5%9C%A8%E7%BA%BF%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F6%EF%BC%9A%E4%BA%BA%E8%84%B8%E8%80%83%E5%8B%A4%E7%AD%BE%E5%88%B0%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
+<meta property="og:site_name" content="Zodiacal">
+<meta property="og:description" content="寂寞当年箫鼓，荒烟依旧平楚。">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220127104629.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220127104815.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/2908c372e15e5ef19ae35c2994a0963.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220128111242.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220128111554.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220128111913.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220128112226.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220128113443.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/aaa895a0fc997438b3b2cf664dd996d.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220128201248.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/e942a90a17f121363707e904abda6fa.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220128203617.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/4341b6bf81d1995e0535d12fed57e78.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220128214411.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220129111716.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220129160831.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220129194117.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220129211913.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220129221326.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220129221558.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220129221812.png">
+<meta property="article:published_time" content="2022-01-29T14:19:10.447Z">
+<meta property="article:modified_time" content="2022-01-29T14:22:59.441Z">
+<meta property="article:author" content="Zodiacal">
+<meta property="article:tag" content="项目实战">
+<meta property="article:tag" content="小程序">
+<meta property="article:tag" content="Spring Boot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220127104629.png">
+
+<link rel="canonical" href="https://zodical416.github.io/2022/01/29/%E5%9C%A8%E7%BA%BF%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F6%EF%BC%9A%E4%BA%BA%E8%84%B8%E8%80%83%E5%8B%A4%E7%AD%BE%E5%88%B0%EF%BC%88%E4%B8%80%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>办公系统 6. 人脸考勤签到（一） | Zodiacal</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zodiacal</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://zodical416.github.io/2022/01/29/%E5%9C%A8%E7%BA%BF%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F6%EF%BC%9A%E4%BA%BA%E8%84%B8%E8%80%83%E5%8B%A4%E7%AD%BE%E5%88%B0%EF%BC%88%E4%B8%80%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zodiacal">
+      <meta itemprop="description" content="引出魔鬼的一种试炼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zodiacal">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          办公系统 6. 人脸考勤签到（一）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-29 22:19:10 / 修改时间：22:22:59" itemprop="dateCreated datePublished" datetime="2022-01-29T22:19:10+08:00">2022-01-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">办公系统</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>18k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>17 分钟</span>
+            </span>
+            <div class="post-description">寂寞当年箫鼓，荒烟依旧平楚。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="创建小程序-Tab-导航栏"><a href="#创建小程序-Tab-导航栏" class="headerlink" title="创建小程序 Tab 导航栏"></a>创建小程序 Tab 导航栏</h1><p>小程序的 Index 页面的底部含有 Tab 导航，集成了五个页面的跳转。为了实现这个 Tab 导航，需要先创建5个小程序页面，然后在<code>pages.json</code>文件中设置，于是小程序页面上就出现了Tab导航。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220127104629.png"></p>
+<h2 id="创建页面"><a href="#创建页面" class="headerlink" title="创建页面"></a>创建页面</h2><p>底部导航分为首页、会议、文档、通讯录和我的，目前首页已经有了，接下来还需要创建出另外四个页面。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220127104815.png"></p>
+<p>对于每个页面，需要在 <code>.vue</code> 文件中import <code>.less</code> 文件</p>
+<h2 id="设置分页导航"><a href="#设置分页导航" class="headerlink" title="设置分页导航"></a>设置分页导航</h2><p>在<code>pages.json</code>文档设置一下tabBar属性，就可以实现Tab导航效果</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;tabBar&quot;</span>:&#123;</span><br><span class="line">    <span class="attr">&quot;color&quot;</span>:<span class="string">&quot;#666&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;selectedColor&quot;</span>:<span class="string">&quot;#3474FF&quot;</span> ,<span class="comment">// 被选中后的字体颜色</span></span><br><span class="line">    <span class="attr">&quot;list&quot;</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;text&quot;</span>:<span class="string">&quot;首页&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;pagePath&quot;</span>:<span class="string">&quot;pages/index/index&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;iconPath&quot;</span>:<span class="string">&quot;static/bar-1.png&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;selectedIconPath&quot;</span>:<span class="string">&quot;static/bar-1-active.png&quot;</span> ,<span class="comment">// 被选中后的图片</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;text&quot;</span>:<span class="string">&quot;会议&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;pagePath&quot;</span>:<span class="string">&quot;pages/meeting_list/meeting_list&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;iconPath&quot;</span>:<span class="string">&quot;static/bar-2.png&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;selectedIconPath&quot;</span>:<span class="string">&quot;static/bar-2-active.png&quot;</span> ,<span class="comment">// 被选中后的图片</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;text&quot;</span>:<span class="string">&quot;文档&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;pagePath&quot;</span>:<span class="string">&quot;pages/document/document&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;iconPath&quot;</span>:<span class="string">&quot;static/bar-3.png&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;selectedIconPath&quot;</span>:<span class="string">&quot;static/bar-3-active.png&quot;</span> ,<span class="comment">// 被选中后的图片</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;text&quot;</span>:<span class="string">&quot;通讯录&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;pagePath&quot;</span>:<span class="string">&quot;pages/contacts/contacts&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;iconPath&quot;</span>:<span class="string">&quot;static/bar-4.png&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;selectedIconPath&quot;</span>:<span class="string">&quot;static/bar-4-active.png&quot;</span> ,<span class="comment">// 被选中后的图片</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;text&quot;</span>:<span class="string">&quot;我的&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;pagePath&quot;</span>:<span class="string">&quot;pages/mine/mine&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;iconPath&quot;</span>:<span class="string">&quot;static/bar-5.png&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;selectedIconPath&quot;</span>:<span class="string">&quot;static/bar-5-active.png&quot;</span> ,<span class="comment">// 被选中后的图片</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="跳转首页"><a href="#跳转首页" class="headerlink" title="跳转首页"></a>跳转首页</h2><p>用户注册成功或者登录成功之后，小程序要自动跳转到首页，跳转到Tab导航页面与跳转到普通的页面所用的代码是不同的。跳转到Tab导航页面用的方法是<code>switchTab</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">uni.switchTab(&#123;</span><br><span class="line">    url: &#x27;../index/index&#x27;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>所得的小程序页面如下</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/2908c372e15e5ef19ae35c2994a0963.jpg"></p>
+<h1 id="开通腾讯云对象存储服务"><a href="#开通腾讯云对象存储服务" class="headerlink" title="开通腾讯云对象存储服务"></a>开通腾讯云对象存储服务</h1><h2 id="静态资源上网"><a href="#静态资源上网" class="headerlink" title="静态资源上网"></a>静态资源上网</h2><p>微信小程序打包发布有体积限制，不能超过2M，分包加载最多不能超过8M。正因为小程序有体积限制，所以不能往小程序项目中放置太多的静态资源，比如体积超大的图片。我们应该尽可能地把静态资源放在网上，然后在小程序页面上引用这些静态资源。在这里选择腾讯云的对象存储服务来作为图床。</p>
+<h2 id="开通服务"><a href="#开通服务" class="headerlink" title="开通服务"></a>开通服务</h2><p>用浏览器访问<a target="_blank" rel="noopener" href="https://cloud.tencent.com/product/cos">腾讯云对象存储服务</a>的主页，根据提示开通服务即可。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220128111242.png"></p>
+<h2 id="存储静态资源"><a href="#存储静态资源" class="headerlink" title="存储静态资源"></a>存储静态资源</h2><p>首先需要创建一个存储桶，然后才能上传静态文件。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220128111554.png"></p>
+<p>点击创建，按提示填写</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220128111913.png"></p>
+<p>创建存储桶成功之后，创建文件夹</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220128112226.png"></p>
+<p>在图片文件夹中再放置两个文件夹，分别为 banner 和 header，其中 banner 文件夹放置轮播焦点图的动态资源，header 文件夹放置头像资源。对象的外网可访问地址可通过详情查看，如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220128113443.png"></p>
+<h1 id="设计首页英雄区和栏目导航"><a href="#设计首页英雄区和栏目导航" class="headerlink" title="设计首页英雄区和栏目导航"></a>设计首页英雄区和栏目导航</h1><p>英雄区：指页面中的视觉中心区域</p>
+<h2 id="设计英雄区的焦点图"><a href="#设计英雄区的焦点图" class="headerlink" title="设计英雄区的焦点图"></a>设计英雄区的焦点图</h2><p>Emos小程序的首页英雄区的位置需要放置一个可以轮播的焦点图，焦点图在微信小程序中有对应的标签，直接引用标签即可实现焦点图的效果。</p>
+<p>在 index 文件夹中创建 <code>index.less</code> 文件，然后在首页中引用这个less文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;style lang=&quot;less&quot;&gt;</span><br><span class="line">	@import url(&#x27;index.less&#x27;);</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>index.vue</code>页面中，定义轮播焦点图</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;view class=&quot;page&quot;&gt;</span><br><span class="line">	&lt;swiper circular=&quot;true&quot; duration=&quot;1000&quot; interval=&quot;8000&quot; class=&quot;swiper&quot;&gt;</span><br><span class="line">		&lt;swiper-item&gt;</span><br><span class="line">			&lt;image mode=&quot;widthFix&quot; src=&quot;URL地址&quot;&gt;&lt;/image&gt;</span><br><span class="line">		&lt;/swiper-item&gt;</span><br><span class="line">		&lt;swiper-item&gt;</span><br><span class="line">			&lt;image mode=&quot;widthFix&quot; src=&quot;URL地址&quot;&gt;&lt;/image&gt;</span><br><span class="line">		&lt;/swiper-item&gt;</span><br><span class="line">		&lt;swiper-item&gt;</span><br><span class="line">			&lt;image mode=&quot;widthFix&quot; src=&quot;URL地址&quot;&gt;&lt;/image&gt;</span><br><span class="line">		&lt;/swiper-item&gt;</span><br><span class="line">		&lt;swiper-item&gt;</span><br><span class="line">			&lt;image mode=&quot;widthFix&quot; src=&quot;URL地址&quot;&gt;&lt;/image&gt;</span><br><span class="line">		&lt;/swiper-item&gt;</span><br><span class="line">		&lt;swiper-item&gt;</span><br><span class="line">			&lt;image mode=&quot;widthFix&quot; src=&quot;URL地址&quot;&gt;&lt;/image&gt;</span><br><span class="line">		&lt;/swiper-item&gt;</span><br><span class="line">	&lt;/swiper&gt;</span><br><span class="line">&lt;/view&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在index.less文件中，编写轮播焦点图CSS样式</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> url(<span class="string">&quot;../../style.less&quot;</span>);</span><br><span class="line"><span class="selector-class">.page</span>&#123;</span><br><span class="line">	<span class="attribute">background-color</span>: <span class="number">#EEEEF4</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.swiper</span>&#123;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">233px</span>;</span><br><span class="line">	<span class="selector-tag">image</span>&#123;</span><br><span class="line">		<span class="attribute">width</span>: <span class="number">100%</span> <span class="meta">!important</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最终的显示效果如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/aaa895a0fc997438b3b2cf664dd996d.jpg"></p>
+<h2 id="设计通知栏"><a href="#设计通知栏" class="headerlink" title="设计通知栏"></a>设计通知栏</h2><p>首页的通知栏只用来显示未读消息数量。用户点击这个控件之后，页面跳转到消息列表页面。未读消息的数字是从数据库里面获得的，但是目前还没有做到消息模块，因此这里的未读消息数字先暂时写死。</p>
+<p>在<code>index.vue</code>页面中，定义通知栏</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;view class=&quot;notify-container&quot;&gt;</span><br><span class="line">	&lt;view class=&quot;notify-title&quot;&gt;</span><br><span class="line">		&lt;image src=&quot;../../static/icon-1.png&quot; mode=&quot;widthFix&quot; class=&quot;notify-icon&quot;&gt;&lt;/image&gt;</span><br><span class="line">		消息提醒</span><br><span class="line">	&lt;/view&gt;</span><br><span class="line">	&lt;view class=&quot;notify-content&quot;&gt;你有&#123;&#123; unreadRows &#125;&#125;条未读消息&lt;/view&gt;</span><br><span class="line">	&lt;image src=&quot;../../static/icon-2.png&quot; mode=&quot;widthFix&quot; class=&quot;more-icon&quot;&gt;&lt;/image&gt;</span><br><span class="line">&lt;/view&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>index.less</code>文件中，编写通知栏的CSS样式</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.notify-container</span>&#123;</span><br><span class="line">	<span class="attribute">background-color</span>: <span class="number">#fff</span>;</span><br><span class="line">	<span class="attribute">padding</span>: <span class="number">25</span>rpx;</span><br><span class="line">	<span class="attribute">position</span>: relative;</span><br><span class="line">	<span class="attribute">margin-bottom</span>: <span class="number">20</span>rpx;</span><br><span class="line">	<span class="selector-class">.notify-title</span>&#123;</span><br><span class="line">		<span class="attribute">font-size</span>: <span class="number">34</span>rpx;</span><br><span class="line">		<span class="attribute">color</span>: <span class="variable">@background-color</span>;</span><br><span class="line">		<span class="attribute">margin-bottom</span>: <span class="number">10</span>rpx;</span><br><span class="line">		<span class="selector-class">.notify-icon</span>&#123;</span><br><span class="line">			<span class="attribute">width</span>: <span class="number">38</span>rpx;</span><br><span class="line">			<span class="attribute">vertical-align</span>: -<span class="number">8</span>rpx;</span><br><span class="line">			<span class="attribute">margin-right</span>: <span class="number">5</span>rpx;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="selector-class">.notify-content</span>&#123;</span><br><span class="line">		<span class="attribute">font-size</span>: <span class="number">30</span>rpx;</span><br><span class="line">		<span class="attribute">color</span>: <span class="variable">@font-color</span>;</span><br><span class="line">		<span class="selector-tag">&amp;</span>:<span class="selector-tag">before</span>&#123;</span><br><span class="line">			<span class="attribute">display</span>: inline-block;</span><br><span class="line">			<span class="attribute">content</span>: <span class="string">&quot;&quot;</span>;</span><br><span class="line">			<span class="attribute">width</span>: <span class="number">12</span>rpx;</span><br><span class="line">			<span class="attribute">height</span>: <span class="number">12</span>rpx;</span><br><span class="line">			<span class="attribute">border-radius</span>: <span class="number">6</span>rpx;</span><br><span class="line">			<span class="attribute">background-color</span>: red;</span><br><span class="line">			<span class="attribute">margin-left</span>: <span class="number">18</span>rpx;</span><br><span class="line">			<span class="attribute">margin-right</span>: <span class="number">15</span>rpx;</span><br><span class="line">			<span class="attribute">vertical-align</span>: <span class="number">3</span>rpx;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="selector-class">.more-icon</span>&#123;</span><br><span class="line">		<span class="attribute">position</span>: absolute;</span><br><span class="line">		<span class="attribute">right</span>: <span class="number">5</span>rpx;</span><br><span class="line">		<span class="attribute">width</span>: <span class="number">60</span>rpx;</span><br><span class="line">		<span class="attribute">top</span>: <span class="number">50</span>rpx;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义模型层数据，声明<code>unreadRows</code>属性，即未读消息的条数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">	data() &#123;</span><br><span class="line">		return &#123;</span><br><span class="line">			unreadRows: 0,</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;,</span><br><span class="line">	methods: &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建栏目导航"><a href="#创建栏目导航" class="headerlink" title="创建栏目导航"></a>创建栏目导航</h2><p>栏目导航一共是分为三行，所以需要用三个<view>标签代表这三行，然后每行用Flex布局来排版。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220128201248.png"></p>
+<p>在<code>index.vue</code>页面中，定义栏目导航</p>
+<p>代码略</p>
+<p>在<code>index.less</code>文件中，编写通知栏的CSS样式</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.nav-container</span>&#123;</span><br><span class="line">	<span class="attribute">background-color</span>: <span class="number">#fff</span>;</span><br><span class="line">	<span class="attribute">margin-bottom</span>: <span class="number">20</span>rpx;</span><br><span class="line">	<span class="attribute">padding</span>: <span class="number">50</span>rpx <span class="number">40</span>rpx;</span><br><span class="line">	<span class="selector-class">.nav-row</span>&#123;</span><br><span class="line">		<span class="attribute">display</span>: flex;</span><br><span class="line">		<span class="attribute">justify-content</span>: space-between;</span><br><span class="line">		<span class="attribute">margin-bottom</span>: <span class="number">50</span>rpx;</span><br><span class="line">		<span class="selector-class">.nav</span>&#123;</span><br><span class="line">			<span class="attribute">text-align</span>: center;</span><br><span class="line">			<span class="selector-class">.icon</span>&#123;</span><br><span class="line">				<span class="attribute">width</span>: <span class="number">80</span>rpx;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="selector-class">.name</span>&#123;</span><br><span class="line">				<span class="attribute">display</span>: block;</span><br><span class="line">				<span class="attribute">font-size</span>: <span class="number">30</span>rpx;</span><br><span class="line">				<span class="attribute">color</span>: <span class="variable">@font-color</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>显示效果图如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/e942a90a17f121363707e904abda6fa.jpg"></p>
+<h1 id="设计人脸签到页面"><a href="#设计人脸签到页面" class="headerlink" title="设计人脸签到页面"></a>设计人脸签到页面</h1><p>当用户点击签到链接的时候，Emos小程序会跳转到人脸签到页面，因此需要完成签到页面的设计工作。</p>
+<h2 id="如何调用系统相机？"><a href="#如何调用系统相机？" class="headerlink" title="如何调用系统相机？"></a>如何调用系统相机？</h2><p>微信小程序提供了<code>&lt;camera&gt;</code>标签，这个标签可以调用系统相机进行拍照，可以用参数设置来决定开启前摄像头或后摄像头。想要拍照的时候，只要给某个按钮添加点击事件，然后调用相机对象的<code>takePhoto()</code>方法即可。以下是<code>&lt;camera&gt;</code>标签的使用规范。</p>
+<p><strong>camera 标签</strong></p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220128203617.png"></p>
+<p>微信提供的代码示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- camera.wxml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">camera</span> <span class="attr">device-position</span>=<span class="string">&quot;back&quot;</span> <span class="attr">flash</span>=<span class="string">&quot;off&quot;</span> <span class="attr">binderror</span>=<span class="string">&quot;error&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 100%; height: 300px;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">camera</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span> <span class="attr">bindtap</span>=<span class="string">&quot;takePhoto&quot;</span>&gt;</span>拍照<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">view</span>&gt;</span>预览<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">image</span> <span class="attr">mode</span>=<span class="string">&quot;widthFix&quot;</span> <span class="attr">src</span>=<span class="string">&quot;&#123;&#123;src&#125;&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="设计签到页面"><a href="#设计签到页面" class="headerlink" title="设计签到页面"></a>设计签到页面</h2><p>创建<code>checkin.vue</code>页面，然后编写页面内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;camera device-position=&quot;front&quot; flash=&quot;off&quot; class=&quot;camera&quot; @error=&quot;error&quot; v-if=&quot;showCamera&quot;&gt;&lt;/camera&gt;</span><br><span class="line">&lt;image mode=&quot;widthFix&quot; class=&quot;image&quot; :src=&quot;photoPath&quot; v-if=&quot;showImage&quot;&gt;&lt;/image&gt;</span><br><span class="line">&lt;view class=&quot;operate-container&quot;&gt;</span><br><span class="line">	&lt;button type=&quot;primary&quot; class=&quot;btn&quot; @tap=&quot;clickBtn&quot; :disabled=&quot;!canCheckin&quot;&gt;&#123;&#123; btnText &#125;&#125;&lt;/button&gt;</span><br><span class="line">	&lt;button type=&quot;warn&quot; class=&quot;btn&quot; @tap=&quot;afresh&quot; :disabled=&quot;!canCheckin&quot;&gt;重拍&lt;/button&gt;</span><br><span class="line">&lt;/view&gt;</span><br><span class="line">&lt;view class=&quot;notice-container&quot;&gt;</span><br><span class="line">	&lt;text class=&quot;notice&quot;&gt;注意事项&lt;/text&gt;</span><br><span class="line">	&lt;text class=&quot;desc&quot;&gt;拍照签到的时候，必须要拍摄自己的正面照片，侧面照片会导致无法识别。另外，拍照的时候不要戴墨镜或者帽子，避免影响拍照签到的准确度。&lt;/text&gt;</span><br><span class="line">&lt;/view&gt;</span><br></pre></td></tr></table></figure>
+
+<p>定义模型层属性数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">	data() &#123;</span><br><span class="line">		return &#123;</span><br><span class="line">			canCheckin: true,</span><br><span class="line">			photoPath: &#x27;&#x27;,</span><br><span class="line">			btnText: &#x27;拍照&#x27;,</span><br><span class="line">			showCamera: true,</span><br><span class="line">			showImage: false</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;,</span><br><span class="line">	methods: &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>编写checkin.less文件，声明CSS样式</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> url(<span class="string">&quot;../../style.less&quot;</span>);</span><br><span class="line"><span class="selector-class">.camera</span>,<span class="selector-class">.image</span>&#123;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">100%</span>; </span><br><span class="line">	<span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.operate-container</span>&#123;</span><br><span class="line">	<span class="attribute">display</span>: flex;</span><br><span class="line">	<span class="attribute">justify-content</span>: center;</span><br><span class="line">	<span class="attribute">margin-top</span>: <span class="number">50</span>rpx;</span><br><span class="line">	<span class="selector-class">.btn</span>&#123;</span><br><span class="line">		<span class="attribute">width</span>: <span class="number">40%</span>;</span><br><span class="line">		<span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">		<span class="selector-tag">&amp;</span><span class="selector-pseudo">:first</span><span class="selector-tag">-child</span>&#123;</span><br><span class="line">			<span class="attribute">margin-right</span>: <span class="number">30</span>rpx;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.notice-container</span>&#123;</span><br><span class="line">	<span class="attribute">padding</span>: <span class="number">40</span>rpx <span class="number">60</span>rpx;</span><br><span class="line">	<span class="selector-class">.notice</span>&#123;</span><br><span class="line">		<span class="attribute">font-size</span>: <span class="number">40</span>rpx;</span><br><span class="line">		<span class="attribute">color</span>: <span class="variable">@font-color</span>;</span><br><span class="line">		<span class="attribute">font-weight</span>: bold;</span><br><span class="line">		<span class="attribute">display</span>: block;</span><br><span class="line">		<span class="attribute">margin-bottom</span>: <span class="number">15</span>rpx;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="selector-class">.desc</span>&#123;</span><br><span class="line">		<span class="attribute">display</span>: block;</span><br><span class="line">		<span class="attribute">font-size</span>: <span class="number">32</span>rpx;</span><br><span class="line">		<span class="attribute">color</span>: <span class="variable">@desc-color</span>;</span><br><span class="line">		<span class="attribute">line-height</span>: <span class="number">1.6</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最终得到的签到页面如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/4341b6bf81d1995e0535d12fed57e78.jpg"></p>
+<h1 id="实现签到自拍功能"><a href="#实现签到自拍功能" class="headerlink" title="实现签到自拍功能"></a>实现签到自拍功能</h1><h2 id="拍照流程"><a href="#拍照流程" class="headerlink" title="拍照流程"></a>拍照流程</h2><p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220128214411.png"></p>
+<p>在设计签到页面时，在<code>&lt;camera&gt;</code>标签下面放置了<code>&lt;image&gt;</code>标签，用户拍完照之后，<code>&lt;camera&gt;</code>标签会自动隐藏起来，然后<code>&lt;image&gt;</code>标签显示拍摄的图片，如果用户对照片满意，就可以点击签到按钮提交照片执行签到。</p>
+<h2 id="跳转到签到页面"><a href="#跳转到签到页面" class="headerlink" title="跳转到签到页面"></a>跳转到签到页面</h2><p>签到页面设计好之后，自然就应该允许用户从首页跳转到签到页面。在<code>index.vue</code>声明<code>toPage()</code>函数，用于跳转到任何页面。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">toPage: function(name, url) &#123;</span><br><span class="line">	//TODO 验证用户的权限</span><br><span class="line">	uni.navigateTo(&#123;</span><br><span class="line">		url: url</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>给在线签到导航链接添加点击事件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;view class=&quot;nav&quot; @tap=&quot;toPage(&#x27;在线签到&#x27;, &#x27;../checkin/checkin&#x27;)&quot;&gt;</span><br><span class="line">	&lt;image src=&quot;../../static/nav-1.png&quot; mode=&quot;widthFix&quot; class=&quot;icon&quot;&gt;&lt;/image&gt;</span><br><span class="line">	&lt;text class=&quot;name&quot;&gt;在线签到&lt;/text&gt;</span><br><span class="line">&lt;/view&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现拍照和重拍功能"><a href="#实现拍照和重拍功能" class="headerlink" title="实现拍照和重拍功能"></a>实现拍照和重拍功能</h2><p>在<code>checkin.vue</code>中创建<code>clickBtn()</code>方法和<code>afresh()</code>方法，实现拍照按钮和重拍的点击事件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">clickBtn: function() &#123;</span><br><span class="line">	let that = this;</span><br><span class="line">	if (that.btnText == &#x27;拍照&#x27;) &#123;</span><br><span class="line">		let ctx = wx.createCameraContext();</span><br><span class="line">		ctx.takePhoto(&#123;</span><br><span class="line">			quality: &#x27;high&#x27;,</span><br><span class="line">			success: function(resp) &#123;</span><br><span class="line">				console.log(resp.tempImagePath);</span><br><span class="line">				that.photoPath = resp.tempImagePath;</span><br><span class="line">				that.showCamera = false;</span><br><span class="line">				that.showImage = true;</span><br><span class="line">				that.btnText = &#x27;签到&#x27;;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125; </span><br><span class="line">	else &#123;</span><br><span class="line">		//这里是点击签到按钮</span><br><span class="line">	&#125;</span><br><span class="line">&#125;,</span><br><span class="line">afresh: function() &#123;</span><br><span class="line">	this.showCamera = true;</span><br><span class="line">	this.showImage = false;</span><br><span class="line">	this.btnText = &#x27;拍照&#x27;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="缓存系统常量数据"><a href="#缓存系统常量数据" class="headerlink" title="缓存系统常量数据"></a>缓存系统常量数据</h1><h2 id="EMOS-系统的常量数据"><a href="#EMOS-系统的常量数据" class="headerlink" title="EMOS 系统的常量数据"></a>EMOS 系统的常量数据</h2><p>在<code>sys_config</code>数据表中保存了Emos系统的常量配置信息，其中就包括了考勤部分的常量信息。例如每天上班考勤从几点开始，截止到几点。下班考勤从几点开始，几点结束。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220129111716.png"></p>
+<p>因为这些常量信息跟考勤模块息息相关，因此需要编写Java代码，在SpringBoot项目启动的时候，就去数据库读取这些常量信息，然后缓存成Java对象，全局都可以使用。</p>
+<h2 id="读取常量数据"><a href="#读取常量数据" class="headerlink" title="读取常量数据"></a>读取常量数据</h2><p>在<code>SysConfigMapper.xml</code>文件中声明查询语句，查询语句返回的类型为一个 pojo 类型，需要通过根标签进行指定。</p>
+<p>在 sys_config 表中查询 status = 1（即状态等于1）的常量，返回两个字段，一个是 param_key 即常量名，一个是 param_value 即常量值</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectAllParam&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;com.example.emos.wx.db.pojo.SysConfig&quot;</span>&gt;</span></span><br><span class="line">	SELECT param_key, param_value FROM sys_config WHERE status = 1;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>SysConfigMapper.java</code>这个接口中声明抽象方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@Entity</span> com.example.emos.wx.db.pojo.SysConfig</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SysConfigMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">SysConfig</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// pojo 类的类型作为 list 的泛型存在</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;SysConfig&gt; <span class="title">selectAllParam</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>持久层代码到此为止，接下来需要创建一个封装类，用这个封装类的对象保存所创建的持久层常量数据。</p>
+<p>在 config package 中创建<code>SystemConstants.java</code>常量封装类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span> <span class="comment">// 创建 set get 方法</span></span><br><span class="line"><span class="meta">@Component</span> <span class="comment">// 交给 Spring 框架管理</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SystemConstants</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 声明变量</span></span><br><span class="line">    <span class="keyword">public</span> String attendanceStartTime;</span><br><span class="line">    <span class="keyword">public</span> String attendanceTime;</span><br><span class="line">    <span class="keyword">public</span> String attendanceEndTime;</span><br><span class="line">    <span class="keyword">public</span> String closingStartTime;</span><br><span class="line">    <span class="keyword">public</span> String closingTime;</span><br><span class="line">    <span class="keyword">public</span> String closingEndTime;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在有了持久层读取数据的代码，也有了存储这些数据的封装类，下一步就是创建初始化方法，从而将持久层读取得到的数据放入这些封装类中。</p>
+<p>在主类，即<code>EmosWxApiApplication.java</code>文件中创建<code>init()</code>方法，读取常量数据并缓存。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@ServletComponentScan</span></span><br><span class="line"><span class="meta">@Slf4j</span> <span class="comment">// 通过日志输出异常消息</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmosWxApiApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SysConfigMapper sysConfigDao; <span class="comment">// 持有持久层对象</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SystemConstants constants;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(EmosWxApiApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;SysConfig&gt; list = sysConfigDao.selectAllParam(); <span class="comment">// 调用方法，保存数据</span></span><br><span class="line">        list.forEach(one-&gt;&#123;</span><br><span class="line">            <span class="comment">// 采用 Lambda 表达式，从封装对象中取得常量名</span></span><br><span class="line">            <span class="comment">// 将常量的名字保存到 key 变量上</span></span><br><span class="line">            String key = one.getParamKey();</span><br><span class="line">            <span class="comment">// 将常量名转为驼峰命名法</span></span><br><span class="line">            key = StrUtil.toCamelCase(key);</span><br><span class="line">            String value = one.getParamValue();</span><br><span class="line">            <span class="comment">// 通过反射为封装对象中的变量赋值，同时在设置反射时要处理异常</span></span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                <span class="comment">// 得到封装对象的 class,随后获得变量声明</span></span><br><span class="line">                Field field = constants.getClass().getDeclaredField(key);</span><br><span class="line">                <span class="comment">// 反射，为变量赋值</span></span><br><span class="line">                field.set(constants, value);</span><br><span class="line">            &#125;<span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                log.error(<span class="string">&quot;执行异常&quot;</span>, e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个 init 方法由后端项目自动执行，不需要小程序发送请求。其主要任务就是调用 DAO 的代码，查询常量数据，然后通过反射的方式对封装对象中的变量进行赋值。</p>
+<h1 id="封装检测当天是否可以签到（持久层）"><a href="#封装检测当天是否可以签到（持久层）" class="headerlink" title="封装检测当天是否可以签到（持久层）"></a>封装检测当天是否可以签到（持久层）</h1><h2 id="为什么要检测是否可以签到？"><a href="#为什么要检测是否可以签到？" class="headerlink" title="为什么要检测是否可以签到？"></a>为什么要检测是否可以签到？</h2><p>已知用户签到是有起止时间的，在考勤开始之前，用户是不能考勤签到的。同理，在当天考勤结束之后，用户也是不能考勤签到的。同时节假日也不能考勤，只有正常的工作日才能考勤签到。</p>
+<p><strong>如何判断当天是工作日还是节假日？</strong></p>
+<p>在数据库中有<code>tb_workday</code>和<code>tb_holidays</code>两张数据表，记录着哪天是工作日，哪天是休息日。</p>
+<p>Emos系统默认周一至周五为工作日，周六周日为休息日。但是这两张表不是把所有的工作日和休息日都记录下来，只是记录比较特殊的工作日或者休息日。比如说今年的中秋节是礼拜四，于是就把周五和周六设置成休息日，跟中秋节连成三连休，然后周日正常上班。这种特殊情况就需要记录下来。在<code>tb_workday</code>记录周日是工作日，在<code>tb_holidays</code>表中记录周五是休息日。这样Emos系统在中秋三连休期间不会执行考勤签到。</p>
+<h2 id="封装持久层代码"><a href="#封装持久层代码" class="headerlink" title="封装持久层代码"></a>封装持久层代码</h2><p><strong>查询特殊休息日</strong></p>
+<p>在<code>TbHolidaysMapper.xml</code>文件中，添加查询语句，来查询当前日期是否是特殊休息日。返回的字段为主键字段 id，由于特殊节假日往往只有一个，因此只取数据的第一条即可。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;searchTodayIsHolidays&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;Integer&quot;</span>&gt;</span></span><br><span class="line">	SELECT id FROM tb_holidays WHERE date=CURRENT_DATE LIMIT 1;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在对应的<code>TbHolidaysMapper.java</code>文件中，添加抽象方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TbHolidaysDao</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">searchTodayIsHolidays</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>查询特殊工作日</strong></p>
+<p>与上述操作一致，先是添加查询语句</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;com.example.emos.wx.db.mapper.TbWorkdayMapper&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;searchTodayIsWorkday&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;Integer&quot;</span>&gt;</span></span><br><span class="line">        SELECT id FROM tb_workday WHERE date = CURRENT_DATE LIMIT 1;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>添加抽象方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TbWorkdayDao</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">searchTodayIsWorkday</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>查询当天是否已经签到</strong></p>
+<p><code>tb_checkin</code>表记录已签到人员的信息，该表结构如下。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220129160831.png"></p>
+<p>Emos系统不仅要记录考勤的人员、时间，还要记录考勤人的地理坐标，然后根据疫情实时信息，判定用户所处的地区是新冠疫情的高危地区还是低风险地区，这部分功能会在后续部分实现。</p>
+<p>在<code>TbCheckinMapper.xml</code>文件中，添加查询语句</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;haveCheckin&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;HashMap&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;Integer&quot;</span>&gt;</span></span><br><span class="line">	SELECT id</span><br><span class="line">    FROM tb_checkin</span><br><span class="line">    WHERE user_id = #&#123;userId&#125; AND date = CURRENT_DATE</span><br><span class="line">	AND create_time BETWEEN #&#123;start&#125; AND #&#123;end&#125;</span><br><span class="line">    LIMIT 1;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>TbCheckinMapper.java</code>文件中，添加抽象方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TbCheckinDao</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">haveCheckin</span><span class="params">(HashMap param)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="封装当天是否可以签到（业务层）"><a href="#封装当天是否可以签到（业务层）" class="headerlink" title="封装当天是否可以签到（业务层）"></a>封装当天是否可以签到（业务层）</h1><p>在<code>com.example.emos.wx.service</code>包中，创建<code>CheckinService</code>接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CheckinService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">validCanCheckIn</span><span class="params">(<span class="keyword">int</span> userId, String date)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>com.example.emos.wx.service.impl</code>包中，创建<code>CheckinServiceImpl</code>实现类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="comment">// 多例注解，因为后续发送电子邮件还要用到该类，为了速度更快，需要创建多个对象</span></span><br><span class="line"><span class="meta">@Scope(&quot;prototype&quot;)</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CheckinServiceImpl</span> <span class="keyword">implements</span> <span class="title">CheckinService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 引用封装对象</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SystemConstants constants;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> TbHolidaysMapper holidaysDao;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> TbWorkdayMapper workdayDao;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> TbCheckinMapper checkinDao;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">validCanCheckin</span><span class="params">(<span class="keyword">int</span> userId, String date)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 若调用持久层查询方法，返回值不为空，说明当前日期是一个特殊节假日</span></span><br><span class="line">        <span class="keyword">boolean</span> bool_1 = holidaysDao.searchTodayIsHolidays() != <span class="keyword">null</span> ? <span class="keyword">true</span> : <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">boolean</span> bool_2 = workdayDao.searchTodayIsWorkday() != <span class="keyword">null</span> ? <span class="keyword">true</span> : <span class="keyword">false</span>;</span><br><span class="line">        String type = <span class="string">&quot;工作日&quot;</span>;</span><br><span class="line">        <span class="comment">// 判断当前是否是周末</span></span><br><span class="line">        <span class="keyword">if</span>(DateUtil.date().isWeekend()) &#123;</span><br><span class="line">            type = <span class="string">&quot;节假日&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(bool_1) &#123;</span><br><span class="line">            type = <span class="string">&quot;节假日&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(bool_2) &#123;</span><br><span class="line">            type = <span class="string">&quot;工作日&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 若 type 为节假日，则不需要考勤</span></span><br><span class="line">        <span class="keyword">if</span>(type.equals(<span class="string">&quot;节假日&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;节假日不需要考勤&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 若需要考勤，则判断当前时间能否考勤</span></span><br><span class="line">            DateTime now = DateUtil.date(); <span class="comment">// 创建当前日期对象</span></span><br><span class="line">            String start = DateUtil.today() + <span class="string">&quot; &quot;</span> + constants.attendanceStartTime; <span class="comment">// 当前日期字符串 + 考勤开始时间</span></span><br><span class="line">            String end = DateUtil.today() + <span class="string">&quot; &quot;</span> + constants.attendanceEndTime; <span class="comment">// 当前日期字符串 + 考勤结束时间</span></span><br><span class="line">            DateTime attendanceStart = DateUtil.parse(start); <span class="comment">// 创建开始时间和截止时间的 DateTime 对象，使用 parse 方法解析字符串</span></span><br><span class="line">            DateTime attendanceEnd = DateUtil.parse(end);</span><br><span class="line">            <span class="keyword">if</span>(now.isBefore(attendanceStart)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;尚未到考勤开始时间&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(now.isAfter(attendanceEnd)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;考勤时间已结束&quot;</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 查询是否重复考勤，查询数据表</span></span><br><span class="line">                HashMap map = <span class="keyword">new</span> HashMap();</span><br><span class="line">                map.put(<span class="string">&quot;userId&quot;</span>, userId);</span><br><span class="line">                map.put(<span class="string">&quot;date&quot;</span>, date);</span><br><span class="line">                map.put(<span class="string">&quot;start&quot;</span>, start);</span><br><span class="line">                map.put(<span class="string">&quot;end&quot;</span>, end);</span><br><span class="line">                <span class="keyword">boolean</span> bool = checkinDao.haveCheckin(map) != <span class="keyword">null</span> ? <span class="keyword">true</span> : <span class="keyword">false</span>; <span class="comment">// 若为空说明不存在考勤记录，不为空说明存在考勤记录</span></span><br><span class="line">                <span class="keyword">return</span> bool? <span class="string">&quot;今日已考勤，不需重复考勤&quot;</span> : <span class="string">&quot;可以考勤&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="封装检测当天是否可以签到（Web层）"><a href="#封装检测当天是否可以签到（Web层）" class="headerlink" title="封装检测当天是否可以签到（Web层）"></a>封装检测当天是否可以签到（Web层）</h1><p>在<code>com.example.emos.wx.controller</code>包中，创建<code>CheckinController</code>类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 分配请求的路径</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/checkin&quot;)</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Api(&quot;签到模块Web接口&quot;)</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CheckinController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JwtUtil jwtUtil;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 引用业务层</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CheckinService checkinService;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/validCanCheckin&quot;)</span></span><br><span class="line">    <span class="meta">@ApiOperation(&quot;查看用户今天能否签到&quot;)</span></span><br><span class="line">    <span class="comment">// 取出请求头中的令牌字符串，保存在 token 变量中</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> R <span class="title">validCanCheckin</span><span class="params">(<span class="meta">@RequestHeader(&quot;token&quot;)</span> String token)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 从令牌字符串中解析出 uesrId</span></span><br><span class="line">        <span class="keyword">int</span> userId = jwtUtil.getUserId(token);</span><br><span class="line">        <span class="comment">// 返回业务层的能否进行考勤签到的业务消息</span></span><br><span class="line">        String result = checkinService.validCanCheckin(userId, DateUtil.today());</span><br><span class="line">        <span class="comment">// 将业务消息绑定在 R 对象上</span></span><br><span class="line">        <span class="keyword">return</span> R.ok(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>无需创建 form 类，只有在客户端提交数据后才需要创建 form 类从请求体中提取消息，而该任务只需要判断当天是否需要签到，而没有接收来自客户端的消息，因此无需创建 form 类。</p>
+<p>目前尚未创建 shiro 的认证方法，而签到功能并不是 shiro 默认放行的，因此目前还无法通过 swagger 访问该 web 方法</p>
+<h1 id="实现-Shiro-认证功能"><a href="#实现-Shiro-认证功能" class="headerlink" title="实现 Shiro 认证功能"></a>实现 Shiro 认证功能</h1><h2 id="认证与授权执行流程"><a href="#认证与授权执行流程" class="headerlink" title="认证与授权执行流程"></a>认证与授权执行流程</h2><p>之前在配置Shiro+JWT的时候，Shiro的认证与授权的实现功能并没有完成。</p>
+<p>项目整体流程如下图所示，小程序首先通过 Ajax 提交数据给后端的 Java 项目，后端项目最先采用 XssFilter 接收请求，并对请求进行转义，之后就是 Shiro 处理请求。首先 Shiro 会调用 OAuth2Filter，判断请求头中是否包含令牌字符串，并判断令牌字符串是否合法、过期。若没有问题，则继续向下执行 OAuth2Realm 认证方法与授权方法，其中认证方法的返回结果就是一个认证对象。最后通过认证与授权之后，请求就会传递给 Web 方法。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220129194117.png"></p>
+<p>现在Controller中的<code>validCanCheckIn()</code>方法，并不是Shiro放行请求的Web方法。所以发送给<code>validCanCheckIn()</code>方法的请求一定会被Shiro拦截下来，先由<code>OAuth2Filter</code>检查请求头的Token是否合法。如果没问题，接下来就要由<code>OAuth2Realm</code>中的<code>doGetAuthenticationInfo()</code>方法来颁发认证对象。请求被赋予了认证对象，那么请求才会被发送到Web方法来执行。</p>
+<h2 id="查询用户信息"><a href="#查询用户信息" class="headerlink" title="查询用户信息"></a>查询用户信息</h2><p>因为在认证方法里面要返回认证对象，认证对象创建的时候要传入用户信息和令牌，因此在这里就要先查询用户信息，然后判断用户现在是在职还是离职状态。如果是在职状态，那就可以创建认证对象，反之就抛出异常。</p>
+<p>编辑<code>TbUserMapper.xml</code>文件，添加查询方法，利用用户 Id 来查询用户的全部字段信息</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;searchById&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;int&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;com.example.emos.wx.db.pojo.TbUser&quot;</span>&gt;</span></span><br><span class="line">	SELECT</span><br><span class="line">    	id, open_id, nickname, photo, name, sex, tel, role, root, dept_id, status, create_time</span><br><span class="line">    FROM tb_user WHERE id=#&#123;userId&#125; AND status = 1</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>编辑<code>TbUserMapper.java</code>接口，添加抽象方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> TbUser <span class="title">searchById</span><span class="params">(<span class="keyword">int</span> userId)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>编辑<code>UserService.java</code>接口，添加抽象方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> TbUser <span class="title">searchById</span><span class="params">(<span class="keyword">int</span> userId)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>编辑<code>UserServiceImpl.java</code>类，实现抽象方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> TbUser <span class="title">searchById</span><span class="params">(<span class="keyword">int</span> userId)</span> </span>&#123;</span><br><span class="line">	TbUser user = userDao.searchById(userId);</span><br><span class="line">    <span class="keyword">return</span> user;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="实现认证方法"><a href="#实现认证方法" class="headerlink" title="实现认证方法"></a>实现认证方法</h1><p>编辑<code>OAuth2Realm.java</code>文件，修改<code>doGetAuthenticationInfo()</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	* 认证方法，验证登录时调用</span></span><br><span class="line"><span class="comment">	* <span class="doctag">@param</span> token</span></span><br><span class="line"><span class="comment">	* <span class="doctag">@return</span> 认证对象</span></span><br><span class="line"><span class="comment">	* <span class="doctag">@throws</span> AuthenticationException</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> AuthenticationInfo <span class="title">doGetAuthenticationInfo</span><span class="params">(AuthenticationToken token)</span> <span class="keyword">throws</span> AuthenticationException </span>&#123;</span><br><span class="line">	<span class="comment">// 获取字符串形式的令牌</span></span><br><span class="line">	String accessToken = (String) token.getPrincipal();</span><br><span class="line">	<span class="comment">// 获取 userId</span></span><br><span class="line">	<span class="keyword">int</span> userId = jwtUtil.getUserId(accessToken);</span><br><span class="line">	<span class="comment">// 获得用户基本信息</span></span><br><span class="line">	TbUser user = userService.searchById(userId);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(user == <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> LockedAccountException(<span class="string">&quot;账号已被锁定，请联系管理员&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 将用户基本信息封装在认证对象中</span></span><br><span class="line">	SimpleAuthenticationInfo info = <span class="keyword">new</span> SimpleAuthenticationInfo(user, accessToken, getName()); <span class="comment">// 创建认证对象：若通过认证，则可以向 Shiro 框架返回一个认证对象，标记着用户已经成功登录了</span></span><br><span class="line">	<span class="keyword">return</span> info;</span><br></pre></td></tr></table></figure>
+
+<p>采用 Swagger 进行测试，返回消息如下图所示。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220129211913.png"></p>
+<h1 id="实现-Shiro-授权功能"><a href="#实现-Shiro-授权功能" class="headerlink" title="实现 Shiro 授权功能"></a>实现 Shiro 授权功能</h1><p>Shiro每次验证权限之前，都要执行授权方法，把用户具有的权限封装成权限对象，然后放行请求。之后Web方法的<code>@RequiresPermissions</code>注解，会从权限对象中提取权限数据，跟方法所要求的权限作比较。如果用户具有该Web方法要求的权限，那么Web方法就会正常执行。反之则返回异常消息。</p>
+<h2 id="实现授权方法"><a href="#实现授权方法" class="headerlink" title="实现授权方法"></a>实现授权方法</h2><p>修改<code>OAuth2Realm.java</code>中的<code>doGetAuthorizationInfo()</code>授权方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	* 授权方法，验证权限时调用</span></span><br><span class="line"><span class="comment">	* <span class="doctag">@param</span> collection</span></span><br><span class="line"><span class="comment">	* <span class="doctag">@return</span> 授权对象</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> AuthorizationInfo <span class="title">doGetAuthorizationInfo</span><span class="params">(PrincipalCollection collection)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 获得用户的基本信息</span></span><br><span class="line">	TbUser user = (TbUser) collection.getPrimaryPrincipal();</span><br><span class="line">	<span class="comment">// 提取用户的主键值</span></span><br><span class="line">	<span class="keyword">int</span> userId = user.getId();</span><br><span class="line">	<span class="comment">// 查询用户权限列表</span></span><br><span class="line">	Set&lt;String&gt; permsSet = userService.searchUserPermissions(userId);</span><br><span class="line">	SimpleAuthorizationInfo info = <span class="keyword">new</span> SimpleAuthorizationInfo(); <span class="comment">// 创建授权对象</span></span><br><span class="line">	<span class="comment">// 保存权限列表</span></span><br><span class="line">	info.setStringPermissions(permsSet);</span><br><span class="line">	<span class="keyword">return</span> info;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="添加权限验证注解"><a href="#添加权限验证注解" class="headerlink" title="添加权限验证注解"></a>添加权限验证注解</h2><p>在创建Web方法的时候，如果希望只有满足相关权限的用户才能调用这个Web方法，只需要给Web方法添加上<code>@RequiresPermissions</code>注解即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/addUser&quot;)</span></span><br><span class="line"><span class="meta">@ApiOperation(&quot;添加用户&quot;)</span></span><br><span class="line"><span class="comment">// 检查用户权限</span></span><br><span class="line"><span class="meta">@RequiresPermissions(value = &#123;&quot;ROOT&quot;,&quot;USER:ADD&quot;&#125;,logical = Logical.OR)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> R <span class="title">addUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> R.ok(<span class="string">&quot;用户添加成功&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用 Swagger 进行测试，若无令牌或令牌有错误，则输出页面如下：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220129221326.png"></p>
+<p>若输入令牌正确，则输出页面如下：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220129221558.png"></p>
+<p>当用户不具备相关权限时，输出页面如下：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220129221812.png"></p>
+
+      
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/" rel="tag"># 项目实战</a>
+              <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag"># 小程序</a>
+              <a href="/tags/Spring-Boot/" rel="tag"># Spring Boot</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/27/%E6%8E%92%E5%BA%8F%E6%96%B9%E6%B3%95/" rel="prev" title="排序方法">
+      <i class="fa fa-chevron-left"></i> 排序方法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/02/03/%E5%9C%A8%E7%BA%BF%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F7%EF%BC%9A%E4%BA%BA%E8%84%B8%E8%80%83%E5%8B%A4%E7%AD%BE%E5%88%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="next" title="办公系统 7. 人脸考勤签到（二）">
+      办公系统 7. 人脸考勤签到（二） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%B0%8F%E7%A8%8B%E5%BA%8F-Tab-%E5%AF%BC%E8%88%AA%E6%A0%8F"><span class="nav-number">1.</span> <span class="nav-text">创建小程序 Tab 导航栏</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B5%E9%9D%A2"><span class="nav-number">1.1.</span> <span class="nav-text">创建页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%88%86%E9%A1%B5%E5%AF%BC%E8%88%AA"><span class="nav-number">1.2.</span> <span class="nav-text">设置分页导航</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%B3%E8%BD%AC%E9%A6%96%E9%A1%B5"><span class="nav-number">1.3.</span> <span class="nav-text">跳转首页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">1.4.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%80%E9%80%9A%E8%85%BE%E8%AE%AF%E4%BA%91%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.</span> <span class="nav-text">开通腾讯云对象存储服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E4%B8%8A%E7%BD%91"><span class="nav-number">2.1.</span> <span class="nav-text">静态资源上网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E9%80%9A%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.2.</span> <span class="nav-text">开通服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90"><span class="nav-number">2.3.</span> <span class="nav-text">存储静态资源</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E9%A6%96%E9%A1%B5%E8%8B%B1%E9%9B%84%E5%8C%BA%E5%92%8C%E6%A0%8F%E7%9B%AE%E5%AF%BC%E8%88%AA"><span class="nav-number">3.</span> <span class="nav-text">设计首页英雄区和栏目导航</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E8%8B%B1%E9%9B%84%E5%8C%BA%E7%9A%84%E7%84%A6%E7%82%B9%E5%9B%BE"><span class="nav-number">3.1.</span> <span class="nav-text">设计英雄区的焦点图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E9%80%9A%E7%9F%A5%E6%A0%8F"><span class="nav-number">3.2.</span> <span class="nav-text">设计通知栏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%A0%8F%E7%9B%AE%E5%AF%BC%E8%88%AA"><span class="nav-number">3.3.</span> <span class="nav-text">创建栏目导航</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E4%BA%BA%E8%84%B8%E7%AD%BE%E5%88%B0%E9%A1%B5%E9%9D%A2"><span class="nav-number">4.</span> <span class="nav-text">设计人脸签到页面</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%B0%83%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%9B%B8%E6%9C%BA%EF%BC%9F"><span class="nav-number">4.1.</span> <span class="nav-text">如何调用系统相机？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E7%AD%BE%E5%88%B0%E9%A1%B5%E9%9D%A2"><span class="nav-number">4.2.</span> <span class="nav-text">设计签到页面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E7%AD%BE%E5%88%B0%E8%87%AA%E6%8B%8D%E5%8A%9F%E8%83%BD"><span class="nav-number">5.</span> <span class="nav-text">实现签到自拍功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%8D%E7%85%A7%E6%B5%81%E7%A8%8B"><span class="nav-number">5.1.</span> <span class="nav-text">拍照流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%B3%E8%BD%AC%E5%88%B0%E7%AD%BE%E5%88%B0%E9%A1%B5%E9%9D%A2"><span class="nav-number">5.2.</span> <span class="nav-text">跳转到签到页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%8B%8D%E7%85%A7%E5%92%8C%E9%87%8D%E6%8B%8D%E5%8A%9F%E8%83%BD"><span class="nav-number">5.3.</span> <span class="nav-text">实现拍照和重拍功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F%E5%B8%B8%E9%87%8F%E6%95%B0%E6%8D%AE"><span class="nav-number">6.</span> <span class="nav-text">缓存系统常量数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#EMOS-%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%B8%B8%E9%87%8F%E6%95%B0%E6%8D%AE"><span class="nav-number">6.1.</span> <span class="nav-text">EMOS 系统的常量数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E5%B8%B8%E9%87%8F%E6%95%B0%E6%8D%AE"><span class="nav-number">6.2.</span> <span class="nav-text">读取常量数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%81%E8%A3%85%E6%A3%80%E6%B5%8B%E5%BD%93%E5%A4%A9%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E7%AD%BE%E5%88%B0%EF%BC%88%E6%8C%81%E4%B9%85%E5%B1%82%EF%BC%89"><span class="nav-number">7.</span> <span class="nav-text">封装检测当天是否可以签到（持久层）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%A3%80%E6%B5%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E7%AD%BE%E5%88%B0%EF%BC%9F"><span class="nav-number">7.1.</span> <span class="nav-text">为什么要检测是否可以签到？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%81%E8%A3%85%E6%8C%81%E4%B9%85%E5%B1%82%E4%BB%A3%E7%A0%81"><span class="nav-number">7.2.</span> <span class="nav-text">封装持久层代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%81%E8%A3%85%E5%BD%93%E5%A4%A9%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E7%AD%BE%E5%88%B0%EF%BC%88%E4%B8%9A%E5%8A%A1%E5%B1%82%EF%BC%89"><span class="nav-number">8.</span> <span class="nav-text">封装当天是否可以签到（业务层）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%81%E8%A3%85%E6%A3%80%E6%B5%8B%E5%BD%93%E5%A4%A9%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E7%AD%BE%E5%88%B0%EF%BC%88Web%E5%B1%82%EF%BC%89"><span class="nav-number">9.</span> <span class="nav-text">封装检测当天是否可以签到（Web层）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0-Shiro-%E8%AE%A4%E8%AF%81%E5%8A%9F%E8%83%BD"><span class="nav-number">10.</span> <span class="nav-text">实现 Shiro 认证功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-number">10.1.</span> <span class="nav-text">认证与授权执行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF"><span class="nav-number">10.2.</span> <span class="nav-text">查询用户信息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95"><span class="nav-number">11.</span> <span class="nav-text">实现认证方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0-Shiro-%E6%8E%88%E6%9D%83%E5%8A%9F%E8%83%BD"><span class="nav-number">12.</span> <span class="nav-text">实现 Shiro 授权功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%8E%88%E6%9D%83%E6%96%B9%E6%B3%95"><span class="nav-number">12.1.</span> <span class="nav-text">实现授权方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81%E6%B3%A8%E8%A7%A3"><span class="nav-number">12.2.</span> <span class="nav-text">添加权限验证注解</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zodiacal</p>
+  <div class="site-description" itemprop="description">引出魔鬼的一种试炼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zodiacal</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">453k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:52</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

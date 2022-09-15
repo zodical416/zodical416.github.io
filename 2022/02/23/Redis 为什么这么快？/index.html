@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|EB Garamond:300,300italic,400,400italic,700,700italic|Source Code Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zodical416.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="忽然就流出泪来，忽然就想听到她的声音">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis 为什么这么快？">
+<meta property="og:url" content="https://zodical416.github.io/2022/02/23/Redis%20%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E5%BF%AB%EF%BC%9F/index.html">
+<meta property="og:site_name" content="Zodiacal">
+<meta property="og:description" content="忽然就流出泪来，忽然就想听到她的声音">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220223145130.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220223145323.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220223153026.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220223154103.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220223160058.png">
+<meta property="article:published_time" content="2022-02-23T08:04:03.269Z">
+<meta property="article:modified_time" content="2022-02-23T08:03:41.279Z">
+<meta property="article:author" content="Zodiacal">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="Redis">
+<meta property="article:tag" content="缓存">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220223145130.png">
+
+<link rel="canonical" href="https://zodical416.github.io/2022/02/23/Redis%20%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E5%BF%AB%EF%BC%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Redis 为什么这么快？ | Zodiacal</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zodiacal</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://zodical416.github.io/2022/02/23/Redis%20%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E5%BF%AB%EF%BC%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zodiacal">
+      <meta itemprop="description" content="引出魔鬼的一种试炼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zodiacal">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis 为什么这么快？
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-02-23 16:04:03 / 修改时间：16:03:41" itemprop="dateCreated datePublished" datetime="2022-02-23T16:04:03+08:00">2022-02-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+            <div class="post-description">忽然就流出泪来，忽然就想听到她的声音</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Redis-快的原因"><a href="#Redis-快的原因" class="headerlink" title="Redis 快的原因"></a>Redis 快的原因</h1><p>首先，Redis是一个单线程应用，所说的单线程指的是 Redis 使用单个线程处理客户端的请求。</p>
+<p>虽然Redis是单线程的应用，但是即便不通过部署多个 Redis 实例和集群的方式来提升系统吞吐， 从官网给出的数据可以看出，Redis处理速度依然非常快。</p>
+<p>Redis性能非常高的原因主要有以下几点：</p>
+<ul>
+<li>内存存储：Redis是使用内存(in-memeroy)存储,没有磁盘IO上的开销</li>
+<li>单线程实现：Redis使用单个线程处理请求，避免了多个线程之间线程切换和锁资源争用的开销</li>
+<li>非阻塞IO：Redis使用多路复用IO技术，在poll，epool，kqueue选择最优IO实现</li>
+<li>优化的数据结构：Redis有诸多可以直接应用的优化数据结构的实现，应用层可以直接使用原生的数据结构提升性能</li>
+</ul>
+<p>接下来将主要介绍非阻塞IO和优化的数据结构两部分</p>
+<h1 id="IO-多路复用"><a href="#IO-多路复用" class="headerlink" title="IO 多路复用"></a>IO 多路复用</h1><h2 id="什么是-IO-多路复用"><a href="#什么是-IO-多路复用" class="headerlink" title="什么是 IO 多路复用"></a>什么是 IO 多路复用</h2><p><strong>多进程</strong></p>
+<p>首先从多进程说起，对于常见的并发情况，假如一个线程不能处理，那么增加多个线程不就可以同时处理多个客户端连接了么？多线程这种方式的确可以解决了服务器在同一时间能处理多个客户端连接请求的问题，但是仍存在一些缺点：</p>
+<ul>
+<li>进程之间需要进行上下文切换，效率较低</li>
+<li>进程创建的数量随着连接请求的增加而增加，数量越多，开销越大</li>
+<li>进程与进程之间的地址空间是私有、独立的，使得进程之间的数据共享变得困难</li>
+</ul>
+<p><strong>多线程</strong></p>
+<p>线程是运行在进程上下文的逻辑流，一个进程可以包含多个线程，多个线程运行在同一进程上下文中，因此可共享这个进程地址空间的所有内容，解决了进程与进程之间通信难的问题。</p>
+<p>同时，由于一个线程的上下文要比一个进程的上下文小得多，所以线程的上下文切换，要比进程的上下文切换效率高得多。</p>
+<p><strong>IO 多路复用</strong></p>
+<ul>
+<li>多路：多个客户端连接（连接就是套接字描述符）</li>
+<li>复用：使用单进程就能够实现同时处理多个客户端的连接</li>
+</ul>
+<p>因此简单理解 IO 多路复用就是：一个服务端进程可以同时处理多个套接字描述符。如果通过增加进程和线程的数量来并发处理多个套接字，免不了上下文切换的开销，而 IO 多路复用只需要一个进程就能够处理多个套接字，从而解决了上下文切换的问题。</p>
+<p>其发展可以分 select-&gt;poll-&gt;epoll 三个阶段来描述。</p>
+<h2 id="如何简单理解-select-poll-epoll-呢？"><a href="#如何简单理解-select-poll-epoll-呢？" class="headerlink" title="如何简单理解 select/poll/epoll 呢？"></a>如何简单理解 select/poll/epoll 呢？</h2><blockquote>
+<p>举栗说明：</p>
+<p>领导分配员工开发任务，有些员工还没完成。如果领导要每个员工的工作都要验收 check，那在未完成的员工那里，只能阻塞等待，等待他完成之后，再去 check 下一位员工的任务，造成性能问题。</p>
+</blockquote>
+<p><strong>那如何解决这个问题呢？</strong></p>
+<p><strong>select</strong></p>
+<blockquote>
+<p>举栗说明：</p>
+<p>领导找个 Team Leader（后文简称 TL），负责代自己 check 每位员工的开发任务。TL 的做法是：遍历问各个员工“完成了么？”，完成的待 CR check 无误后合并到 Git 分支，对于其他未完成的，休息一会儿后再去遍历….</p>
+</blockquote>
+<p>这样存在什么问题呢？</p>
+<ul>
+<li>这个 TL 存在能力短板问题，最多只能管理 1024 个员工</li>
+<li>很多员工的任务没有完成，而且短时间内也完不成的话，TL 还是会不停的去遍历问询，影响效率。</li>
+</ul>
+<p>这个 TL 就是 select 函数，select 函数监视的文件描述符分 3 类，分别是 writefds、readfds、和 exceptfds。调用后 select 函数会阻塞，直到有描述符就绪（有数据可读、可写、或者有 except），或者超时（timeout 指定等待时间，如果立即返回设为 null 即可），函数返回。当 select 函数返回后，可以通过遍历 fdset，来找到就绪的描述符。</p>
+<p>select 具有良好的跨平台支持，其缺点在于单个进程能够监视的文件描述符的数量存在最大限制，在 Linux 上一般为 1024。</p>
+<p><strong>poll</strong></p>
+<blockquote>
+<p>举栗说明：</p>
+<p>换一个能力更强的 New Team Leader（后文简称 NTL），可以管理更多的员工，这个 NTL 可以理解为 poll。</p>
+</blockquote>
+<p>poll 改变了文件描述符集合的描述方式，使用了 pollfd 结构而不是 select 的 fd_set 结构，使得 poll 支持的文件描述符集合限制远大于 select 的 1024。</p>
+<p><strong>epoll</strong></p>
+<blockquote>
+<p>举栗说明：</p>
+<p>在上一步 poll 方式的 NTL 基础上，改进一下 NTL 的办事方法：遍历一次所有员工，如果任务没有完成，告诉员工待完成之后，其应该做 xx 操作（制定一些列的流程规范）。这样 NTL 只需要定期 check 指定的关键节点就好了。这就是 epoll。</p>
+</blockquote>
+<p>epoll 是 Linux 内核为处理大批量文件描述符而作了改进的 poll，是 Linux 下多路复用 IO 接口 select/poll 的增强版本，它能显著提高程序在大量并发连接中只有少量活跃的情况下的系统 CPU 利用率。</p>
+<p><strong>总结</strong></p>
+<ul>
+<li>select 就是轮询，在 Linux 上限制个数一般为 1024 个</li>
+<li>poll 解决了 select 的个数限制，但是依然是轮询</li>
+<li>epoll 解决了个数的限制，同时解决了轮询的方式</li>
+</ul>
+<h2 id="IO-多路复用在-Redis-中的应用"><a href="#IO-多路复用在-Redis-中的应用" class="headerlink" title="IO 多路复用在 Redis 中的应用"></a>IO 多路复用在 Redis 中的应用</h2><p>Redis 服务器是一个事件驱动程序， 服务器处理的事件分为时间事件和文件事件两类。</p>
+<ul>
+<li>文件事件：Redis 主进程中，主要处理客户端的连接请求与响应；</li>
+<li>时间事件：fork 出的子进程中，处理如 AOF 持久化任务等。</li>
+</ul>
+<p>尽管 Redis 的文件事件是单进程、单线程模型，但是却保持着优秀的吞吐量，IO 多路复用起到了主要作用。</p>
+<p>文件事件是对套接字操作的抽象，每当一个套接字准备好执行连接应答、写入、读取、关闭等操作时，就会产生一个文件事件。因为一个服务器通常会连接多个套接字，所以多个文件事件有可能会并发地出现。IO 多路复用程序负责监听多个套接字并向文件事件分派器传送那些产生了事件的套接字，文件事件分派器接收 IO 多路复用程序传来的套接字，并根据套接字产生的事件的类型，调用相应的事件处理器。其具体流程如下图所示。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220223145130.png"></p>
+<p>Redis 的 IO 多路复用程序的所有功能都是通过包装常见的 select、poll、evport 和 kqueue 这些 IO 多路复用函数库来实现的，每个 IO 多路复用函数库在 Redis 源码中都有对应的一个单独的文件。</p>
+<p>Redis 为每个 IO 多路复用函数库都实现了相同的 API，所以 IO 多路复用程序的底层实现是可以互换的。如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220223145323.png"></p>
+<p>Redis 把所有连接与读写事件、还有我们没提到的时间事件一起集中管理，并对底层 IO 多路复用机制进行了封装，最终实现了单进程能够处理多个连接以及读写事件。这就是 IO 多路复用在 redis 中的应用。</p>
+<h1 id="丰富高效的数据结构"><a href="#丰富高效的数据结构" class="headerlink" title="丰富高效的数据结构"></a>丰富高效的数据结构</h1><p>Redis 提供了丰富的数据结构，并且不同场景下提供不同实现。其共有 5 种基本的数据结构，它们分别是：string(字符串)、list(列表)、hash(字典)、set(集合) 和 zset(有序集合)。</p>
+<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p>Redis 中的字符串是一种 动态字符串，这意味着使用者可以修改，它的底层实现有点类似于 Java 中的 ArrayList，有一个字符数组。从源码中可以看到 Redis 底层对于字符串的定义为 SDS，即 Simple Dynamic String 结构。</p>
+<p>String 是 Redis 最简单最常用的数据结构，也是 Memcached 唯一的数据结构。在平时的开发中，String 可以说是使用最频繁的了。</p>
+<p>底层实现：</p>
+<ul>
+<li>如果一个字符串对象保存的是整数值， 并且这个整数值可以用 long 类型来表示， 那么字符串对象会将整数值保存在字符串对象结构的 ptr 属性里面（将 void* 转换成 long ）， 并将字符串对象的编码设置为 int 。</li>
+<li>如果字符串对象保存的是一个字符串值， 并且这个字符串值的长度大于 39 字节， 那么字符串对象将使用一个简单动态字符串（SDS）来保存这个字符串值， 并将对象的编码设置为 raw。</li>
+<li>如果字符串对象保存的是一个字符串值， 并且这个字符串值的长度小于等于 39 字节， 那么字符串对象将使用 embstr 编码的方式来保存这个字符串值。</li>
+</ul>
+<p>该数据结构可以包含任何数据,比如jpg图片或者序列化的对象,一个键最大能存储 512M</p>
+<p>应用场景：</p>
+<ul>
+<li>缓存功能：string 最常用的就是缓存功能，会将一些更新不频繁但是查询频繁的数据缓存起来，以此来减轻 DB 的压力。</li>
+<li>计数器：可以用来计数，通过 incr 操作，如统计网站的访问量、文章访问量等。</li>
+</ul>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p>Redis 的列表相当于 Java 语言中的 LinkedList，注意它是链表而不是数组。这意味着 list 的插入和删除操作非常快，时间复杂度为 O(1)，但是索引定位很慢，时间复杂度为 O(n)。</p>
+<p>底层实现：</p>
+<ul>
+<li>列表对象的编码可以是 ziplist 或者 linkedlist；</li>
+<li>列表对象保存的所有字符串元素的长度都小于 64 字节并且保存的元素数量小于 512 个，使用 ziplist 编码；否则使用 linkedlist。</li>
+</ul>
+<p>使用场景：</p>
+<ul>
+<li>消息队列：Redis 的 list 是有序的列表结构，可以实现阻塞队列，使用左进右出的方式。Lpush 用来生产 从左侧插入数据，Brpop 用来消费，用来从右侧弹出消费数据。</li>
+<li>数据的分页展示： lrange 命令需要两个索引来获取数据，这个就可以用来实现分页，可以在代码中计算两个索引值，然后来 redis 中取数据。</li>
+<li>可以用来实现粉丝列表以及最新消息排行等功能。</li>
+</ul>
+<h2 id="字典-Hash"><a href="#字典-Hash" class="headerlink" title="字典 Hash"></a>字典 Hash</h2><p>Redis 中的字典相当于 Java 中的 HashMap，内部实现也差不多类似，都是通过 “数组 + 链表” 的链地址法来解决部分 哈希冲突，同时这样的结构也吸收了两种不同数据结构的优点。</p>
+<p>底层实现：</p>
+<ul>
+<li>哈希对象的编码可以是 ziplist 或者 hashtable；</li>
+<li>哈希对象保存的所有键值对的键和值的字符串长度都小于 64 字节并且保存的键值对数量小于 512 个，使用ziplist 编码；否则使用hashtable。</li>
+</ul>
+<p>实际上 Redis 字典结构的内部包含两个 hashtable，通常情况下只有一个 hashtable 是有值的，但是在字典扩容缩容时，需要分配新的 hashtable，然后进行 渐进式搬迁</p>
+<p><strong>渐进式 rehash</strong></p>
+<p>大字典的扩容是比较耗时间的，需要重新申请新的数组，然后将旧字典所有链表中的元素重新挂接到新的数组下面，这是一个 O(n) 级别的操作，作为单线程的 Redis 很难承受这样耗时的过程，所以 Redis 使用 渐进式 rehash 小步搬迁：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220223153026.png"></p>
+<p>渐进式 rehash 会在 rehash 的同时，保留新旧两个 hash 结构，如上图所示，查询时会同时查询两个 hash 结构，然后在后续的定时任务以及 hash 操作指令中，循序渐进的把旧字典的内容迁移到新字典中。当搬迁完成了，就会使用新的 hash 结构取而代之。</p>
+<p><strong>扩缩容的条件</strong></p>
+<p>正常情况下，当 hash 表中 <strong>元素的个数等于第一维数组的长度时</strong>，就会开始扩容，扩容的新数组是 <strong>原数组大小的 2 倍</strong>。不过如果 Redis 正在做 bgsave(持久化命令)，为了减少内存，Redis 尽量不去扩容，但是如果 hash 表非常满了，达到了第一维数组长度的 5 倍了，这个时候就会 强制扩容。</p>
+<p>当 hash 表因为元素逐渐被删除变得越来越稀疏时，Redis 会对 hash 表进行缩容来减少 hash 表的第一维数组空间占用。所用的条件是 元素个数低于数组长度的 10%，缩容不会考虑 Redis 是否在做 bgsave。</p>
+<p><strong>应用场景：</strong></p>
+<ul>
+<li>Hash 更适合存储结构化的数据，比如 Java 中的对象；其实 Java 中的对象也可以用 string 进行存储，只需要将 对象 序列化成 json 串就可以，但是如果这个对象的某个属性更新比较频繁的话，那么每次就需要重新将整个对象序列化存储，这样消耗开销比较大。可如果用 hash 来存储 对象的每个属性，那么每次只需要更新要更新的属性就可以。</li>
+<li>购物车场景：可以以用户的id为key，商品的id 为存储的field，商品数量为键值对的value，这样就构成了购物车的三个要素。</li>
+</ul>
+<h2 id="集合-Set"><a href="#集合-Set" class="headerlink" title="集合 Set"></a>集合 Set</h2><p>Redis 的集合相当于 Java 语言中的 HashSet，它内部的键值对是无序、唯一的。它的内部实现相当于一个特殊的字典，字典中所有的 value 都是一个值 NULL。</p>
+<p>底层实现：</p>
+<ul>
+<li>集合对象的编码可以是 intset 或者 hashtable；</li>
+<li>集合对象保存的所有元素都是整数值并且保存的元素数量不超过 512 个，使用intset 编码；否则使用hashtable。</li>
+</ul>
+<p>应用场景：</p>
+<ul>
+<li>标签：可以将博客网站每个人的标签用 set 集合存储，然后还按每个标签将用户进行归并；</li>
+<li>存储好友/粉丝：set 具有去重功能；还可以利用set并集功能得到共同好友之类的功能。</li>
+</ul>
+<h2 id="有序列表-SortedSet-（zset）"><a href="#有序列表-SortedSet-（zset）" class="headerlink" title="有序列表 SortedSet （zset）"></a>有序列表 SortedSet （zset）</h2><p>这可能是 Redis 最具特色的一个数据结构了，它类似于 Java 中 SortedSet 和 HashMap 的结合体，一方面它是一个 set，保证了内部 value 的唯一性，另一方面它可以为每个 value 赋予一个 score 值，用来代表排序的权重。</p>
+<p>基本概念：</p>
+<p>有序集合和散列一样，都用于存储键值对：其中有序集合的每个键称为成员（member），都是独一无二的，而有序集合的每个值称为分值（score），都必须是浮点数，可以根据分数进行排序。有序集合是Redis里面唯一既可以根据成员访问元素（这一点和散列一样），又可以根据分值以及分值的排列顺序来访问元素的结构。和Redis的其他结构一样，用户可以对有序集合执行添加、移除和获取等操作。</p>
+<p><strong>底层实现：</strong></p>
+<p>该结构的内部实现用的是一种叫做 「跳跃表」 的数据结构，由于比较复杂，所以在这里仅仅简单提一下原理：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220223154103.png"></p>
+<p>想象你是一家创业公司的老板，刚开始只有几个人，大家都平起平坐。后来随着公司的发展，人数越来越多，团队沟通成本逐渐增加，渐渐地引入了组长制，对团队进行划分，于是有一些人又是员工又有组长的身份。</p>
+<p>再后来，公司规模进一步扩大，公司需要再进入一个层级：部门。于是每个部门又会从组长中推举一位选出部长。</p>
+<p>跳跃表就类似于这样的机制，最下面一层所有的元素都会串起来，都是员工，然后每隔几个元素就会挑选出一个代表，再把这几个代表使用另外一级指针串起来。然后再在这些代表里面挑出二级代表，再串起来。最终形成了一个金字塔的结构。</p>
+<p>应用场景：</p>
+<ul>
+<li>排行榜：有序集合最常用的场景。如新闻网站对热点新闻排序，比如根据点击量、点赞量等；</li>
+<li>带权重的消息队列：重要的消息 score 大一些，普通消息 score 小一些，可以实现优先级高的任务先执行。</li>
+</ul>
+<p>除了上述的五种基本数据结构外，Redis 还有三种高级数据结构，分别为 HyperLogLog、GEO、Bitmap和 BloomFilter</p>
+<h2 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h2><p>Redis HyperLogLog 是用来做基数统计的算法，HyperLogLog 的优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的空间总是固定的、并且是很小的。</p>
+<blockquote>
+<p>基数，可以理解为一个集合（这里的集合允许存在重复元素）中不重复元素的个数。例如集合{1,2,3,1,2}，它有5个元素，但它的基数/Distinct数为3。</p>
+</blockquote>
+<p>在 Redis 里面，每个 HyperLogLog 键只需要花费 12 KB 内存，就可以计算接近 2^64 个不同元素的基数。这和计算基数时，元素越多耗费内存就越多的集合形成鲜明对比。</p>
+<p>但是，因为 HyperLogLog 只会根据输入元素来计算基数，而不会储存输入元素本身，所以 HyperLogLog 不能像集合那样，返回输入的各个元素。</p>
+<p>应用场景：</p>
+<ul>
+<li>可以用来统计网站的登陆人数以及其他指标</li>
+</ul>
+<h2 id="GEO"><a href="#GEO" class="headerlink" title="GEO"></a>GEO</h2><p>主要用来存储地理位置信息，并对存储的信息进行操作。</p>
+<h2 id="Bitmap"><a href="#Bitmap" class="headerlink" title="Bitmap"></a>Bitmap</h2><p>BitMap，即位图，也就是 byte 数组，用二进制表示，只有 0 和 1 两个数字，底层使用SDS存储。</p>
+<p><strong>使用场景</strong></p>
+<ul>
+<li>日活跃用户：如果是日活跃用户的话只需要创建一个Bitmap即可，每个用户根据ID对应Bitmap中的一位，当某个用户满足活跃用户条件后，就在Bitmap中把标识此用户的位置为1。假设有1000W用户，那么只需要 1000W/8/1024/1024 差不多1.2M的空间，简直完美</li>
+<li>布隆过滤器：根据hash算法确定key要映射到哪些bit上(一般为多个,越多冲突越小)；setbit 将对应的bit全置为1；查询时同样先hash,如果对应的映射不是都为1则说明该key一定不存在，都为1则说明可能存在。</li>
+</ul>
+<p>由于具备了如此丰富高效的数据结构，Redis 对于特定 key 的操作过程就可以很容易的实现，也因此成就了 Redis 的高效：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220223160058.png"></p>
+
+      
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
+              <a href="/tags/Redis/" rel="tag"># Redis</a>
+              <a href="/tags/%E7%BC%93%E5%AD%98/" rel="tag"># 缓存</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/22/MySQL%20%E5%9F%BA%E7%A1%80%201/" rel="prev" title="MySQL 基础 1">
+      <i class="fa fa-chevron-left"></i> MySQL 基础 1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/02/25/HTTP%202.0%20/" rel="next" title="HTTP 2.0">
+      HTTP 2.0 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis-%E5%BF%AB%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">Redis 快的原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IO-%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">IO 多路复用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-IO-%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">什么是 IO 多路复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3-select-poll-epoll-%E5%91%A2%EF%BC%9F"><span class="nav-number">2.2.</span> <span class="nav-text">如何简单理解 select&#x2F;poll&#x2F;epoll 呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IO-%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E5%9C%A8-Redis-%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">2.3.</span> <span class="nav-text">IO 多路复用在 Redis 中的应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%B0%E5%AF%8C%E9%AB%98%E6%95%88%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">丰富高效的数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#String"><span class="nav-number">3.1.</span> <span class="nav-text">String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List"><span class="nav-number">3.2.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E5%85%B8-Hash"><span class="nav-number">3.3.</span> <span class="nav-text">字典 Hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88-Set"><span class="nav-number">3.4.</span> <span class="nav-text">集合 Set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8-SortedSet-%EF%BC%88zset%EF%BC%89"><span class="nav-number">3.5.</span> <span class="nav-text">有序列表 SortedSet （zset）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HyperLogLog"><span class="nav-number">3.6.</span> <span class="nav-text">HyperLogLog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GEO"><span class="nav-number">3.7.</span> <span class="nav-text">GEO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bitmap"><span class="nav-number">3.8.</span> <span class="nav-text">Bitmap</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zodiacal</p>
+  <div class="site-description" itemprop="description">引出魔鬼的一种试炼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zodiacal</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">453k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:52</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

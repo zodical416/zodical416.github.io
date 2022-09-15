@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|EB Garamond:300,300italic,400,400italic,700,700italic|Source Code Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zodical416.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="渤海深处写满了不甘">
+<meta property="og:type" content="article">
+<meta property="og:title" content="办公系统 5. 实现注册与登录">
+<meta property="og:url" content="https://zodical416.github.io/2022/01/25/%E5%9C%A8%E7%BA%BF%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F5%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%B3%A8%E5%86%8C%E4%B8%8E%E7%99%BB%E5%BD%95/index.html">
+<meta property="og:site_name" content="Zodiacal">
+<meta property="og:description" content="渤海深处写满了不甘">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220124102312.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220124103434.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220124140853.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220124140959.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220124160753.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220124160946.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220124161023.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220124161041.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220124161148.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220124162028.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220124165140.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220124165222.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220124170819.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220124225047.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220124224913.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220124225011.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220125121108.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220125121325.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220125210032.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220125215149.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220125221049.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220125221740.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220125222002.png">
+<meta property="article:published_time" content="2022-01-25T14:32:12.256Z">
+<meta property="article:modified_time" content="2022-01-29T14:23:45.656Z">
+<meta property="article:author" content="Zodiacal">
+<meta property="article:tag" content="项目实战">
+<meta property="article:tag" content="小程序">
+<meta property="article:tag" content="Spring Boot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220124102312.png">
+
+<link rel="canonical" href="https://zodical416.github.io/2022/01/25/%E5%9C%A8%E7%BA%BF%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F5%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%B3%A8%E5%86%8C%E4%B8%8E%E7%99%BB%E5%BD%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>办公系统 5. 实现注册与登录 | Zodiacal</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zodiacal</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://zodical416.github.io/2022/01/25/%E5%9C%A8%E7%BA%BF%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F5%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%B3%A8%E5%86%8C%E4%B8%8E%E7%99%BB%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zodiacal">
+      <meta itemprop="description" content="引出魔鬼的一种试炼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zodiacal">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          办公系统 5. 实现注册与登录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-25 22:32:12" itemprop="dateCreated datePublished" datetime="2022-01-25T22:32:12+08:00">2022-01-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-29 22:23:45" itemprop="dateModified" datetime="2022-01-29T22:23:45+08:00">2022-01-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">办公系统</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>20k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>18 分钟</span>
+            </span>
+            <div class="post-description">渤海深处写满了不甘</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="实现注册超级管理员功能（持久层）"><a href="#实现注册超级管理员功能（持久层）" class="headerlink" title="实现注册超级管理员功能（持久层）"></a>实现注册超级管理员功能（持久层）</h1><h2 id="判断系统是否已绑定超级管理员"><a href="#判断系统是否已绑定超级管理员" class="headerlink" title="判断系统是否已绑定超级管理员"></a>判断系统是否已绑定超级管理员</h2><p>本系统中只可以绑定唯一的超级管理员账号，所以在用户输入了<code>000000</code>这个激活码的时候，后端Java项目必须要判断是否可以绑定超级管理员。如果用户表中没有超级管理员记录，则可以绑定。否则就不能绑定超级管理员。</p>
+<p>通过SQL语句就能查询出来用户表是否存在超级管理员账号，只需要查询<code>root字段</code>值为1的记录数量就可以了。</p>
+<blockquote>
+<p>MySQL 中不能保存 boolean 型的字段，若设置为 boolean 字段类型将会自动变为 tinyint。因此此处以 tinyint 来表示 true 和 false，其中值为1时表示 true，为0时表示 false。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220124102312.png"></p>
+<p>通过 SQL 语句查询表中是否有 root 字段的值为1的记录，若有则表示数据表中已有超级管理员记录。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> IF (<span class="built_in">COUNT</span>(<span class="operator">*</span>),<span class="literal">TRUE</span>,<span class="literal">FALSE</span>) <span class="keyword">FROM</span> tb_user <span class="keyword">WHERE</span> root<span class="operator">=</span><span class="number">1</span>;</span><br><span class="line">#符合条件的记录数量用 <span class="built_in">COUNT</span>(<span class="operator">*</span>) 进行统计，返回的数据只有一个数字。通过 IF 语句自动将 <span class="number">0</span> 转为 <span class="literal">false</span>，<span class="number">1</span> 转为 <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>在 Navicat 中运行，得到结果为：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220124103434.png"></p>
+<p>将上述的 SQL 语句写入 <code>TbUserDao.xml</code> 文件中</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;haveRootUser&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;boolean&quot;</span>&gt;</span> </span><br><span class="line">	SELECT IF(COUNT(*),TRUE,FALSE) FROM tb_user WHERE root=1;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>TbUserMapper.java</code>文件中创建DAO方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TbUserDao</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">haveRootUser</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="保存用户数据"><a href="#保存用户数据" class="headerlink" title="保存用户数据"></a>保存用户数据</h2><p>假设业务层判定用户可以注册成为超级管理员，就需要把用户的数据保存在用户表，这就需要编写相关的SQL语句和DAO代码。</p>
+<p>在<code>TbUserMapper.xml</code>文件中写入下面的SQL语句，采用了 SQL 的方言写法。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;insert&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;HashMap&quot;</span>&gt;</span></span><br><span class="line">	INSERT INTO tb_user <span class="comment">&lt;!--向员工表插入记录--&gt;</span></span><br><span class="line">    SET <span class="comment">&lt;!--每个字段的值用 SET 关键字定义--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;openId!=null&quot;</span>&gt;</span></span><br><span class="line">    	open_id = #&#123;openId&#125;, <span class="comment">&lt;!--从 HashMap 中取出 openId参数，注意，在员工授权微信绑定账号之前，openId就是为空的--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;nickname!=null&quot;</span>&gt;</span></span><br><span class="line">    	nickname = #&#123;nickname&#125;,</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;photo!=null&quot;</span>&gt;</span></span><br><span class="line">    	photo = #&#123;photo&#125;,</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;name!=null&quot;</span>&gt;</span></span><br><span class="line">        name = #&#123;name&#125;,</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;sex!=null&quot;</span>&gt;</span></span><br><span class="line">        sex = #&#123;sex&#125;,</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;tel!=null&quot;</span>&gt;</span></span><br><span class="line">        tel = #&#123;tel&#125;,</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;email!=null&quot;</span>&gt;</span></span><br><span class="line">        email=#&#123;email&#125;,</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;hiredate!=null&quot;</span>&gt;</span></span><br><span class="line">        hiredate = #&#123;hiredate&#125;,</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    role = #&#123;role&#125;, <span class="comment">&lt;!--员工角色不能为空--&gt;</span></span><br><span class="line">    root = #&#123;root&#125;, <span class="comment">&lt;!--root 字段不能为空--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;deptName!=null&quot;</span>&gt;</span></span><br><span class="line">        dept_id = ( SELECT id FROM tb_dept WHERE dept_name = #&#123;deptName&#125; ), <span class="comment">&lt;!--根据部门名称查询部门编号--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    status = #&#123;status&#125;,</span><br><span class="line">    create_time = #&#123;createTime&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>TbUserMapper.java</code>文件中创建DAO方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TbUserDao</span> </span>&#123;</span><br><span class="line">    ……</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insert</span><span class="params">(HashMap param)</span></span>; <span class="comment">// 返回 int 数据：若插入成功，若插入成功则返回插入成功记录的条数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询用户-ID"><a href="#查询用户-ID" class="headerlink" title="查询用户 ID"></a>查询用户 ID</h2><p>由于设置了自增主键，因此不能得知主键值。因此需要编写代码，通过数据表中唯一的用户 openId 来查询得到主键值，即用户 ID</p>
+<p>在<code>TbUserMapper.xml</code>文件中写入下面的SQL语句</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;searchIdByOpenId&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;String&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;Integer&quot;</span>&gt;</span> <span class="comment">&lt;!--返回类型为Integer是为了防止返回null值，若写为int则无法保存--&gt;</span></span><br><span class="line">    SELECT id FROM tb_user WHERE open_id=#&#123;openId&#125; AND status = 1 <span class="comment">&lt;!--openId 等于传入参数，员工状态为1，代表有效员工--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在TbUserMapper.java文件中创建DAO方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span> </span>&#123;</span><br><span class="line">	……</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">searchIdByOpenId</span><span class="params">(String openId)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="实现注册超级管理员功能（业务层）"><a href="#实现注册超级管理员功能（业务层）" class="headerlink" title="实现注册超级管理员功能（业务层）"></a>实现注册超级管理员功能（业务层）</h1><p>业务层的代码经常随着需求变化而发生改变，若用户提出新的需求，将不会在原有业务层的实现类上进行代码的更改，而是从接口中派生出一个新的实现子类，在这样一个子类中定义新需求对应的代码。因此在设计业务层时需要先定义接口再定义实现类。</p>
+<blockquote>
+<p>设计持久层时，由于使用了 Mybatis，因此只需要定义接口，Mybatis 框架能够通过动态代理实现具体的实现类。</p>
+</blockquote>
+<h2 id="获取-OpenId"><a href="#获取-OpenId" class="headerlink" title="获取 OpenId"></a>获取 OpenId</h2><p>获取微信用户的<code>OpenId</code>，需要后端程序向微信平台发出请求，并上传若干相关参数，最终才能得到。</p>
+<p>发出请求的 URL 请求路径</p>
+<p><a target="_blank" rel="noopener" href="https://api.weixin.qq.com/sns/jscode2session">https://api.weixin.qq.com/sns/jscode2session</a></p>
+<p>请求参数</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220124140853.png"></p>
+<p>返回参数</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220124140959.png"></p>
+<p>在 SpringBoot 的 yml 配置文件中添加需要值注入的内容：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">wx:</span></span><br><span class="line">  <span class="attr">app-id:</span> <span class="string">wxea*********</span></span><br><span class="line">  <span class="attr">app-secret:</span> <span class="string">356c9*********</span></span><br></pre></td></tr></table></figure>
+
+<p>创建 com.example.emos.wx.service，并在其中创建UserService.java接口。之后创建com.example.emos.wx.service.impl，并在其中创建UserServiceImpl.java类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.emos.wx.service.impl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.hutool.http.HttpUtil;</span><br><span class="line"><span class="keyword">import</span> cn.hutool.json.JSONObject;</span><br><span class="line"><span class="keyword">import</span> cn.hutool.json.JSONUtil;</span><br><span class="line"><span class="keyword">import</span> com.example.emos.wx.db.mapper.TbUserMapper;</span><br><span class="line"><span class="keyword">import</span> com.example.emos.wx.db.pojo.TbUser;</span><br><span class="line"><span class="keyword">import</span> com.example.emos.wx.service.UserService;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Scope;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span> <span class="comment">// 声明该类是一个 bean，能够被其他类自动注入</span></span><br><span class="line"><span class="meta">@Slf4j</span> <span class="comment">// 使用日志服务</span></span><br><span class="line"><span class="meta">@Scope(&quot;prototype&quot;)</span> <span class="comment">// 业务类中用到令牌字符串，且令牌字符串的刷新功能需要用的 ThreadLocal，因此需要加该注解</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 值注入</span></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;wx.app-id&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String appId;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;wx.app-secret&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String appSecret;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 声明对 dao 的引用</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> TbUserMapper userDao;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getOpenId</span><span class="params">(String code)</span> </span>&#123;</span><br><span class="line">        String url = <span class="string">&quot;https://api.weixin.qq.com/sns/jscode2session&quot;</span>; <span class="comment">// 保存请求 url 地址</span></span><br><span class="line">        HashMap map = <span class="keyword">new</span> HashMap&lt;&gt;(); <span class="comment">// 保存提交的参数</span></span><br><span class="line">        map.put(<span class="string">&quot;appid&quot;</span>, appId);</span><br><span class="line">        map.put(<span class="string">&quot;secret&quot;</span>, appSecret);</span><br><span class="line">        map.put(<span class="string">&quot;js_code&quot;</span>, code);</span><br><span class="line">        map.put(<span class="string">&quot;grant_type&quot;</span>, <span class="string">&quot;authorization_code&quot;</span>);</span><br><span class="line">        String response = HttpUtil.post(url, map); <span class="comment">// 发送请求，返回的结果为字符串类型的响应，进行保存</span></span><br><span class="line">        JSONObject json = JSONUtil.parseObj(response); <span class="comment">// 将响应转换为 JSON 对象，从中提取 openId</span></span><br><span class="line">        String openId = json.getStr(<span class="string">&quot;openid&quot;</span>); <span class="comment">// 提取属性</span></span><br><span class="line">        <span class="keyword">if</span>(openId == <span class="keyword">null</span> || openId.length() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;临时登录凭证错误&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> openId;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现注册新用户的业务"><a href="#实现注册新用户的业务" class="headerlink" title="实现注册新用户的业务"></a>实现注册新用户的业务</h2><p>在<code>UserService</code>接口中添加抽象方法的声明</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">registerUser</span><span class="params">(String registerCode,String code,String nickname,String photo)</span></span>;</span><br><span class="line"><span class="comment">// 返回员工的主键值</span></span><br><span class="line"><span class="comment">// 输入参数分别为：激活码、临时授权码、微信账号昵称、头像url地址</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>UserServiceImpl</code>类中实现该抽象方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 接上文</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">registerUser</span><span class="params">(String registerCode, String code, String nickname, String photo)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 判断是否为超级管理员</span></span><br><span class="line">        <span class="keyword">if</span> (registerCode.equals(<span class="string">&quot;000000&quot;</span>)) &#123; <span class="comment">// 若是，则注册超级管理员</span></span><br><span class="line">            <span class="keyword">boolean</span> bool = userDao.haveRootUser(); <span class="comment">// 调用 dao 中的方法，判断是否存在超级管理员</span></span><br><span class="line">            <span class="keyword">if</span>(!bool) &#123; <span class="comment">// 若不存在超级管理员，则往数据表中插入超级管理员记录</span></span><br><span class="line">                String openId = getOpenId(code); <span class="comment">// 将临时授权字符串换为 openId</span></span><br><span class="line">                HashMap param = <span class="keyword">new</span> HashMap(); <span class="comment">// 向哈希表中保存数据</span></span><br><span class="line">                param.put(<span class="string">&quot;openId&quot;</span>, openId);</span><br><span class="line">                param.put(<span class="string">&quot;nicknmae&quot;</span>, nickname);</span><br><span class="line">                param.put(<span class="string">&quot;photo&quot;</span>, photo);</span><br><span class="line">                param.put(<span class="string">&quot;role&quot;</span>, <span class="string">&quot;[0]&quot;</span>); <span class="comment">// 用户角色，超级管理员设置为 0，由于用户可能有多种角色，因此设置成数组形式</span></span><br><span class="line">                param.put(<span class="string">&quot;status&quot;</span>, <span class="number">1</span>);</span><br><span class="line">                param.put(<span class="string">&quot;creatTime&quot;</span>, <span class="keyword">new</span> Date()); <span class="comment">// 创建时间</span></span><br><span class="line">                param.put(<span class="string">&quot;root&quot;</span>, <span class="keyword">true</span>); <span class="comment">// 保存到表中的字段值就是1</span></span><br><span class="line">                userDao.insert(param); <span class="comment">// 交给 UserDao 插入</span></span><br><span class="line">                <span class="keyword">int</span> id = userDao.searchIdByOpenId(openId); <span class="comment">// 根据 openId 查找用户的主键值</span></span><br><span class="line">                <span class="keyword">return</span> id;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> EmosException(<span class="string">&quot;已存在管理员，无法绑定账号&quot;</span>); <span class="comment">// 若存在超级管理员，则抛出异常</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123; <span class="comment">// 若不是，则注册普通员工</span></span><br><span class="line">            <span class="comment">// TODO</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="RABC-权限模型"><a href="#RABC-权限模型" class="headerlink" title="RABC 权限模型"></a>RABC 权限模型</h1><p>用户注册成功之后，需要向客户端返回令牌字符串与用户的权限列表，这样客户端就能够通过权限列表判断用户能够看到什么样的权限内容、执行什么样的操作。在本项目中，采用 RBAC 权限模型授予权限。</p>
+<h2 id="什么是-RBAC-权限模型？"><a href="#什么是-RBAC-权限模型？" class="headerlink" title="什么是 RBAC 权限模型？"></a>什么是 RBAC 权限模型？</h2><p>RBAC的基本思想是，对系统操作的各种权限不是直接授予具体的用户，而是在用户集合与权限集合之间建立一个角色集合。每一种角色对应一组相应的权限。一旦用户被分配了适当的角色后，该用户就拥有此角色的所有操作权限。这样做的好处是，不必在每次创建用户时都进行分配权限的操作，只要分配用户相应的角色即可，而且角色的权限变更比用户的权限变更要少得多，这样将简化用户的权限管理，减少系统的开销。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220124160753.png"></p>
+<p>RBAC模型中的权限是由模块和行为合并在一起而产生的，在MySQL中，有<code>模块表（tb_module）</code>和<code>行为表（tb_action）</code>，这两张表的记录合并在一起就行程了权限记录，保存在<code>权限表（tb_permission）</code>中。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220124160946.png"></p>
+<p>例如模块表中有用户、员工、部门等模块，行为表中有添加、删除等行为，那么添加用户这个操作在权限表中就表现为 1-1，删除用户就表现为 1-2，以此类推。</p>
+<p>模块表：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220124161023.png"></p>
+<p>行为表：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220124161041.png"></p>
+<p>权限表：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220124161148.png"></p>
+<p>接下来就是将权限关联到角色中，传统的方法是再利用一张交叉表，该表专门负责记录角色所拥有的权限。但是由于 <code>MySQL 5.7</code> 中引入了 JSON 数据类型，并且支持索引。因此可以直接在角色表中加入类型为 JSON 的 permissions 字段，利用数组来记录角色关联的权限。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220124162028.png"></p>
+<p>由于之前在用户表上设置了 role 字段，类型为 JSON，因此就可以通过该字段将角色赋予用户了。</p>
+<h2 id="前后端权限验证"><a href="#前后端权限验证" class="headerlink" title="前后端权限验证"></a>前后端权限验证</h2><p>前后端都需要进行权限验证。后端的权限验证可以交给Shiro框架，但是移动端没有权限验证框架，所以需要我们自己封装函数来验证权限。每个页面在进行渲染时，先判断用户拥有什么权限，然后根据权限控制渲染的内容。比如说普通员工没有添加新员工的权限，所以界面上就不能出现添加按钮。</p>
+<p>移动端做权限判断的前提是必须有当前用户的<code>权限列表</code>，这个权限列表是用户<code>登陆成功</code>或者<code>注册成功</code>之后，后端的Java项目返回给移动端的，移动端会自动将其保存到本地的<code>Storage</code>里面。</p>
+<h2 id="查询用户的权限列表"><a href="#查询用户的权限列表" class="headerlink" title="查询用户的权限列表"></a>查询用户的权限列表</h2><p>SQL 中关于 JSON 的基本操作：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">JSON_ARRAY</span>(<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>) #创建 JSON 数组</span><br><span class="line"><span class="keyword">SELECT</span> JSON_CONTAINS(<span class="built_in">JSON_ARRAY</span>(<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>), &quot;100&quot;) #判断JSON数组中是否包含某个元素</span><br></pre></td></tr></table></figure>
+<p>接下来是一个查询权限的例子，用户表中随便填入一个用户，其角色设置为 0 和 1，通过下方的 SQL 语句能够查出其角色名称为 总经理 和 超级管理员</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220124165140.png"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> r.role_name # 返回的字段</span><br><span class="line"><span class="keyword">FROM</span> tb_user u</span><br><span class="line"><span class="keyword">JOIN</span> tb_role r <span class="keyword">ON</span> JSON_CONTAINS(u.role, <span class="built_in">CAST</span>(r.id <span class="keyword">AS</span> <span class="type">CHAR</span>)) # 连接的条件：用户表中role字段存在的元素必须是role表中的ID，那么就拿 role 表中的主键判断这个主键是否存在于 u 表中的 role 字段中</span><br><span class="line"><span class="keyword">WHERE</span> u.id<span class="operator">=</span><span class="number">1</span> <span class="keyword">AND</span> u.status<span class="operator">=</span><span class="number">1</span>; # 查询的条件：用户id为<span class="number">1</span>且必须在职</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220124165222.png"></p>
+<p>查出角色之后，还需要继续查询这两个角色的权限列表，因此需要再做一个表连接</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> p.permission_name # 返回的字段，通过<span class="keyword">DISTINCT</span>关键字去重，因为关联的两个角色查询出的权限可能重复</span><br><span class="line"><span class="keyword">FROM</span> tb_user u</span><br><span class="line"><span class="keyword">JOIN</span> tb_role r <span class="keyword">ON</span> JSON_CONTAINS(u.role, <span class="built_in">CAST</span>(r.id <span class="keyword">AS</span> <span class="type">CHAR</span>)) # 通过用户表的role，查询得到role表中的id，再通过id返回不同用户的角色</span><br><span class="line"><span class="keyword">JOIN</span> tb_permission p <span class="keyword">ON</span> JSON_CONTAINS(r.permissions, <span class="built_in">CAST</span>(p.id <span class="keyword">AS</span> <span class="type">CHAR</span>)) # 通过role表的permissions，查询得到授权表中的id，再通过id返回不同角色的权限名</span><br><span class="line"><span class="keyword">WHERE</span> u.id<span class="operator">=</span>用户ID <span class="keyword">AND</span> u.status<span class="operator">=</span><span class="number">1</span>; # 查询的条件：用户id为<span class="number">1</span>且必须在职</span><br></pre></td></tr></table></figure>
+
+<p>以下为用户ID是1时所查出的用户权限：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220124170819.png"></p>
+<p>在 TbUserMapper.xml 中添加上述的 SQL 语句，用来查询用户的权限列表</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;searchUserPermissions&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;int&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;String&quot;</span>&gt;</span></span><br><span class="line">    SELECT DISTINCT p.permission_name</span><br><span class="line">    FROM tb_user u</span><br><span class="line">    JOIN tb_role r ON JSON_CONTAINS(u.role, CAST(r.id AS CHAR))</span><br><span class="line">    JOIN tb_permission p ON JSON_CONTAINS(r.permissions, CAST(p.id AS CHAR))</span><br><span class="line">    WHERE u.id=#&#123;userId&#125; AND u.status=1;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>TbUserMapper.java</code>接口中声明<code>searchUserPermissions()</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Set&lt;String&gt; <span class="title">searchUserPermissions</span><span class="params">(<span class="keyword">int</span> userId)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>UserService.java</code>接口中声明<code>searchUserPermissions()</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Set&lt;String&gt; <span class="title">searchUserPermissions</span><span class="params">(<span class="keyword">int</span> userId)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>UserServiceImpl.java</code>接口中实现<code>searchUserPermissions()</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Set&lt;String&gt; <span class="title">searchUserPermissions</span><span class="params">(<span class="keyword">int</span> userId)</span> </span>&#123;</span><br><span class="line">	Set&lt;String&gt; permissions=userDao.searchUserPermissions(userId);</span><br><span class="line">    <span class="keyword">return</span> permissions;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="实现注册超级管理员功能（Web-层）"><a href="#实现注册超级管理员功能（Web-层）" class="headerlink" title="实现注册超级管理员功能（Web 层）"></a>实现注册超级管理员功能（Web 层）</h1><h2 id="创建表单类"><a href="#创建表单类" class="headerlink" title="创建表单类"></a>创建表单类</h2><p>接收移动端提交的注册请求时，需要用表单类来封装数据，所以需要创建<code>RegisterForm.java</code>类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.emos.wx.controller.form;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io.swagger.annotations.ApiModel;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.validation.constraints.NotBlank;</span><br><span class="line"><span class="keyword">import</span> javax.validation.constraints.Pattern;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@ApiModel</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegisterForm</span> </span>&#123;</span><br><span class="line">    <span class="meta">@NotBlank(message = &quot;注册码不能为空&quot;)</span> <span class="comment">// 不能为空</span></span><br><span class="line">    <span class="meta">@Pattern(regexp = &quot;^[0-9]&#123;6&#125;$&quot;, message = &quot;注册码必须为6位数字&quot;)</span> <span class="comment">// 正则表达式，要求字符串内容必须为六位数字</span></span><br><span class="line">    <span class="keyword">private</span> String registerCode;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotBlank(message = &quot;微信临时授权不能为空&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String code;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotBlank(message = &quot;昵称不能为空&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String nickname;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotBlank(message = &quot;头像不能为空&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String photo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建-Controller-类"><a href="#创建-Controller-类" class="headerlink" title="创建 Controller 类"></a>创建 Controller 类</h2><p>需要 Controller 类处理移动端提交的请求，因此需要创建 <code>UserController.java</code> 类。</p>
+<blockquote>
+<p>业务层采用了先定义接口、再声明实现类的做法，而 Web 层却没有这么做，这是因为业务层的需求经常变化，而 Web 层的变化通常不大，所以可以直接定义具体类。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.emos.wx;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.emos.wx.common.util.R;</span><br><span class="line"><span class="keyword">import</span> com.example.emos.wx.config.shiro.JwtUtil;</span><br><span class="line"><span class="keyword">import</span> com.example.emos.wx.controller.form.RegisterForm;</span><br><span class="line"><span class="keyword">import</span> com.example.emos.wx.service.UserService;</span><br><span class="line"><span class="keyword">import</span> io.swagger.annotations.Api;</span><br><span class="line"><span class="keyword">import</span> io.swagger.annotations.ApiOperation;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.core.RedisTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PostMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.validation.Valid;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/user&quot;)</span> <span class="comment">// 用于给 java 类分配请求路径</span></span><br><span class="line"><span class="meta">@Api(&quot;用户模块Web接口&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserService userService; <span class="comment">// 引用业务层</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JwtUtil jwtUtil;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisTemplate redisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;emos.jwt.cache-expire&#125;&quot;)</span> <span class="comment">// 值注入</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> cacheExpire; <span class="comment">// 过期时间</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *  私有的在 Redis 中缓存数据的方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">saveCacheToken</span><span class="params">(String token,<span class="keyword">int</span> userId)</span> </span>&#123;</span><br><span class="line">        redisTemplate.opsForValue().set(token, userId + <span class="string">&quot;&quot;</span>, cacheExpire, TimeUnit.DAYS); <span class="comment">// opsForValue 方法意味着往 redis 中保存的数据是一个字符串,key 是 token，value 是 userId，并加上过期时间与时间单位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 公有的注册方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/register&quot;)</span> <span class="comment">// 为方法设置访问路径</span></span><br><span class="line">    <span class="meta">@ApiOperation(&quot;注册用户&quot;)</span> <span class="comment">// 为 Swgger 设置</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> R <span class="title">register</span><span class="params">(<span class="meta">@Valid</span> <span class="meta">@RequestBody</span> RegisterForm form)</span> </span>&#123; <span class="comment">// valid 注解完成后端验证，requestbody 为请求体</span></span><br><span class="line">        <span class="keyword">int</span> id = userService.registerUser(form.getRegisterCode(), form.getCode(), form.getNickname(), form.getPhoto()); <span class="comment">// 传入表单中的用户注册信息，返回用户在数据库中的自增主键ID</span></span><br><span class="line">        String token = jwtUtil.creatToken(id); <span class="comment">// 根据用户的主键值生成令牌字符串</span></span><br><span class="line">        Set&lt;String&gt; permsSet = userService.searchUserPermissions(id); <span class="comment">// 根据用户id查询用户对应的权限列表</span></span><br><span class="line">        saveCacheToken(token, id); <span class="comment">// 缓存令牌</span></span><br><span class="line">        <span class="keyword">return</span> R.ok(<span class="string">&quot;用户注册成功&quot;</span>).put(<span class="string">&quot;token&quot;</span>, token).put(<span class="string">&quot;permission&quot;</span>, permsSet); <span class="comment">// 返回R对象，并在其中放入token和权限列表</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试注册超级管理员"><a href="#测试注册超级管理员" class="headerlink" title="测试注册超级管理员"></a>测试注册超级管理员</h2><p>在 Swagger 页面中测试 User-Controller 类中的用户注册方法：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220124225047.png"></p>
+<p>注册成功：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220124224913.png"></p>
+<p>tb_user 表中也已经显示了数据：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220124225011.png"></p>
+<p>注意，由于微信更改了开发者手册，所以为了能够获取临时授权信息，需要重构小程序开发工具中的 register.vue 页面。</p>
+<h1 id="定义全局路径和封装-Ajax（移动端）"><a href="#定义全局路径和封装-Ajax（移动端）" class="headerlink" title="定义全局路径和封装 Ajax（移动端）"></a>定义全局路径和封装 Ajax（移动端）</h1><p>在移动端项目中把后端所有 Web 方法的请求路径都集中在一起，并定义成全局路径，非常便于管理和维护。后端 Java 项目返回的响应有多种状态，例如用户未登录、用户权限不够、后端异常等等，在编写 Ajax 代码时，如果需要分别处理这些响应的问题，会十分麻烦，因此应该封装提交 Ajax 请求的代码，</p>
+<h2 id="封装全局路径"><a href="#封装全局路径" class="headerlink" title="封装全局路径"></a>封装全局路径</h2><p>上节课我们创建好了后端的<code>register</code>方法，那么移动端发出请求时首先就需要填写好URL地址。为了在移动端项目上集中管理URL路径，可以在<code>main.js</code>文件中用全局变量的语法，定义全局的URL地址，这样更加便于项目的维护。</p>
+<p>在 main.js 文件中，代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123; <span class="comment">// 创建 vue 对象，需要绑定变量</span></span><br><span class="line">    ...App</span><br><span class="line">&#125;)</span><br><span class="line">app.$mount()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> baseUrl=<span class="string">&quot;http://192.168.1.10:8080/emos-wx-api&quot;</span></span><br><span class="line">Vue.prototype.url=&#123;</span><br><span class="line">	<span class="attr">register</span>:baseUrl+<span class="string">&quot;/user/register&quot;</span> <span class="comment">// baseUrl + 相对地址</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="封装-Ajax"><a href="#封装-Ajax" class="headerlink" title="封装 Ajax"></a>封装 Ajax</h2><p>移动端通过 Ajax 向服务端提交请求，然后接收到的响应分若干种情况：</p>
+<ul>
+<li>如果用户没有登录系统，就跳转到登录页面。</li>
+<li>如果用户权限不够，就显示提示信息。</li>
+<li>如果后端出现异常，就提示异常信息。</li>
+<li>如果后端验证令牌不正确，就提示信息。</li>
+<li>如果后端正常处理请求，还要判断响应中是否有Token。如果令牌刷新了，还要在本地存储Token。</li>
+</ul>
+<p>如果移动端每次发出 Ajax ，都要做进行如此大量的判断，就会需要大量的重复劳动。所以需要尽可能地把Ajax封装起来，减少重复性的劳动。</p>
+<p>由于希望封装的 Ajax 在每一个页面都可以调用，因此往 Vue 对象上绑定一个全局的方法，命名为 ajax</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Vue.prototype.ajax = <span class="function"><span class="keyword">function</span>(<span class="params">url, method, data, fun</span>) </span>&#123; <span class="comment">// Ajax 方法，包含四个参数：请求地址、请求类型（get/post）、上传的数据、匿名函数（即移动端想要做的事情）</span></span><br><span class="line">	uni.request(&#123; <span class="comment">// uni:跨平台对象，会自动根据平台翻译为不同的对象</span></span><br><span class="line">		<span class="string">&quot;url&quot;</span>：url;</span><br><span class="line">		<span class="string">&quot;method&quot;</span>:method;</span><br><span class="line">		<span class="string">&quot;header&quot;</span>:&#123; <span class="comment">// 请求头，从本地的 Storage 中取出</span></span><br><span class="line">			<span class="attr">token</span>:uni.getStorageSync(<span class="string">&quot;token&quot;</span>) <span class="comment">// 采用同步方法调用，得到 Stroage 中保存的数据</span></span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="string">&quot;data&quot;</span>:data,</span><br><span class="line">		<span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">resp</span>)</span>&#123; <span class="comment">// 定义回调，参数 resp 代表接收的响应</span></span><br><span class="line">			<span class="keyword">if</span>(resp.statusCode==<span class="number">401</span>)&#123; <span class="comment">// 代表用户未登录</span></span><br><span class="line">				uni.redirectTo(&#123;</span><br><span class="line">					<span class="attr">url</span>:<span class="string">&quot;/pages/login/login.vue&quot;</span> <span class="comment">// 跳转回登录页面</span></span><br><span class="line">				&#125;)</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(resp.statusCode==<span class="number">200</span>&amp;&amp;resp.data.code==<span class="number">200</span>)&#123; <span class="comment">// 若 http 状态码与业务状态码均为200，说明后端项目正常处理了请求</span></span><br><span class="line">				<span class="keyword">let</span> data=resp.data <span class="comment">// 保存响应中的数据</span></span><br><span class="line">				<span class="keyword">if</span>(data.hasOwnProperty(<span class="string">&quot;token&quot;</span>))&#123; <span class="comment">// 判断数据中是否包含某一个属性</span></span><br><span class="line">					<span class="keyword">let</span> token=data.token</span><br><span class="line">					<span class="built_in">console</span>.log(token)</span><br><span class="line">					uni.setStorageSync(<span class="string">&quot;token&quot;</span>, token) <span class="comment">// 将 token 存入storage中</span></span><br><span class="line">				&#125;</span><br><span class="line">				<span class="comment">// 后端项目正常处理了请求，可以执行匿名函数</span></span><br><span class="line">				fun(resp) <span class="comment">// 向匿名函数中传入响应对象</span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				uni.showToast(&#123; <span class="comment">// 显示异常消息</span></span><br><span class="line">					<span class="attr">icon</span>:<span class="string">&quot;none&quot;</span>, <span class="comment">// 消息无图标</span></span><br><span class="line">					<span class="attr">title</span>:resp.data <span class="comment">// 显示响应的内容</span></span><br><span class="line">				&#125;)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="完成注册超级管理员功能（移动端）"><a href="#完成注册超级管理员功能（移动端）" class="headerlink" title="完成注册超级管理员功能（移动端）"></a>完成注册超级管理员功能（移动端）</h1><h2 id="前端验证功能"><a href="#前端验证功能" class="headerlink" title="前端验证功能"></a>前端验证功能</h2><p>向后端提交数据之前，必须先要做好前端的数据验证，比如说验证激活码必须是6位数字。这部分验证功能需要在 register.vue 文件中实现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">register: function() &#123;</span><br><span class="line">	let that = this; // 在回调函数外，this 指代当前的 vue 对象，而在回调函数内部，this 不再指代vue对象，因此需要先把this保存到变量中</span><br><span class="line">	// 验证激活码是否正确</span><br><span class="line">	if (that.registerCode == null || that.registerCode.length == 0) &#123;</span><br><span class="line">		uni.showToast(&#123;</span><br><span class="line">			icon: &#x27;none&#x27;,</span><br><span class="line">			title: &#x27;邀请码不能为空&#x27;</span><br><span class="line">		&#125;);</span><br><span class="line">		return; // 提前结束</span><br><span class="line">	&#125; else if (/^[0-9]&#123;6&#125;$/.test(that.registerCode) == false) &#123; // 将激活码与正则表达式进行比较</span><br><span class="line">		uni.showToast(&#123;</span><br><span class="line">			icon: &#x27;none&#x27;,</span><br><span class="line">			title: &#x27;邀请码必须是6位数字&#x27;</span><br><span class="line">		&#125;);</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="提交-Ajax-请求"><a href="#提交-Ajax-请求" class="headerlink" title="提交 Ajax 请求"></a>提交 Ajax 请求</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">let data = &#123;</span><br><span class="line">	code: that.code,</span><br><span class="line">	nickname: nickName, // nickname需要与后端form类中的属性保持一致</span><br><span class="line">	photo: avatarUrl,</span><br><span class="line">	registerCode: that.registerCode</span><br><span class="line">&#125;;</span><br><span class="line">// 调用之前在 main.js 中定义的 ajax 方法，发送 ajax 请求，将数据提交给后端的 java 项目</span><br><span class="line">that.ajax(that.url.register, &#x27;POST&#x27;, data, function(resp) &#123;</span><br><span class="line">	let permission = resp.data.permission; // 通过匿名函数接收响应，获取响应中的权限列表</span><br><span class="line">	// let token = resp.data.token;</span><br><span class="line">	// uni.setStorageSync(&#x27;token&#x27;, token);</span><br><span class="line">	uni.setStorageSync(&#x27;permission&#x27;, permission); // 将权限列表保存到本地的 Storage中</span><br><span class="line">	console.log(permission)</span><br><span class="line">	// 注册成功之后连带判断登录成功，跳转到 index 页面</span><br><span class="line">	// uni.switchTab(&#123;</span><br><span class="line">	// 	url: &#x27;../index/index&#x27;</span><br><span class="line">	// &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="验证注册超级管理员功能"><a href="#验证注册超级管理员功能" class="headerlink" title="验证注册超级管理员功能"></a>验证注册超级管理员功能</h2><p>扫码输入<code>000000</code>邀请码后，在开发者工具中的输出为：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220125121108.png"></p>
+<p>Navicat 显示表中增加一条记录：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220125121325.png"></p>
+<h1 id="实现用户登录功能（持久层-amp-业务层）"><a href="#实现用户登录功能（持久层-amp-业务层）" class="headerlink" title="实现用户登录功能（持久层&amp;业务层）"></a>实现用户登录功能（持久层&amp;业务层）</h1><p>在完成了超级管理员注册流程之后，用户表中就已经有了超级管理员记录，那么接下来就可以利用这个用户记录来完成Emos小程序的微信登录功能。</p>
+<h2 id="如何判定登录？"><a href="#如何判定登录？" class="headerlink" title="如何判定登录？"></a>如何判定登录？</h2><p>在用户表中并没有设置密码字段，因此无法根据username和password来判定用户是否可以登录。因为用户要拿着微信登录Emos小程序，在用户表中只有openid、nickname和photo跟微信账号相关，那么应该如何来判定用户登录？</p>
+<p>由于一个用户在某一个小程序上的 openId 字符串是永远不变的，因此采用 ipenId 来验证登录，具体的设计流程如下图所示。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220125210032.png"></p>
+<p>用户在Emos登录页面点击登录按钮，然后小程序把临时授权字符串提交给后端Java系统。后端Java系统拿着临时授权字符串换取到openid，之后就可以查询用户表中是否存在这个openid。如果存在，意味着该用户是已注册用户，可以登录。如果不存在，说明该用户尚未注册，目前还不是有记录的员工，所以禁止登录。</p>
+<h2 id="编写持久层代码"><a href="#编写持久层代码" class="headerlink" title="编写持久层代码"></a>编写持久层代码</h2><p>在 <code>TbUserDao.xml</code> 文件中，编写查询语句</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;searchIdByOpenId&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;String&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;Integer&quot;</span>&gt;</span></span><br><span class="line">	SELECT id FROM tb_user WHERE open_id=#&#123;openId&#125; AND status = 1</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>TbUserDao.java</code>中，定义DAO方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Integer <span class="title">searchIdByOpenId</span><span class="params">(String openId)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>这些方法之前均已定义过</p>
+<h2 id="编写业务层代码"><a href="#编写业务层代码" class="headerlink" title="编写业务层代码"></a>编写业务层代码</h2><p>在 <code>UserService.java</code> 中定义抽象方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Integer <span class="title">login</span><span class="params">(String code)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>UserServiceImpl.java</code>中实现抽象方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Integer <span class="title">login</span><span class="params">(String code)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 根据传入的临时授权字符串，获得 openId 字符串</span></span><br><span class="line">    String openId = getOpenId(code);</span><br><span class="line">    Integer id = userDao.searchIdByOpenId(openId); <span class="comment">// 保存 openId</span></span><br><span class="line">    <span class="keyword">if</span>(id == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 表示无用户记录，不允许登录，抛出异常</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> EmosException(<span class="string">&quot;账户不存在&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// TODO 在消息队列中接收消息，转移到消息表</span></span><br><span class="line">    <span class="keyword">return</span> id;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="实现用户登录功能（Web-层）"><a href="#实现用户登录功能（Web-层）" class="headerlink" title="实现用户登录功能（Web 层）"></a>实现用户登录功能（Web 层）</h1><h2 id="创建表单类-1"><a href="#创建表单类-1" class="headerlink" title="创建表单类"></a>创建表单类</h2><p>创建<code>LoginForm.java</code>表单类，用于接收 Ajax 提交的数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ApiModel</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginForm</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotBlank(message = &quot;临时授权不能为空&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String code;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建登录Web方法"><a href="#创建登录Web方法" class="headerlink" title="创建登录Web方法"></a>创建登录Web方法</h2><p>在<code>UserController.java</code>中创建<code>login()</code>方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/login&quot;)</span></span><br><span class="line"><span class="meta">@ApiOperation(&quot;登录系统&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> R <span class="title">login</span><span class="params">(<span class="meta">@Valid</span> <span class="meta">@RequestBody</span> LoginForm form)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> id = userService.login(form.getCode()); <span class="comment">// 后端取数据，取出临时授权字符串</span></span><br><span class="line">    String token = jwtUtil.creatToken(id); <span class="comment">// 创建令牌字符串</span></span><br><span class="line">    saveCacheToken(token, id);</span><br><span class="line">    Set&lt;String&gt; permsSet = userService.searchUserPermissions(id); <span class="comment">// 查询用户权限列表</span></span><br><span class="line">    <span class="keyword">return</span> R.ok(<span class="string">&quot;登录成功&quot;</span>).put(<span class="string">&quot;token&quot;</span>, token).put(<span class="string">&quot;permission&quot;</span>, permsSet);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="利用-Swagger-进行测试"><a href="#利用-Swagger-进行测试" class="headerlink" title="利用 Swagger 进行测试"></a>利用 Swagger 进行测试</h2><p>显示结果如下：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220125215149.png"></p>
+<h1 id="实现用户登录功能（移动端）"><a href="#实现用户登录功能（移动端）" class="headerlink" title="实现用户登录功能（移动端）"></a>实现用户登录功能（移动端）</h1><p>发送 Ajax 请求，实现用户登录功能</p>
+<h2 id="封装登录地址"><a href="#封装登录地址" class="headerlink" title="封装登录地址"></a>封装登录地址</h2><p>发送Ajax请求之前，我们要在<code>main.js</code>文件里面封装登录地址</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">login: baseUrl+<span class="string">&quot;/user/login&quot;</span>, <span class="comment">// baseUrl + 用于登录的 Web 方法的路径</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="编写登录方法"><a href="#编写登录方法" class="headerlink" title="编写登录方法"></a>编写登录方法</h2><p>在 <code>login.vue</code> 中定义 <code>login</code> 方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">login:function()&#123;</span><br><span class="line">    let that = this</span><br><span class="line">    uni.login(&#123; // 通过uni对象调用login方法</span><br><span class="line">        provider:&quot;weixin&quot;,</span><br><span class="line">        success:function(resp)&#123; // h回调方法</span><br><span class="line">            let code = resp.code // 获取临时授权字符串</span><br><span class="line">            // 发送 Ajax 请求，将临时授权字符串提交给后端项目</span><br><span class="line">            that.ajax(that.url.login, &quot;POST&quot;, &#123;&quot;code&quot;:code&#125;,function(resp)&#123;</span><br><span class="line">                let permission = resp.data.permission // 获取权限列表</span><br><span class="line">                uni.setStorageSync(&quot;permission&quot;, permission)</span><br><span class="line">            &#125;)</span><br><span class="line">            console.log(&quot;success&quot;)</span><br><span class="line">            // TODO 跳转到登录页面 </span><br><span class="line">        &#125;,</span><br><span class="line">        fail:function(e)&#123; // 规定fail回调函数，并不是ajax请求失败后的方法，而是获得临时授权字符串失败后</span><br><span class="line">            console.log(e) // 打印异常</span><br><span class="line">            uni.showToast(&#123;</span><br><span class="line">                icon:&quot;none&quot;,</span><br><span class="line">                title:&quot;执行异常&quot;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行小程序，点击登录按钮，控制台响应成功，如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220125221049.png"></p>
+<h2 id="设置页面标题"><a href="#设置页面标题" class="headerlink" title="设置页面标题"></a>设置页面标题</h2><p>为了让小程序更加美观，为小程序设置页面标题。小程序的页面标题分为全局标题和局部标题。如果页面没有设置局部标题，那么页面标题默认就是全局标题。反之，就是局部标题。全局标题和局部标题都是在<code>pages.json</code>文件中设置，如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">&quot;pages&quot;</span>: [</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="attr">&quot;path&quot;</span>: <span class="string">&quot;pages/login/login&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;style&quot;</span>: &#123;</span><br><span class="line">				<span class="attr">&quot;navigationBarTitleText&quot;</span>: <span class="string">&quot;欢迎使用EMOS系统&quot;</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="attr">&quot;path&quot;</span>: <span class="string">&quot;pages/index/index&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;style&quot;</span>: &#123;</span><br><span class="line">				<span class="attr">&quot;navigationBarTitleText&quot;</span>: <span class="string">&quot;首页&quot;</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="attr">&quot;path&quot;</span>: <span class="string">&quot;pages/register/register&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;style&quot;</span>: &#123;</span><br><span class="line">				<span class="attr">&quot;navigationBarTitleText&quot;</span>: <span class="string">&quot;新用户注册&quot;</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">    ],</span><br><span class="line">	<span class="attr">&quot;globalStyle&quot;</span>: &#123;</span><br><span class="line">		<span class="attr">&quot;navigationBarTextStyle&quot;</span>: <span class="string">&quot;white&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;navigationBarTitleText&quot;</span>: <span class="string">&quot;EMOS系统&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;navigationBarBackgroundColor&quot;</span>: <span class="string">&quot;#3474FF&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;backgroundColor&quot;</span>: <span class="string">&quot;#EEEEF4&quot;</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>小程序页面变为：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220125221740.png"></p>
+<h2 id="后端项目运行细节"><a href="#后端项目运行细节" class="headerlink" title="后端项目运行细节"></a>后端项目运行细节</h2><p>之前在SpringBoot项目中添加了很多第三方的技术，并且我们自己也写了很多有关的配置程序。其中包括<code>Servlet过滤器</code>，<code>Shiro过滤器</code>，以及<code>AOP拦截器</code>。Emos后端项目运行的时候，这些程序的执行顺序如下所示：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220125222002.png"></p>
+<h2 id="XSSFilter-先执行"><a href="#XSSFilter-先执行" class="headerlink" title="XSSFilter 先执行"></a>XSSFilter 先执行</h2><p>Emos系统接收到<code>HTTP请求</code>之后，首先由<code>XSSFilter</code>来处理请求。因为<code>XSSFilter</code>是标准的<code>Servlet过滤器</code>，所以他执行的优先级要高于<code>ShiroFilter</code>和<code>AOP拦截器</code>的。因为还没轮到Controller中的Web方法执行，AOP连接器自然不能运行。另外，<code>XSSFilter</code>使用<code>@WebFilter</code>注解定义出来的过滤器，所以他的优先级比<code>SpringMVC</code>中注册的<code>Filter</code>优先级更高，所以<code>XSSFilter</code>早于<code>SpringMVC</code>执行。这是因为我们希望先把请求中的数据先转义，然后再由SpringMVC框架来处理请求。</p>
+<h2 id="OAuth2Filter的执行"><a href="#OAuth2Filter的执行" class="headerlink" title="OAuth2Filter的执行"></a>OAuth2Filter的执行</h2><p>因为<code>OAuth2Filter</code>是在<code>SpringMVC</code>中注册的Filter，所以它晚于<code>Servlet过滤器</code>的执行。但是SpringMVC中注册过滤器有个好处，就是可以规定Filter的优先级别，所以定义普通的Filter，注册在SpringMVC上更加的妥当。</p>
+<p>在定义<code>OAuth2Filter</code>的时候，声明了很多的方法，但是在注册流程中却只能看到doFilterInternal()方法的执行：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilterInternal</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.doFilterInternal(request, response, chain);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在声明<code>Shiro过滤器</code>拦截路径的时候，为登录和注册路径下的请求设置了放行，所以验证与授权并没有生效。在将来写好具体的业务类型的Web方法之后，添加相关的Shiro注解，这时候OAuth2Filter中的其他方法就得以运行了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String,String&gt; filterMap=<span class="keyword">new</span> LinkedHashMap&lt;&gt;();</span><br><span class="line">filterMap.put(<span class="string">&quot;/webjars/**&quot;</span>, <span class="string">&quot;anon&quot;</span>);</span><br><span class="line">filterMap.put(<span class="string">&quot;/druid/**&quot;</span>, <span class="string">&quot;anon&quot;</span>);</span><br><span class="line">filterMap.put(<span class="string">&quot;/app/**&quot;</span>, <span class="string">&quot;anon&quot;</span>);</span><br><span class="line">filterMap.put(<span class="string">&quot;/sys/login&quot;</span>, <span class="string">&quot;anon&quot;</span>);</span><br><span class="line">filterMap.put(<span class="string">&quot;/swagger/**&quot;</span>, <span class="string">&quot;anon&quot;</span>);</span><br><span class="line">filterMap.put(<span class="string">&quot;/v2/api-docs&quot;</span>, <span class="string">&quot;anon&quot;</span>);</span><br><span class="line">filterMap.put(<span class="string">&quot;/swagger-ui.html&quot;</span>, <span class="string">&quot;anon&quot;</span>);</span><br><span class="line">filterMap.put(<span class="string">&quot;/swagger-resources/**&quot;</span>, <span class="string">&quot;anon&quot;</span>);</span><br><span class="line">filterMap.put(<span class="string">&quot;/captcha.jpg&quot;</span>, <span class="string">&quot;anon&quot;</span>);</span><br><span class="line">filterMap.put(<span class="string">&quot;/user/register&quot;</span>, <span class="string">&quot;anon&quot;</span>);</span><br><span class="line">filterMap.put(<span class="string">&quot;/user/login&quot;</span>, <span class="string">&quot;anon&quot;</span>);</span><br><span class="line">filterMap.put(<span class="string">&quot;/test/**&quot;</span>, <span class="string">&quot;anon&quot;</span>);</span><br><span class="line">filterMap.put(<span class="string">&quot;/**&quot;</span>, <span class="string">&quot;oauth2&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="TokenAspect的作用"><a href="#TokenAspect的作用" class="headerlink" title="TokenAspect的作用"></a>TokenAspect的作用</h2><p>TokenAspect,即切面类，拦截所有Web方法的返回值。TokenAspect先检测ThreadLocalToken中有没有令牌字符串，如果有就把刷新后的令牌写入Web方法返回的R对象里面。因此说，Web方法每次执行的时候，TokenAspect都会随之运行。</p>
+
+      
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/" rel="tag"># 项目实战</a>
+              <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag"># 小程序</a>
+              <a href="/tags/Spring-Boot/" rel="tag"># Spring Boot</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/23/%E5%9C%A8%E7%BA%BF%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F4%EF%BC%9A%E5%88%A9%E7%94%A8UNI-APP%E5%88%9B%E5%BB%BA%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%A1%B9%E7%9B%AE/" rel="prev" title="办公系统 4. 利用UNI-APP创建移动端项目">
+      <i class="fa fa-chevron-left"></i> 办公系统 4. 利用UNI-APP创建移动端项目
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/26/%E5%9B%BE%E8%A7%A3http/" rel="next" title="图解 HTTP 笔记">
+      图解 HTTP 笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%B3%A8%E5%86%8C%E8%B6%85%E7%BA%A7%E7%AE%A1%E7%90%86%E5%91%98%E5%8A%9F%E8%83%BD%EF%BC%88%E6%8C%81%E4%B9%85%E5%B1%82%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">实现注册超级管理员功能（持久层）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%90%A6%E5%B7%B2%E7%BB%91%E5%AE%9A%E8%B6%85%E7%BA%A7%E7%AE%A1%E7%90%86%E5%91%98"><span class="nav-number">1.1.</span> <span class="nav-text">判断系统是否已绑定超级管理员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E7%94%A8%E6%88%B7%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.</span> <span class="nav-text">保存用户数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%88%B7-ID"><span class="nav-number">1.3.</span> <span class="nav-text">查询用户 ID</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%B3%A8%E5%86%8C%E8%B6%85%E7%BA%A7%E7%AE%A1%E7%90%86%E5%91%98%E5%8A%9F%E8%83%BD%EF%BC%88%E4%B8%9A%E5%8A%A1%E5%B1%82%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">实现注册超级管理员功能（业务层）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96-OpenId"><span class="nav-number">2.1.</span> <span class="nav-text">获取 OpenId</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%B3%A8%E5%86%8C%E6%96%B0%E7%94%A8%E6%88%B7%E7%9A%84%E4%B8%9A%E5%8A%A1"><span class="nav-number">2.2.</span> <span class="nav-text">实现注册新用户的业务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RABC-%E6%9D%83%E9%99%90%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">RABC 权限模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-RBAC-%E6%9D%83%E9%99%90%E6%A8%A1%E5%9E%8B%EF%BC%9F"><span class="nav-number">3.1.</span> <span class="nav-text">什么是 RBAC 权限模型？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E5%90%8E%E7%AB%AF%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81"><span class="nav-number">3.2.</span> <span class="nav-text">前后端权限验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%88%B7%E7%9A%84%E6%9D%83%E9%99%90%E5%88%97%E8%A1%A8"><span class="nav-number">3.3.</span> <span class="nav-text">查询用户的权限列表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%B3%A8%E5%86%8C%E8%B6%85%E7%BA%A7%E7%AE%A1%E7%90%86%E5%91%98%E5%8A%9F%E8%83%BD%EF%BC%88Web-%E5%B1%82%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">实现注册超级管理员功能（Web 层）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%A1%A8%E5%8D%95%E7%B1%BB"><span class="nav-number">4.1.</span> <span class="nav-text">创建表单类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-Controller-%E7%B1%BB"><span class="nav-number">4.2.</span> <span class="nav-text">创建 Controller 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%B3%A8%E5%86%8C%E8%B6%85%E7%BA%A7%E7%AE%A1%E7%90%86%E5%91%98"><span class="nav-number">4.3.</span> <span class="nav-text">测试注册超级管理员</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%85%A8%E5%B1%80%E8%B7%AF%E5%BE%84%E5%92%8C%E5%B0%81%E8%A3%85-Ajax%EF%BC%88%E7%A7%BB%E5%8A%A8%E7%AB%AF%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">定义全局路径和封装 Ajax（移动端）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%81%E8%A3%85%E5%85%A8%E5%B1%80%E8%B7%AF%E5%BE%84"><span class="nav-number">5.1.</span> <span class="nav-text">封装全局路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%81%E8%A3%85-Ajax"><span class="nav-number">5.2.</span> <span class="nav-text">封装 Ajax</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%8C%E6%88%90%E6%B3%A8%E5%86%8C%E8%B6%85%E7%BA%A7%E7%AE%A1%E7%90%86%E5%91%98%E5%8A%9F%E8%83%BD%EF%BC%88%E7%A7%BB%E5%8A%A8%E7%AB%AF%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">完成注册超级管理员功能（移动端）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%AB%AF%E9%AA%8C%E8%AF%81%E5%8A%9F%E8%83%BD"><span class="nav-number">6.1.</span> <span class="nav-text">前端验证功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4-Ajax-%E8%AF%B7%E6%B1%82"><span class="nav-number">6.2.</span> <span class="nav-text">提交 Ajax 请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%B3%A8%E5%86%8C%E8%B6%85%E7%BA%A7%E7%AE%A1%E7%90%86%E5%91%98%E5%8A%9F%E8%83%BD"><span class="nav-number">6.3.</span> <span class="nav-text">验证注册超级管理员功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%EF%BC%88%E6%8C%81%E4%B9%85%E5%B1%82-amp-%E4%B8%9A%E5%8A%A1%E5%B1%82%EF%BC%89"><span class="nav-number">7.</span> <span class="nav-text">实现用户登录功能（持久层&amp;业务层）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E5%AE%9A%E7%99%BB%E5%BD%95%EF%BC%9F"><span class="nav-number">7.1.</span> <span class="nav-text">如何判定登录？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%8C%81%E4%B9%85%E5%B1%82%E4%BB%A3%E7%A0%81"><span class="nav-number">7.2.</span> <span class="nav-text">编写持久层代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E4%B8%9A%E5%8A%A1%E5%B1%82%E4%BB%A3%E7%A0%81"><span class="nav-number">7.3.</span> <span class="nav-text">编写业务层代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%EF%BC%88Web-%E5%B1%82%EF%BC%89"><span class="nav-number">8.</span> <span class="nav-text">实现用户登录功能（Web 层）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%A1%A8%E5%8D%95%E7%B1%BB-1"><span class="nav-number">8.1.</span> <span class="nav-text">创建表单类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%99%BB%E5%BD%95Web%E6%96%B9%E6%B3%95"><span class="nav-number">8.2.</span> <span class="nav-text">创建登录Web方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-Swagger-%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95"><span class="nav-number">8.3.</span> <span class="nav-text">利用 Swagger 进行测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%EF%BC%88%E7%A7%BB%E5%8A%A8%E7%AB%AF%EF%BC%89"><span class="nav-number">9.</span> <span class="nav-text">实现用户登录功能（移动端）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%81%E8%A3%85%E7%99%BB%E5%BD%95%E5%9C%B0%E5%9D%80"><span class="nav-number">9.1.</span> <span class="nav-text">封装登录地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E7%99%BB%E5%BD%95%E6%96%B9%E6%B3%95"><span class="nav-number">9.2.</span> <span class="nav-text">编写登录方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2%E6%A0%87%E9%A2%98"><span class="nav-number">9.3.</span> <span class="nav-text">设置页面标题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E7%AB%AF%E9%A1%B9%E7%9B%AE%E8%BF%90%E8%A1%8C%E7%BB%86%E8%8A%82"><span class="nav-number">9.4.</span> <span class="nav-text">后端项目运行细节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSSFilter-%E5%85%88%E6%89%A7%E8%A1%8C"><span class="nav-number">9.5.</span> <span class="nav-text">XSSFilter 先执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OAuth2Filter%E7%9A%84%E6%89%A7%E8%A1%8C"><span class="nav-number">9.6.</span> <span class="nav-text">OAuth2Filter的执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TokenAspect%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">9.7.</span> <span class="nav-text">TokenAspect的作用</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zodiacal</p>
+  <div class="site-description" itemprop="description">引出魔鬼的一种试炼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zodiacal</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">453k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:52</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|EB Garamond:300,300italic,400,400italic,700,700italic|Source Code Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zodical416.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="汽笛一声肠已断，从此天涯孤旅。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="办公系统 7. 人脸考勤签到（二）">
+<meta property="og:url" content="https://zodical416.github.io/2022/02/03/%E5%9C%A8%E7%BA%BF%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F7%EF%BC%9A%E4%BA%BA%E8%84%B8%E8%80%83%E5%8B%A4%E7%AD%BE%E5%88%B0%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:site_name" content="Zodiacal">
+<meta property="og:description" content="汽笛一声肠已断，从此天涯孤旅。">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220130203143.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220130211139.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220130211702.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220130211854.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220130212533.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220130213143.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220130213639.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220130213712.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220130220449.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220130220257.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220130223953.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220202141807.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220202142618.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220202143502.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220202144455.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220202145010.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220202150527.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220202202605.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220202202742.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220202212306.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/bbf2f464fd38b23b49f3e953a8d63b4.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/f07bc71bf7be2d0d2c664d2db509090.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/9dacc695619534ffb92d55a4cb1b5ed.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220203195730.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220203195831.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220203202925.png">
+<meta property="article:published_time" content="2022-02-03T12:31:42.610Z">
+<meta property="article:modified_time" content="2022-02-03T12:32:00.848Z">
+<meta property="article:author" content="Zodiacal">
+<meta property="article:tag" content="项目实战">
+<meta property="article:tag" content="小程序">
+<meta property="article:tag" content="Spring Boot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220130203143.png">
+
+<link rel="canonical" href="https://zodical416.github.io/2022/02/03/%E5%9C%A8%E7%BA%BF%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F7%EF%BC%9A%E4%BA%BA%E8%84%B8%E8%80%83%E5%8B%A4%E7%AD%BE%E5%88%B0%EF%BC%88%E4%BA%8C%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>办公系统 7. 人脸考勤签到（二） | Zodiacal</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zodiacal</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://zodical416.github.io/2022/02/03/%E5%9C%A8%E7%BA%BF%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F7%EF%BC%9A%E4%BA%BA%E8%84%B8%E8%80%83%E5%8B%A4%E7%AD%BE%E5%88%B0%EF%BC%88%E4%BA%8C%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zodiacal">
+      <meta itemprop="description" content="引出魔鬼的一种试炼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zodiacal">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          办公系统 7. 人脸考勤签到（二）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-02-03 20:31:42 / 修改时间：20:32:00" itemprop="dateCreated datePublished" datetime="2022-02-03T20:31:42+08:00">2022-02-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">办公系统</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>24k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>22 分钟</span>
+            </span>
+            <div class="post-description">汽笛一声肠已断，从此天涯孤旅。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="签到业务流程"><a href="#签到业务流程" class="headerlink" title="签到业务流程"></a>签到业务流程</h1><h2 id="主要需求"><a href="#主要需求" class="headerlink" title="主要需求"></a>主要需求</h2><p>Emos系统的人脸签到模块包含的功能很多，不仅仅只有人脸识别的签到功能，还可以根据用户签到时候的地理定位计算出该地区是新冠疫情的高风险还是低风险地区。如果员工是在疫情高风险地区签到的，Emos系统会立即向公司人事部门发送告警邮件。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220130203143.png"></p>
+<h2 id="如何获取地理信息"><a href="#如何获取地理信息" class="headerlink" title="如何获取地理信息"></a>如何获取地理信息</h2><p>微信小程序已经提供了获取地理定位的接口方法，因此只需要调用该方法就能获取到地理坐标。但是通过该方法得到的仅仅是坐标而已，还需要进一步把地理坐标转换成地址信息，例如什么省份、什么城市、什么街道等等。</p>
+<p>腾讯位置服务提供了把地理坐标转换成地址这个功能，只需要注册之后就可以免费使用了。该服务还提供了JS调用接口，可以让开发者在小程序中可以很简单的把地理坐标转换成地址信息。</p>
+<h2 id="如何判定某地区新冠疫情的风险等级"><a href="#如何判定某地区新冠疫情的风险等级" class="headerlink" title="如何判定某地区新冠疫情的风险等级"></a>如何判定某地区新冠疫情的风险等级</h2><p>本地宝这个网站提供了新冠疫情地区风险等级的查询，输入地址之后就能看到具体的风险等级。</p>
+<p>如果已经把地理坐标转换成了地址信息，自然就可以根据地址信息去查询风险等级了。但是本地宝并没有提供可供调用的Web接口，因此只能采用URL地址传参的方式获取本地宝返回的响应。来自网站的响应内容是HTML，因此还需要我们从HTML中解析出想要的风险等级信息。</p>
+<h1 id="开通腾讯位置服务"><a href="#开通腾讯位置服务" class="headerlink" title="开通腾讯位置服务"></a>开通腾讯位置服务</h1><p>Emos签到流程中要获取用户当前所在地址的信息，所以需要把定位坐标缓存成地址，该功能借助腾讯提供的位置服务来完成。</p>
+<h2 id="开通服务"><a href="#开通服务" class="headerlink" title="开通服务"></a>开通服务</h2><p>访问 <a target="_blank" rel="noopener" href="https://lbs.qq.com/">腾讯位置服务</a> 官网，并进行注册。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220130211139.png"></p>
+<p>在Key管理栏目中，创建一个新的密钥。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220130211702.png"></p>
+<p>选择右侧设置，将该密钥和小程序的授权 ID 绑定</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220130211854.png"></p>
+<h2 id="腾讯位置服务SDK"><a href="#腾讯位置服务SDK" class="headerlink" title="腾讯位置服务SDK"></a>腾讯位置服务SDK</h2><p>进入微信公众平台，选择开发管理，进入开发设置选项，配置服务器域名</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220130212533.png"></p>
+<p>腾讯位置服务提供了多种SDK程序包，其中的JavaScript版本的SDK适用于微信小程序，因此需要下载这个 SDK 工具包。之后在小程序项目中创建<code>lib</code>目录，把SDK文件放入其中</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220130213143.png"></p>
+<h1 id="把定位坐标转换为真实坐标"><a href="#把定位坐标转换为真实坐标" class="headerlink" title="把定位坐标转换为真实坐标"></a>把定位坐标转换为真实坐标</h1><h2 id="获取定位坐标"><a href="#获取定位坐标" class="headerlink" title="获取定位坐标"></a>获取定位坐标</h2><p>微信小程序提供了定位接口，只需要调用方法即可。uni-app框架的uni对象里面也封装了地理定位的方法，即<code>uni.getLocation(OBJECT)</code>，该方法可以获取当前的地理位置和速度。 在微信小程序中，当用户离开应用后，此接口无法调用，除非申请后台持续定位权限；当用户点击“显示在聊天顶部”时，此接口可继续调用。</p>
+<p><strong>OBJECT 参数说明</strong></p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220130213639.png"></p>
+<p><strong>success 返回参数说明</strong></p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220130213712.png"></p>
+<p>示例：</p>
+<h2 id="编辑签到页面"><a href="#编辑签到页面" class="headerlink" title="编辑签到页面"></a>编辑签到页面</h2><p>在签到功能页面 <code>checkin.vue</code> 中配置信息，获取签到时的地理定位</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 显示等待信息</span><br><span class="line">uni.showLoading(&#123;</span><br><span class="line">    title:&quot;签到中，请稍后&quot;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 设置等待提示信息消失,30s之后</span><br><span class="line">setTimeout(function()&#123;</span><br><span class="line">    uni.hideLoading();</span><br><span class="line">&#125;, 30000)</span><br><span class="line"></span><br><span class="line">// 获取地址</span><br><span class="line">uni.getLocation(&#123;</span><br><span class="line">    type:&quot;wgs84&quot;,</span><br><span class="line">    success:function(resp)&#123;</span><br><span class="line">        let latitude = resp.latitude</span><br><span class="line">        let longitude = resp.longitude</span><br><span class="line">        console.log(latitude)</span><br><span class="line">        console.log(longitude)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>为了得到获取地址的权限，需要配置 HBuilderX 中的基础配置文件，如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220130220449.png"></p>
+<p>所得到的地址信息为：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220130220257.png"></p>
+<p>接下来根据定位坐标，换算成真实地址，先引用腾讯位置SDK文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var QQMapWX = require(&#x27;../../lib/qqmap-wx-jssdk.min.js&#x27;);</span><br><span class="line">var qqmapsdk;</span><br></pre></td></tr></table></figure>
+
+<p>然后在<code>onLoad()</code>生命周期函数中，初始化<code>qqmapsdk</code>对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 生命周期回调函数</span><br><span class="line">onLoad:function()&#123;</span><br><span class="line">    qqmapsdk = new QQMapWX(&#123;</span><br><span class="line">        key:&quot;2HHBZ-*****-*****-*****-*****-LGBIR&quot; // 填入密钥</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>编写JS代码把GPS坐标转换成地址</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 调用uni.authorize接口获取用户权限</span></span><br><span class="line">uni.authorize(&#123;</span><br><span class="line">    <span class="attr">scope</span>: <span class="string">&#x27;scope.userLocation&#x27;</span>,</span><br><span class="line">    <span class="function"><span class="title">success</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="comment">// 获取地址</span></span><br><span class="line">        uni.getLocation(&#123;</span><br><span class="line">            <span class="attr">type</span>:<span class="string">&quot;wgs84&quot;</span>,</span><br><span class="line">            <span class="attr">success</span>:<span class="function"><span class="keyword">function</span>(<span class="params">resp</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">let</span> latitude = resp.latitude</span><br><span class="line">                <span class="keyword">let</span> longitude = resp.longitude</span><br><span class="line">                <span class="built_in">console</span>.log(latitude)</span><br><span class="line">                <span class="built_in">console</span>.log(longitude)</span><br><span class="line">                qqmapsdk.reverseGeocoder(&#123;</span><br><span class="line">                    <span class="attr">location</span>: &#123;</span><br><span class="line">                        <span class="attr">latitude</span>: latitude,</span><br><span class="line">                        <span class="attr">longitude</span>: longitude</span><br><span class="line">                    &#125;,</span><br><span class="line">                    <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">resp</span>) </span>&#123;</span><br><span class="line">                        <span class="built_in">console</span>.log(resp.result);</span><br><span class="line">                        <span class="keyword">let</span> address = resp.result.address;</span><br><span class="line">                        <span class="keyword">let</span> addressComponent = resp.result.address_component;</span><br><span class="line">                        <span class="keyword">let</span> nation = addressComponent.nation;</span><br><span class="line">                        <span class="keyword">let</span> province = addressComponent.province;</span><br><span class="line">                        <span class="keyword">let</span> city = addressComponent.city;</span><br><span class="line">                        <span class="keyword">let</span> district = addressComponent.district;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>所获得的结果为：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220130223953.png"></p>
+<h1 id="在-Docker-中安装人脸识别镜像"><a href="#在-Docker-中安装人脸识别镜像" class="headerlink" title="在 Docker 中安装人脸识别镜像"></a>在 Docker 中安装人脸识别镜像</h1><h2 id="什么是-Docker"><a href="#什么是-Docker" class="headerlink" title="什么是 Docker"></a>什么是 Docker</h2><p>Docker是轻量级的虚拟机产品，在使用Docker的时候，它并不会为每个虚拟化实例（容器）创建完整的虚拟硬件环境，而是为每个实例虚拟化少量的硬件环境（例如网卡）。这些虚拟化实例直接共享使用Linux系统的CPU、内存和硬盘资源。因此说，采用Docker的Linux主机，可以轻松创建几十个容器。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220202141807.png"></p>
+<p>VMware虚拟机创建每个实例，都要虚拟化完整的硬件环境，所以在Linux或者Windows系统上面根本无法创建多个这样的虚拟机实例。</p>
+<h2 id="为什么要使用Docker"><a href="#为什么要使用Docker" class="headerlink" title="为什么要使用Docker"></a>为什么要使用Docker</h2><p>首先，Docker容器之间是相互隔离的，在容器中部署程序的同时，不用担心跟其他容器产生冲突。例如某公司几年前开发的Java程序用的是JDK1.6，但是现在要部署的Java项目用JDK1.8开发的，现在我们无法在服务器上面同时安装JDK1.6和JDK1.8环境。如果我们用上了Docker程序，先创建出两个容器，然后分别安装JDK1.6和JDK1.8，接下来分别部署新旧程序。这就能做到在一个服务器上面可以部署若干程序的时候，不用担心发生矛盾冲突。</p>
+<p>其次，Docker能够提供快速化部署。比如说有人在网上提供了PHP镜像，里面包括了PHP环境、Apache服务器和MySQL数据库，我们从网上下载镜像，然后创建容器，就直接可以部署PHP项目了，非常的方便。再比如，用户自己也可以创建镜像，把要部署的程序和运行环境打成Docker镜像，分发给其他人，他们创建容器就可以直接运行程序了。</p>
+<h2 id="镜像和容器"><a href="#镜像和容器" class="headerlink" title="镜像和容器"></a>镜像和容器</h2><p>Docker为了最大化的共享资源，减少资源浪费，创造出了镜像技术。镜像是虚拟实例之间相同的部分，差异化的部分叫做容器。比如说一个JDK镜像，里面安装了JDK1.8，然后我为这个镜像创建出3个容器，这三个容器共享使用JDK镜像中的Java环境，并且我可以在每个容器中部署不同的Java程序。如果Docker没有镜像技术，我们只能分别在三个容器中安装JDK环境，这就造成了不必要的重复浪费。</p>
+<p>需要注意的是，容器只能读取镜像中的数据，不能修改镜像的内容，也就是说，镜像对于容器是只读的。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220202142618.png"></p>
+<h2 id="关闭SELINUX"><a href="#关闭SELINUX" class="headerlink" title="关闭SELINUX"></a>关闭SELINUX</h2><p>SELINUX是CentOS自带的安全服务，因为晦涩难用，并且跟很多程序冲突，所以需要关闭这个服务。</p>
+<p>找到<code>/etc/sysconfig/selinux</code>文件，把其中的<code>SELINUX</code>设置为<code>disabled</code>，保存文件之后重启CentOS系统。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220202143502.png"></p>
+<h2 id="安装Docker程序"><a href="#安装Docker程序" class="headerlink" title="安装Docker程序"></a>安装Docker程序</h2><p>执行下面的指令，稍等片刻，Docker程序就安装好了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install docker -y</span><br></pre></td></tr></table></figure>
+
+<p>管理Docker程序的命令也非常简单，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service docker start</span><br><span class="line">service docker stop</span><br><span class="line">service docker restart</span><br></pre></td></tr></table></figure>
+
+<h2 id="导入人脸识别镜像"><a href="#导入人脸识别镜像" class="headerlink" title="导入人脸识别镜像"></a>导入人脸识别镜像</h2><ol>
+<li><p>把<code>face.tar.gz</code>文件上传到CentOS系统</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220202144455.png"></p>
+</li>
+<li><p>把镜像导入Docker环境</p>
+<p> <img src="https://raw.githubusercontent.com/zodical416/picto/master/20220202145010.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#导入镜像文件</span><br><span class="line">docker load &lt; face.tar.gz</span><br><span class="line"></span><br><span class="line">#查看安装的镜像</span><br><span class="line">docker images</span><br><span class="line"></span><br><span class="line">#删除镜像</span><br><span class="line">docker rmi face</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="运行人脸识别程序"><a href="#运行人脸识别程序" class="headerlink" title="运行人脸识别程序"></a>运行人脸识别程序</h1><p>之前已经在Docker中安装了人脸识别镜像，因为人脸识别程序是用Python写的，而且需要很多依赖库，安装起来非常麻烦，因此就将依赖环境和人脸识别程序封装成Docker镜像，只要在本地Docker上面导入镜像，创建出容器，就能够运行Python人脸识别程序了。</p>
+<h2 id="创建Docker容器"><a href="#创建Docker容器" class="headerlink" title="创建Docker容器"></a>创建Docker容器</h2><p>把<code>demo.tar</code>文件上传到Linux根目录，然后解压缩</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf <span class="built_in">demo</span>.tar</span><br></pre></td></tr></table></figure>
+
+<p>解压缩之后，demo文件夹已经包含了人脸识别Python程序，我们只需要把demo文件夹挂载到Docker容器，那么在容器中就能访问Linux主机的demo文件夹了。下面开始创建容器，映射端口号，挂载目录。</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建容器，把容器3000端口映射到宿主机3000端口，把/demo映射到宿主机的/demo</span></span><br><span class="line">docker run -d -it -p <span class="number">3000</span>:<span class="number">3000</span> -v /demo:/demo --name <span class="keyword">node</span> <span class="title">face</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查看容器运行状态</span></span><br><span class="line">docker ps -a</span><br><span class="line"></span><br><span class="line"><span class="comment">#进入到node容器</span></span><br><span class="line">docker exec -it <span class="keyword">node</span> <span class="title">bash</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220202150527.png"></p>
+<h2 id="运行人脸识别程序-1"><a href="#运行人脸识别程序-1" class="headerlink" title="运行人脸识别程序"></a>运行人脸识别程序</h2><p>进入到node容器之后，进入<code>/demo</code>目录，运行人脸识别程序</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">cd</span> /demo</span><br><span class="line"><span class="comment"># 把Python程序挂起到后台运行</span></span><br><span class="line"><span class="attribute">nohup</span> python<span class="number">3</span> -c <span class="string">&quot;from app import app;&quot;</span> &gt; log.out <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>重启 Linux 主机后需要做的几件事：</p>
+<p>启动 docker 服务：<code>service docker start</code></p>
+<p>找到 node 容器并启动，进入该容器，运行人脸识别程序</p>
+</blockquote>
+<h2 id="接口调用"><a href="#接口调用" class="headerlink" title="接口调用"></a>接口调用</h2><p>人脸识别程序程序结合了Flask框架，提供Web接口，具体如下</p>
+<ol>
+<li><p>创建人脸模型数据</p>
+<p>若 Emos系统的MySQL数据库中不存在签到员工的人脸模型数据，这时候应该调用人脸识别程序的Web接口，上传照片文件，然后由Python程序识别照片中的人脸，返回人脸模型数据。</p>
+<p> 接口名称：/create_face_model</p>
+<p> 请求类型：POST</p>
+<p> 传入参数：icode</p>
+<p> 返回结果：人脸模型数据</p>
+</li>
+<li><p>执行人脸签到识别</p>
+<p> 接口名称：/checkin</p>
+<p> 请求类型：POST</p>
+<p> 传入参数：icode</p>
+<p> 返回结果：人脸识别结果</p>
+</li>
+</ol>
+<h1 id="实现人脸签到（持久层）"><a href="#实现人脸签到（持久层）" class="headerlink" title="实现人脸签到（持久层）"></a>实现人脸签到（持久层）</h1><h2 id="维护员工人脸模型数据"><a href="#维护员工人脸模型数据" class="headerlink" title="维护员工人脸模型数据"></a>维护员工人脸模型数据</h2><p>在 <code>TbFaceModelMapper.xml</code> 中添加 SQL 语句</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;searchFaceModel&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;int&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;String&quot;</span>&gt;</span></span><br><span class="line">    SELECT face_model FROM tb_face_model</span><br><span class="line">    WHERE user_id = #&#123;userId&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;insert&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;com.example.emos.wx.db.pojo.TbFaceModel&quot;</span>&gt;</span></span><br><span class="line">    INSERT INTO tb_face_model</span><br><span class="line">    SET user_id = #&#123;userId&#125;,</span><br><span class="line">        face_model = #&#123;faceModel&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">delete</span> <span class="attr">id</span>=<span class="string">&quot;deleteFaceModel&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;int&quot;</span>&gt;</span></span><br><span class="line">    DELETE FROM tb_face_model</span><br><span class="line">    WHERE user_id = #&#123;userId&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">delete</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>TbFaceModelMapper.java</code>接口中添加DAO方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TbFaceModelMapper</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">searchFaceModel</span><span class="params">(<span class="keyword">int</span> userId)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(TbFaceModel faceModel)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">deleteFaceModel</span><span class="params">(<span class="keyword">int</span> userId)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="保存签到记录"><a href="#保存签到记录" class="headerlink" title="保存签到记录"></a>保存签到记录</h2><p>在<code>TbCheckinMapper.xml</code>文件中添加INSERT语句</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;insert&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;com.example.emos.wx.db.pojo.TbCheckin&quot;</span>&gt;</span></span><br><span class="line">    INSERT INTO tb_checkin</span><br><span class="line">    SET user_id = #&#123;userId&#125;,</span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;address!=null&quot;</span>&gt;</span></span><br><span class="line">        address = #&#123;address&#125;,</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;country!=null&quot;</span>&gt;</span></span><br><span class="line">        country = #&#123;country&#125;,</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;province!=null&quot;</span>&gt;</span></span><br><span class="line">        province = #&#123;province&#125;,</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;city!=null&quot;</span>&gt;</span></span><br><span class="line">        city = #&#123;city&#125;,</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;district!=null&quot;</span>&gt;</span></span><br><span class="line">        district = #&#123;district&#125;,</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    status = #&#123;status&#125;,</span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;risk != null&quot;</span>&gt;</span></span><br><span class="line">        risk = #&#123;risk&#125;,</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    date = #&#123;date&#125;,</span><br><span class="line">    create_time = #&#123;createTime&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>TbCheckinMapper.java</code>中添加抽象方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TbCheckinMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">TbCheckin</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">haveCheckin</span><span class="params">(HashMap param)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(TbCheckin entity)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="实现人脸签到（业务层）"><a href="#实现人脸签到（业务层）" class="headerlink" title="实现人脸签到（业务层）"></a>实现人脸签到（业务层）</h1><p>用户提交签到请求之后，需要先去数据表中进行查询，判断该名员工是否存在人脸模型数据。若存在，就将数据提取出来，与用户提交的照片进行对比，如果能够匹配，则说明是员工本人；若数据表中不存在人脸模型，则返回给客户端，提示用户是否将当前的照片作为人脸模型，存储到数据表中。</p>
+<h2 id="定义人脸签到程序的-URL-路径"><a href="#定义人脸签到程序的-URL-路径" class="headerlink" title="定义人脸签到程序的 URL 路径"></a>定义人脸签到程序的 URL 路径</h2><p>在人脸识别 Python 程序中采用了 flask 框架，能够通过 http 请求来对 Python 人脸识别程序进行访问。而在根据 http 请求进行访问之前，需要对请求的路径进行统一的封装。</p>
+<p>在 application.yml 文件中，添加值注入信息</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">emos:</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line">  <span class="attr">face:</span></span><br><span class="line">    <span class="comment"># 填写 LINUX 主机的 IP 地址，端口号为 3000</span></span><br><span class="line">    <span class="attr">createFaceModelUrl:</span> <span class="string">http://192.168.1.14:3000/create_face_model</span></span><br><span class="line">    <span class="attr">checkinUrl:</span> <span class="string">http://192.168.1.14:3000/checkin</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="定义-Form-类，保存签到数据"><a href="#定义-Form-类，保存签到数据" class="headerlink" title="定义 Form 类，保存签到数据"></a>定义 Form 类，保存签到数据</h2><p>由于签到数据中包含了文字数据以及提交的签到照片，因此需要创建 Form 类封装文字签到数据</p>
+<p>创建<code>CheckinForm.java</code>表单类，接收小程序提交的签到数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@ApiModel</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CheckinForm</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">    <span class="keyword">private</span> String country;</span><br><span class="line">    <span class="keyword">private</span> String province;</span><br><span class="line">    <span class="keyword">private</span> String city;</span><br><span class="line">    <span class="keyword">private</span> String district;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>controller 从 form 类中提取出数据后，需要创建 HashMap，将这些数据封装到 HashMap 对象中，再将该对象传给 Service 方法，因此接下来需要在 Service 接口中添加抽象方法</p>
+<h2 id="利用人脸识别程序执行签到"><a href="#利用人脸识别程序执行签到" class="headerlink" title="利用人脸识别程序执行签到"></a>利用人脸识别程序执行签到</h2><p>在<code>CheckinService.java</code>接口中添加抽象的签到方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CheckinService</span> </span>&#123;</span><br><span class="line">    ……</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkin</span><span class="params">(HashMap param)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>CheckinServiceImpl.java</code>中实现抽象方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@Scope(&quot;prototype&quot;)</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CheckinServiceImpl</span> <span class="keyword">implements</span> <span class="title">CheckinService</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> TbFaceModelDao faceModelDao;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Value(&quot;$&#123;emos.face.checkinUrl&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String checkinUrl;</span><br><span class="line"></span><br><span class="line">······</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkin</span><span class="params">(HashMap param)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 判断用户是否迟到，需要获取当前时间</span></span><br><span class="line">    Date d1 = DateUtil.date();</span><br><span class="line">    <span class="comment">// 上班时间</span></span><br><span class="line">    Date d2 = DateUtil.parse(DateUtil.today() + <span class="string">&quot; &quot;</span> + constants.attendanceTime);</span><br><span class="line">    <span class="comment">// 上班考勤的结束时间</span></span><br><span class="line">    Date d3 = DateUtil.parse(DateUtil.today() + <span class="string">&quot; &quot;</span> + constants.attendanceEndTime);</span><br><span class="line">    <span class="keyword">int</span> status = <span class="number">1</span>; <span class="comment">// 状态，1代表正常考勤</span></span><br><span class="line">    <span class="keyword">if</span>(d1.compareTo(d2) &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 当前时间早于上班时间，正常考勤</span></span><br><span class="line">        status = <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(d1.compareTo(d2) &gt; <span class="number">0</span> &amp;&amp; d1.compareTo(d3) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 当前时间晚于上班时间，迟到</span></span><br><span class="line">        status = <span class="number">2</span>;</span><br><span class="line">    &#125; <span class="comment">// 若旷工，签到记录直接为空，不需要存储签到数据</span></span><br><span class="line">    <span class="comment">// 从传入参数中获取员工 Id</span></span><br><span class="line">    <span class="keyword">int</span> userId = (Integer) param.get(<span class="string">&quot;userId&quot;</span>);</span><br><span class="line">    <span class="comment">// 查询签到人的人脸模型数据</span></span><br><span class="line">    String faceModel = faceModelDao.searchFaceModel(userId);</span><br><span class="line">    <span class="comment">// 判断 facemodel 是否为空</span></span><br><span class="line">    <span class="keyword">if</span>(faceModel == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> EmosException(<span class="string">&quot;不存在人脸模型&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 存在则进行对比，获取所上传照片的路径，即保存在本地的地址</span></span><br><span class="line">        String path = (String) param.get(<span class="string">&quot;path&quot;</span>);</span><br><span class="line">        <span class="comment">// 向人脸识别程序发出 http 请求，让 python 程序进行对比</span></span><br><span class="line">        HttpRequest request = HttpUtil.createPost(checkinUrl);</span><br><span class="line">        <span class="comment">// 上传文件及人脸模型</span></span><br><span class="line">        request.form(<span class="string">&quot;photo&quot;</span>, FileUtil.file(path), <span class="string">&quot;targetModel&quot;</span>, faceModel);</span><br><span class="line">        <span class="comment">// 发送请求</span></span><br><span class="line">        HttpResponse response = request.execute();</span><br><span class="line">        <span class="comment">// 判断返回的状态码是否为 200，若不是则抛出异常</span></span><br><span class="line">        <span class="keyword">if</span>(response.getStatus() != <span class="number">200</span>) &#123;</span><br><span class="line">            log.error(<span class="string">&quot;人脸识别服务异常&quot;</span>);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> EmosException(<span class="string">&quot;人脸识别服务异常&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 从响应中取出返回的结果，得到响应体</span></span><br><span class="line">        String body = response.body();</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">&quot;无法识别出人脸&quot;</span>.equals(body) || <span class="string">&quot;照片中存在多张人脸&quot;</span>.equals(body)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> EmosException(body);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">&quot;False&quot;</span>.equals(body)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> EmosException(<span class="string">&quot;签到无效，非本人签到&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">&quot;True&quot;</span>.equals(body)) &#123;</span><br><span class="line">            <span class="comment">// TODO 查询疫情风险等级</span></span><br><span class="line">            <span class="comment">// TODO 保存签到记录</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="查询所在地疫情风险等级"><a href="#查询所在地疫情风险等级" class="headerlink" title="查询所在地疫情风险等级"></a>查询所在地疫情风险等级</h1><p>用户签到成功后，需要根据用户签到所在的地址判断疫情的风险等级。主要步骤包括向本地宝 H5 页面传入 URL 参数查询疫情风险等级、由 jsoup 解析 HTML 页面中的数据、向高风险地区发出告警邮件。</p>
+<h2 id="利用本地宝查询风险等级"><a href="#利用本地宝查询风险等级" class="headerlink" title="利用本地宝查询风险等级"></a>利用本地宝查询风险等级</h2><p>本地宝H5网页提供了新冠疫情风险等级查询，在网页上面直接输入地区，就能查询到疫情的风险等级。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220202202605.png"></p>
+<p>Java程序想要查询用户签到地区的风险等级需要用URL传参的方式，把地址信息传入本地宝的H5页面。例如，可以在浏览器地址栏填写下方的URL连接，就能查询到北京市西城区当前的新冠疫情风险等级。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://m.bj.bendibao.com/news/yqdengji/?qu=西城区</span><br></pre></td></tr></table></figure>
+
+<p>URL地址要传入两个参数：城市编码和区县。其中，城市编码可以从<code>tb_city</code>表中查询到，其中的code字段就是城市对应的编号。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220202202742.png"></p>
+<p>可以根据小程序提交过来的签到城市到<code>tb_city</code>表中根据城市名称查询到城市编号，接下来就可以把参数添加到URL上面。</p>
+<p>要想提取查询到的风险等级结果，可以用Java程序解析本地宝HTML页面的标签，提取我们想要的结果信息即可。在Java中的<code>jsoup</code>提供了解析HTML标签的功能，所以要在Java项目中引入jsoup库。</p>
+<p>在<code>pom.xml</code>文件中添加<code>jsoup</code>依赖，然后重新reload项目</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.jsoup<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jsoup<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.13.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="编写持久层代码"><a href="#编写持久层代码" class="headerlink" title="编写持久层代码"></a>编写持久层代码</h2><p>在<code>TbCityMapper.xml</code>文件中添加查询语句</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;searchCode&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;String&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;String&quot;</span>&gt;</span></span><br><span class="line">	SELECT code</span><br><span class="line">	FROM tb_city</span><br><span class="line">    WHERE city = #&#123;city&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>TbCityMapper.java</code>接口中添加抽象方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TbCityMapper</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">searchCode</span><span class="params">(String city)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="补充签到业务层代码"><a href="#补充签到业务层代码" class="headerlink" title="补充签到业务层代码"></a>补充签到业务层代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkin</span><span class="params">(HashMap param)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 判断用户是否迟到，需要获取当前时间</span></span><br><span class="line">    Date d1 = DateUtil.date();</span><br><span class="line">    <span class="comment">// 上班时间</span></span><br><span class="line">    Date d2 = DateUtil.parse(DateUtil.today() + <span class="string">&quot; &quot;</span> + constants.attendanceTime);</span><br><span class="line">    <span class="comment">// 上班考勤的结束时间</span></span><br><span class="line">    Date d3 = DateUtil.parse(DateUtil.today() + <span class="string">&quot; &quot;</span> + constants.attendanceEndTime);</span><br><span class="line">    <span class="keyword">int</span> status = <span class="number">1</span>; <span class="comment">// 状态，1代表正常考勤</span></span><br><span class="line">    <span class="keyword">if</span>(d1.compareTo(d2) &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 当前时间早于上班时间，正常考勤</span></span><br><span class="line">        status = <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(d1.compareTo(d2) &gt; <span class="number">0</span> &amp;&amp; d1.compareTo(d3) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 当前时间晚于上班时间，迟到</span></span><br><span class="line">        status = <span class="number">2</span>;</span><br><span class="line">    &#125; <span class="comment">// 若旷工，签到记录直接为空，不需要存储签到数据</span></span><br><span class="line">    <span class="comment">// 从传入参数中获取员工 Id</span></span><br><span class="line">    <span class="keyword">int</span> userId = (Integer) param.get(<span class="string">&quot;userId&quot;</span>);</span><br><span class="line">    <span class="comment">// 查询签到人的人脸模型数据</span></span><br><span class="line">    String faceModel = faceModelDao.searchFaceModel(userId);</span><br><span class="line">    <span class="comment">// 判断 facemodel 是否为空</span></span><br><span class="line">    <span class="keyword">if</span>(faceModel == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> EmosException(<span class="string">&quot;不存在人脸模型&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 存在则进行对比，获取所上传照片的路径，即保存在本地的地址</span></span><br><span class="line">        String path = (String) param.get(<span class="string">&quot;path&quot;</span>);</span><br><span class="line">        <span class="comment">// 向人脸识别程序发出 http 请求，让 python 程序进行对比</span></span><br><span class="line">        HttpRequest request = HttpUtil.createPost(checkinUrl);</span><br><span class="line">        <span class="comment">// 上传文件及人脸模型</span></span><br><span class="line">        request.form(<span class="string">&quot;photo&quot;</span>, FileUtil.file(path), <span class="string">&quot;targetModel&quot;</span>, faceModel);</span><br><span class="line">        <span class="comment">// 发送请求</span></span><br><span class="line">        HttpResponse response = request.execute();</span><br><span class="line">        <span class="comment">// 判断返回的状态码是否为 200，若不是则抛出异常</span></span><br><span class="line">        <span class="keyword">if</span>(response.getStatus() != <span class="number">200</span>) &#123;</span><br><span class="line">            log.error(<span class="string">&quot;人脸识别服务异常&quot;</span>);</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> EmosException(<span class="string">&quot;人脸识别服务异常&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 从响应中取出返回的结果，得到响应体</span></span><br><span class="line">        String body = response.body();</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">&quot;无法识别出人脸&quot;</span>.equals(body) || <span class="string">&quot;照片中存在多张人脸&quot;</span>.equals(body)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> EmosException(body);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">&quot;False&quot;</span>.equals(body)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> EmosException(<span class="string">&quot;签到无效，非本人签到&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">&quot;True&quot;</span>.equals(body)) &#123;</span><br><span class="line">            <span class="comment">// 风险值为1，代表低风险</span></span><br><span class="line">            <span class="keyword">int</span> risk = <span class="number">1</span>;</span><br><span class="line">            <span class="comment">// 保存城市和区县信息</span></span><br><span class="line">            String city = (String) param.get(<span class="string">&quot;city&quot;</span>);</span><br><span class="line">            String district = (String) param.get(<span class="string">&quot;district&quot;</span>);</span><br><span class="line">            <span class="keyword">if</span>(!StrUtil.isBlank(city) &amp;&amp; !StrUtil.isBlank(district)) &#123;</span><br><span class="line">                <span class="comment">// 查询城市对应的代码，得到代码后发出 HTTP请求，向本地宝网页传入查询参数</span></span><br><span class="line">                String code = cityDao.searchCode(city);</span><br><span class="line">                <span class="keyword">try</span>&#123;</span><br><span class="line">                    String url = <span class="string">&quot;http://m.&quot;</span> + code + <span class="string">&quot;.bendibao.com/news/yqdengji/?qu=&quot;</span> + district;</span><br><span class="line">                    <span class="comment">// 发出 HTTP 请求，并将返回的 html 通过 jsoup 进行解析</span></span><br><span class="line">                    Document document = Jsoup.connect(url).get();</span><br><span class="line">                    <span class="comment">// 通过 CSS 查找其中的 div 标签</span></span><br><span class="line">                    Elements elements = document.getElementsByClass(<span class="string">&quot;list-content&quot;</span>);</span><br><span class="line">                    <span class="comment">// 判断 elements 中元素的数量</span></span><br><span class="line">                    <span class="keyword">if</span> (elements.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        Element element = elements.get(<span class="number">0</span>);</span><br><span class="line">                        <span class="comment">// 在 div 框架中查找最后的 p 标签，获取疫情风险等级</span></span><br><span class="line">                        String result = element.select(<span class="string">&quot;p:last-child&quot;</span>).text();</span><br><span class="line">                        <span class="keyword">if</span>(<span class="string">&quot;高风险&quot;</span>.equals(result)) &#123;</span><br><span class="line">                            risk = <span class="number">3</span>;</span><br><span class="line">                            <span class="comment">// TODO 发送告警邮件</span></span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">&quot;中风险&quot;</span>.equals(result)) &#123;</span><br><span class="line">                            risk = <span class="number">2</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;<span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                    log.error(<span class="string">&quot;执行异常&quot;</span>, e);</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> EmosException(<span class="string">&quot;获取风险等级失败&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 将签到结果保存到数据表中，包括签到人ID、签到时间、签到结果、签到地址</span></span><br><span class="line">            <span class="comment">// 创建 pojo 类对象，将数据保存在 pojo 对象中，调用 dao 中的 insert 方法，将数据保存到签到表中</span></span><br><span class="line">            <span class="comment">// 取出地址数据</span></span><br><span class="line">            String address = (String) param.get(<span class="string">&quot;address&quot;</span>);</span><br><span class="line">            String country = (String) param.get(<span class="string">&quot;country&quot;</span>);</span><br><span class="line">            String province = (String) param.get(<span class="string">&quot;province&quot;</span>);</span><br><span class="line">            <span class="comment">// 创建 pojo 对象，写入地址相关的信息</span></span><br><span class="line">            TbCheckin entity = <span class="keyword">new</span> TbCheckin();</span><br><span class="line">            entity.setUserId(userId);</span><br><span class="line">            entity.setAddress(address);</span><br><span class="line">            entity.setCountry(country);</span><br><span class="line">            entity.setProvince(province);</span><br><span class="line">            entity.setCity(city);</span><br><span class="line">            entity.setDistrict(district);</span><br><span class="line">            <span class="comment">// 签到结果</span></span><br><span class="line">            entity.setStatus((<span class="keyword">byte</span>) status);</span><br><span class="line">            <span class="comment">// 获取当前日期</span></span><br><span class="line">            entity.setDate(DateUtil.today());</span><br><span class="line">            <span class="comment">// 获取当前时间</span></span><br><span class="line">            entity.setCreateTime(d1);</span><br><span class="line">            <span class="comment">// 将签到记录保存到数据表</span></span><br><span class="line">            checkinDao.insert(entity);</span><br><span class="line">            <span class="comment">// TODO 保存签到记录</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="发送疫情告警邮件"><a href="#发送疫情告警邮件" class="headerlink" title="发送疫情告警邮件"></a>发送疫情告警邮件</h1><h2 id="采用异步发送邮件"><a href="#采用异步发送邮件" class="headerlink" title="采用异步发送邮件"></a>采用异步发送邮件</h2><p>在签到过程中，执行人脸识别和查询疫情风险等级都比较消耗时间。如果发送邮件再做成同步执行的，势必导致签到执行时间过长，影响用户体验。由于要把签到结果保存到签到表，所以人脸识别和疫情风险等级查询必须是同步执行的。发送邮件跟保存签到数据没有直接关联，所以做成异步并行执行的程序更好一些，这样也能缩短用户签到时候等待的时间。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220202212306.png"></p>
+<h2 id="导入Email邮件库"><a href="#导入Email邮件库" class="headerlink" title="导入Email邮件库"></a>导入Email邮件库</h2><p>编辑<code>pom.xml</code>文件，添加依赖库</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-mail<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="设置-SMTP-服务器信息"><a href="#设置-SMTP-服务器信息" class="headerlink" title="设置 SMTP 服务器信息"></a>设置 SMTP 服务器信息</h2><p>发送邮件是通过SMTP服务器来完成的，所以要配置一下SMTP服务器的连接信息。这里以163的SMTP服务器为例，并且提前已经开启了163邮箱的SMTP功能。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">	<span class="string">……</span></span><br><span class="line">	<span class="attr">mail:</span></span><br><span class="line">    	<span class="attr">default-encoding:</span> <span class="string">UTF-8</span></span><br><span class="line">    	<span class="attr">host:</span> <span class="string">smtp.163.com</span></span><br><span class="line">    	<span class="attr">username:</span> <span class="string">*************@163.com</span></span><br><span class="line">    	<span class="attr">password:</span> <span class="string">此处是密码</span></span><br></pre></td></tr></table></figure>
+
+<p>接下来需要把系统内的常用邮箱声明一下，以后会用到这些邮箱往外发送邮件，或者给这些邮箱发送内部邮件。例如，员工签到地点是疫情高风险地区，那么就应该向HR邮箱发送邮件，告知人事总监有员工需要隔离。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">emos：</span></span><br><span class="line">	<span class="string">……</span></span><br><span class="line">	<span class="attr">email:</span></span><br><span class="line">    	<span class="attr">system:</span> <span class="string">*********@163.com</span></span><br><span class="line">    	<span class="attr">hr:</span> <span class="string">**********@qq.com</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="实现异步发送邮件"><a href="#实现异步发送邮件" class="headerlink" title="实现异步发送邮件"></a>实现异步发送邮件</h2><p>在SpringBoot项目中开启异步多线程非常简单，只需要下面几个步骤即可。</p>
+<p>在主类上面开启<code>@EnableAsync</code>注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableAsync</span> <span class="comment">// 开启异步多线程</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmosWxApiApplication</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>com.example.emos.wx.config</code>中创建<code>ThreadPoolConfig</code>配置类，声明Java线程池</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.emos.wx.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.task.AsyncTaskExecutor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ThreadPoolExecutor;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span> <span class="comment">// 配置信息</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadPoolConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean(&quot;AsyncTaskExecutor&quot;)</span> <span class="comment">// 方法返回的 Java 对象自动注册到 SpringBoot 上</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AsyncTaskExecutor <span class="title">taskExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建线程池对象</span></span><br><span class="line">        <span class="comment">// 多态，返回子类对象</span></span><br><span class="line">        ThreadPoolTaskExecutor executor = <span class="keyword">new</span> ThreadPoolTaskExecutor();</span><br><span class="line">        <span class="comment">// 设置核心线程数</span></span><br><span class="line">        executor.setCorePoolSize(<span class="number">8</span>);</span><br><span class="line">        <span class="comment">// 设置最大线程数</span></span><br><span class="line">        executor.setMaxPoolSize(<span class="number">16</span>);</span><br><span class="line">        <span class="comment">// 设置队列容量</span></span><br><span class="line">        executor.setQueueCapacity(<span class="number">32</span>);</span><br><span class="line">        <span class="comment">// 设置线程活跃时间（秒）</span></span><br><span class="line">        executor.setKeepAliveSeconds(<span class="number">60</span>);</span><br><span class="line">        <span class="comment">// 设置默认线程名称</span></span><br><span class="line">        executor.setThreadNamePrefix(<span class="string">&quot;task-&quot;</span>);</span><br><span class="line">        <span class="comment">// 设置拒绝策略</span></span><br><span class="line">        executor.setRejectedExecutionHandler(<span class="keyword">new</span> ThreadPoolExecutor.CallerRunsPolicy());</span><br><span class="line">        <span class="comment">// 线程池对象初始化</span></span><br><span class="line">        executor.initialize();</span><br><span class="line">        <span class="keyword">return</span> executor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>com.example.emos.wx.task</code>中创建<code>EmailTask</code>任务类，定义线程任务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.emos.wx.task;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Scope;</span><br><span class="line"><span class="keyword">import</span> org.springframework.mail.SimpleMailMessage;</span><br><span class="line"><span class="keyword">import</span> org.springframework.mail.javamail.JavaMailSender;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.annotation.Async;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span> <span class="comment">// 注册给 SrpingBoot 项目</span></span><br><span class="line"><span class="meta">@Scope(&quot;prototype&quot;)</span> <span class="comment">// 多例 java 类，防止出现线程安全问题</span></span><br><span class="line"><span class="comment">// 实现串行化接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailTask</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JavaMailSender javaMailSender; <span class="comment">// 用于发送邮件</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;emos.email.system&#125;&quot;)</span> <span class="comment">// 值注入</span></span><br><span class="line">    <span class="keyword">private</span> String mailBox;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Async</span> <span class="comment">// 异步执行</span></span><br><span class="line">    <span class="comment">// 向外发送邮件</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendAsync</span><span class="params">(SimpleMailMessage message)</span> </span>&#123;</span><br><span class="line">        message.setFrom(mailBox); <span class="comment">// 设置发件人</span></span><br><span class="line">        message.setCc(mailBox); <span class="comment">// 设置抄送给自己，防止被认为是垃圾邮件</span></span><br><span class="line">        javaMailSender.send(message); <span class="comment">// 发送邮件信息</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发送邮件时，需要带上员工的姓名和部门名称，因此需要进行查询，在<code>TbUserMapper.xml</code>文件中声明查询语句.</p>
+<p>将用户表与部门表进行连接，连接条件为 <code>u.dept_id = d.id</code>，连接方式采用外连接中的左连接，从而能够查询出没有部门的部分员工。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;searchNameAndDept&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;int&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;HashMap&quot;</span>&gt;</span></span><br><span class="line">	SELECT u.name, d.dept_name</span><br><span class="line">    FROM tb_user u LEFT JOIN tb_dept d ON u.dept_id=d.id</span><br><span class="line">    WHERE u.id = #&#123;userId&#125; AND u.status = 1</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>TbUserMapper</code>接口中定义抽象方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> HashMap <span class="title">searchNameAndDept</span><span class="params">(<span class="keyword">int</span> userId)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>编写业务层代码，在<code>CheckinServiceImpl.java</code>中定义值注入变量，用来接收人员隔离告警邮件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Value(&quot;$&#123;emos.email.hr&#125;&quot;)</span></span><br><span class="line"><span class="keyword">private</span> String hrEmail;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> EmailTask emailTask;</span><br></pre></td></tr></table></figure>
+
+<p>编写发送告警邮件的代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发送告警邮件</span></span><br><span class="line"><span class="comment">// 查询得到高风险地区员工的具体信息</span></span><br><span class="line">HashMap&lt;String, String&gt; map =  userDao.searchNameAndDept(userId);</span><br><span class="line"><span class="comment">// 从中提取员工的姓名与部门</span></span><br><span class="line">String name = map.get(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">String deptName = map.get(<span class="string">&quot;dept_name&quot;</span>);</span><br><span class="line"><span class="comment">// 判断是否为空，若为空则改为空字符串</span></span><br><span class="line">deptName = deptName != <span class="keyword">null</span> ? deptName : <span class="string">&quot;&quot;</span>;</span><br><span class="line"><span class="comment">// 创建邮件的封装对象</span></span><br><span class="line">SimpleMailMessage message = <span class="keyword">new</span> SimpleMailMessage();</span><br><span class="line"><span class="comment">// 规定收件人</span></span><br><span class="line">message.setTo(hrEmail);</span><br><span class="line"><span class="comment">// 设置邮件标题</span></span><br><span class="line">message.setSubject(<span class="string">&quot;员工&quot;</span> + name + <span class="string">&quot;身处高风险疫情地区警告&quot;</span>);</span><br><span class="line"><span class="comment">// 设置邮件正文</span></span><br><span class="line">message.setText(deptName + <span class="string">&quot;员工&quot;</span> + name + <span class="string">&quot;,&quot;</span> + DateUtil.format(<span class="keyword">new</span> Date(), <span class="string">&quot;yyyy年MM月dd日&quot;</span>) + <span class="string">&quot;处于&quot;</span> + address + <span class="string">&quot;，属于新冠疫情高风险地区，请及时与该员工联系，核实情况！&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="实现人脸签到（Web-层）"><a href="#实现人脸签到（Web-层）" class="headerlink" title="实现人脸签到（Web 层）"></a>实现人脸签到（Web 层）</h1><h2 id="设置上传图片存储的路径"><a href="#设置上传图片存储的路径" class="headerlink" title="设置上传图片存储的路径"></a>设置上传图片存储的路径</h2><p>因为签到自拍照是临时使用，所以不需要存储在腾讯云对象存储中，只需要在本地找个文件夹存放这些签到照片即可。等到签到业务执行完，就立即删除该文件。</p>
+<p>在application.yml文件中，设置图片存放路径</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">emos:</span></span><br><span class="line">	<span class="string">……</span></span><br><span class="line">	<span class="attr">image-folder:</span> <span class="string">F:/Study/emos-wx-api/image</span></span><br></pre></td></tr></table></figure>
+
+<p>在主类中添加初始化代码，项目启动时候自动创建图片文件夹</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">……</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmosWxApiApplication</span> </span>&#123;</span><br><span class="line">    ……</span><br><span class="line">    <span class="comment">// 值注入，获取文件夹路径</span></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;emos.image-folder&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String imageFolder;</span><br><span class="line"></span><br><span class="line">    ……</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ……</span><br><span class="line">        <span class="keyword">new</span> File(imageFolder).mkdirs();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="编辑Controller类"><a href="#编辑Controller类" class="headerlink" title="编辑Controller类"></a>编辑Controller类</h2><p>编辑<code>CheckinController.java</code>类，定义<code>checkin()</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 分配请求的路径</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/checkin&quot;)</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Api(&quot;签到模块Web接口&quot;)</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CheckinController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JwtUtil jwtUtil;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 值注入，导入存储文件的路径</span></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;emos.image-folder&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String imageFolder;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 引用业务层</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CheckinService checkinService;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/validCanCheckin&quot;)</span></span><br><span class="line">    <span class="meta">@ApiOperation(&quot;查看用户今天能否签到&quot;)</span></span><br><span class="line">    <span class="comment">// 取出请求头中的令牌字符串，保存在 token 变量中</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> R <span class="title">validCanCheckin</span><span class="params">(<span class="meta">@RequestHeader(&quot;token&quot;)</span> String token)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 从令牌字符串中解析出 uesrId</span></span><br><span class="line">        <span class="keyword">int</span> userId = jwtUtil.getUserId(token);</span><br><span class="line">        <span class="comment">// 返回业务层的能否进行考勤签到的业务消息</span></span><br><span class="line">        String result = checkinService.validCanCheckin(userId, DateUtil.today());</span><br><span class="line">        <span class="comment">// 将业务消息绑定在 R 对象上</span></span><br><span class="line">        <span class="keyword">return</span> R.ok(result);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 输入参数：表单 form 类（进行后端验证）、上传的图片文件 MultipartFile 类(客户端上传文件时，参数名必须为 photo)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/checkin&quot;)</span> <span class="comment">// 上传图片，需要接收post请求</span></span><br><span class="line">    <span class="meta">@ApiOperation(&quot;签到&quot;)</span> <span class="comment">//Swagger 测试</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> R <span class="title">checkin</span><span class="params">(<span class="meta">@Valid</span> CheckinForm form,<span class="meta">@RequestParam(&quot;photo&quot;)</span> MultipartFile file,<span class="meta">@RequestHeader(&quot;token&quot;)</span> String token)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (file == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> R.error(<span class="string">&quot;没有上传文件&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> userId = jwtUtil.getUserId(token);</span><br><span class="line">        <span class="comment">// 判断文件类型是否为 .jpg 格式</span></span><br><span class="line">        String fileName = file.getOriginalFilename().toLowerCase(); <span class="comment">// 提取文件名并转为小写1</span></span><br><span class="line">        <span class="keyword">if</span> (!fileName.endsWith(<span class="string">&quot;,jpg&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> R.error(<span class="string">&quot;必须提交 jpg 格式的图片&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 将图片保存在硬盘中</span></span><br><span class="line">            String path = imageFolder + <span class="string">&quot;/&quot;</span> + fileName;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                file.transferTo(Paths.get(path)); <span class="comment">// 构建 path 对象，将图片保存到硬盘</span></span><br><span class="line">                HashMap param = <span class="keyword">new</span> HashMap(); <span class="comment">// 采用 HashMap 封装参数</span></span><br><span class="line">                param.put(<span class="string">&quot;userId&quot;</span>, userId);</span><br><span class="line">                param.put(<span class="string">&quot;path&quot;</span>, path);</span><br><span class="line">                <span class="comment">// 从 form 中获得相关信息</span></span><br><span class="line">                param.put(<span class="string">&quot;city&quot;</span>, form.getCity());</span><br><span class="line">                param.put(<span class="string">&quot;district&quot;</span>, form.getDistrict());</span><br><span class="line">                param.put(<span class="string">&quot;address&quot;</span>, form.getAddress());</span><br><span class="line">                param.put(<span class="string">&quot;country&quot;</span>, form.getCountry());</span><br><span class="line">                param.put(<span class="string">&quot;province&quot;</span>, form.getProvince());</span><br><span class="line">                <span class="comment">// 调用业务层方法，传入 param 对象，保存签到记录</span></span><br><span class="line">                checkinService.checkin(param);</span><br><span class="line">                <span class="keyword">return</span> R.ok(<span class="string">&quot;签到成功&quot;</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                log.error(e.getMessage(), e); <span class="comment">// 将异常记录到日志中</span></span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> EmosException(<span class="string">&quot;图片保存错误&quot;</span>); <span class="comment">// 向客户端返回异常消息</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 添加 finally 块，删除自拍照片</span></span><br><span class="line">            <span class="keyword">finally</span> &#123;</span><br><span class="line">                FileUtil.del(path);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="创建新员工人脸模型数据（业务层）"><a href="#创建新员工人脸模型数据（业务层）" class="headerlink" title="创建新员工人脸模型数据（业务层）"></a>创建新员工人脸模型数据（业务层）</h1><p>若数据库中不存在员工的人脸模型数据，则后端项目会返回一个异常消息，用户在手机上能够得到一个错误通知，从而可以选择用当前拍摄的照片上传给 java 项目来创建人脸模型数据。</p>
+<h2 id="编写抽象方法"><a href="#编写抽象方法" class="headerlink" title="编写抽象方法"></a>编写抽象方法</h2><p>如果用户是第一次签到，checkin方法检测到数据库中没有该员工的人脸模型数据，移动端会收到异常消息，所以要重新发送HTTP请求，让后端项目用签到照片创建人脸模型数据。因此需要声明创建人脸模型的业务层抽象方法。</p>
+<p>在<code>CheckinService</code>接口中，声明抽象方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CheckinService</span> </span>&#123;</span><br><span class="line">    ……</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createFaceModel</span><span class="params">(<span class="keyword">int</span> userId, String path)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="编写创建人脸模型方法"><a href="#编写创建人脸模型方法" class="headerlink" title="编写创建人脸模型方法"></a>编写创建人脸模型方法</h2><p>在<code>CheckinServiceImpl</code>类中，实现抽象方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createFaceModel</span><span class="params">(<span class="keyword">int</span> userId, String path)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 发送 HTTP 请求给 Python 程序，从而创建人脸模型数据</span></span><br><span class="line">    <span class="comment">// 创建请求对象，传入的参数为创建请求的 url 路径</span></span><br><span class="line">    HttpRequest request = HttpUtil.createPost(createFaceModelUrl);</span><br><span class="line">    <span class="comment">// 将文件写入请求对象</span></span><br><span class="line">    request.form(<span class="string">&quot;photo&quot;</span>, FileUtil.file(path));</span><br><span class="line">    <span class="comment">// 响应对象</span></span><br><span class="line">    HttpResponse response = request.execute();</span><br><span class="line">    <span class="comment">// 响应体内容</span></span><br><span class="line">    String body = response.body();</span><br><span class="line">    <span class="keyword">if</span>(<span class="string">&quot;无法识别出人脸&quot;</span>.equals(body) || <span class="string">&quot;照片中存在多张人脸&quot;</span>.equals(body)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> EmosException((body));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 正常，需要保存人脸模型数据</span></span><br><span class="line">        TbFaceModel entity = <span class="keyword">new</span> TbFaceModel();</span><br><span class="line">        entity.setUserId(userId);</span><br><span class="line">        <span class="comment">// body 中存储人脸模型数据</span></span><br><span class="line">        entity.setFaceModel(body);</span><br><span class="line">        faceModelDao.insert(entity);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="创建新员工人脸模型数据（Web-层）"><a href="#创建新员工人脸模型数据（Web-层）" class="headerlink" title="创建新员工人脸模型数据（Web 层）"></a>创建新员工人脸模型数据（Web 层）</h1><p>不需要创建 form 类，只需要传入客户端提交的照片文档与请求头中所包含的 token</p>
+<p>在<code>CheckinController</code>类中创建<code>createFaceModel()</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CheckinController</span> </span>&#123;</span><br><span class="line">	<span class="meta">@PostMapping(&quot;/createFaceModel&quot;)</span></span><br><span class="line">    <span class="meta">@ApiOperation(&quot;创建人脸模型&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> R <span class="title">createFaceModel</span><span class="params">(<span class="meta">@RequestParam(&quot;photo&quot;)</span> MultipartFile file, <span class="meta">@RequestHeader(&quot;token&quot;)</span> String token)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> userId = jwtUtil.getUserId(token);</span><br><span class="line">        <span class="keyword">if</span> (file==<span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> R.error(<span class="string">&quot;没有上传文件&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        String fileName = file.getOriginalFilename().toLowerCase();</span><br><span class="line">        String path = imageFolder + <span class="string">&quot;/&quot;</span> + fileName;</span><br><span class="line">        <span class="keyword">if</span> (!fileName.endsWith(<span class="string">&quot;.jpg&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> R.error(<span class="string">&quot;必须提交JPG格式图片&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                file.transferTo(Paths.get(path));</span><br><span class="line">                checkinService.createFaceModel(userId, path);</span><br><span class="line">                <span class="keyword">return</span> R.ok(<span class="string">&quot;人脸建模成功&quot;</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                log.error(e.getMessage());</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> EmosException(<span class="string">&quot;保存图片错误&quot;</span>);</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                FileUtil.del(path);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="实现人脸签到（移动端）"><a href="#实现人脸签到（移动端）" class="headerlink" title="实现人脸签到（移动端）"></a>实现人脸签到（移动端）</h1><h2 id="封装Ajax请求路径"><a href="#封装Ajax请求路径" class="headerlink" title="封装Ajax请求路径"></a>封装Ajax请求路径</h2><p>在main.js文件中，添加三个请求路径</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Vue.prototype.url = &#123;</span><br><span class="line">	……</span><br><span class="line">	<span class="attr">checkin</span>: baseUrl + <span class="string">&quot;/checkin/checkin&quot;</span>,</span><br><span class="line">	<span class="attr">createFaceModel</span>: baseUrl + <span class="string">&quot;/checkin/createFaceModel&quot;</span>,</span><br><span class="line">	<span class="attr">validCanCheckIn</span>: baseUrl + <span class="string">&quot;/checkin/validCanCheckIn&quot;</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="上传照片执行签到"><a href="#上传照片执行签到" class="headerlink" title="上传照片执行签到"></a>上传照片执行签到</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">// 发送 Ajax 请求，将这些信息提交给后端程序</span><br><span class="line">uni.uploadFile(&#123;</span><br><span class="line">    url:that.url.checkin,</span><br><span class="line">    filePath:that.photoPath,</span><br><span class="line">    name:&quot;photo&quot;,</span><br><span class="line">    header:&#123;</span><br><span class="line">        token:uni.getStorageSync(&quot;token&quot;) // 获取令牌字符串</span><br><span class="line">    &#125;,</span><br><span class="line">    // 上传的数据</span><br><span class="line">    formData:&#123;</span><br><span class="line">        address:address,</span><br><span class="line">        country:nation,</span><br><span class="line">        province:province,</span><br><span class="line">        city:city,</span><br><span class="line">        district:district</span><br><span class="line">    &#125;,</span><br><span class="line">    success:function(resp)&#123;</span><br><span class="line">        if(resp.statusCode == 500 &amp;&amp; resp.data == &quot;不存在人脸模型&quot;) &#123;</span><br><span class="line">            // 返回错误消息，让用户判断是否以当前照片建立人脸模型数据</span><br><span class="line">            uni.hideLoading()</span><br><span class="line">            uni.showModal(&#123;</span><br><span class="line">                title:&quot;提示信息&quot;,</span><br><span class="line">                content:&quot;EMOS系统中不存在你的人脸识别模型，是否用当前这张照片作为人脸识别模型？&quot;,</span><br><span class="line">                // 判断用户点击了确认按钮或取消按钮</span><br><span class="line">                success:function(res)&#123;</span><br><span class="line">                    if(res.confirm) &#123;</span><br><span class="line">                        // 点击了确认按钮</span><br><span class="line">                        // 发送 Ajax 请求，将这些信息提交给后端程序</span><br><span class="line">                        uni.uploadFile(&#123;</span><br><span class="line">                            url:that.url.createFaceModel,</span><br><span class="line">                            filePath:that.photoPath,</span><br><span class="line">                            name:&quot;photo&quot;,</span><br><span class="line">                            header:&#123;</span><br><span class="line">                                token:uni.getStorageSync(&quot;token&quot;) // 获取令牌字符串</span><br><span class="line">                            &#125;,</span><br><span class="line">                            success:function(resp) &#123;</span><br><span class="line">                                if(resp.statusCode == 500) &#123;</span><br><span class="line">                                    // 创建人脸模型失败</span><br><span class="line">                                    uni.showToast(&#123;</span><br><span class="line">                                        title:resp.data,</span><br><span class="line">                                        icon:&quot;none&quot;</span><br><span class="line">                                    &#125;)</span><br><span class="line">                                &#125;</span><br><span class="line">                                else if(resp.statusCode == 200) &#123;</span><br><span class="line">                                    // 创建人脸模型成功</span><br><span class="line">                                    uni.showToast(&#123;</span><br><span class="line">                                        title:&quot;人脸建模成功&quot;,</span><br><span class="line">                                        icon:&quot;none&quot;</span><br><span class="line">                                    &#125;);</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">        else if(resp.statusCode == 200) &#123;</span><br><span class="line">            // 签到成功</span><br><span class="line">            // 将字符串解析为 JSON 对象</span><br><span class="line">            let data = JSON.parse(resp.data)</span><br><span class="line">            let code = data.code // 获取 R 对象中封装的业务状态码</span><br><span class="line">            let msg = data.msg</span><br><span class="line">            // 判断业务状态码是否为 200</span><br><span class="line">            if(code == 200) &#123;</span><br><span class="line">                uni.hideLoading()</span><br><span class="line">                // 创建人脸模型成功</span><br><span class="line">                uni.showToast(&#123;</span><br><span class="line">                    title:&quot;签到成功&quot;,</span><br><span class="line">                    complete:function() &#123;</span><br><span class="line">                        // TODO 跳转到签到结果统计页面</span><br><span class="line">                        </span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        else if(resp.statusCode == 500) &#123;</span><br><span class="line">            uni.showToast(&#123;</span><br><span class="line">                title:resp.data,</span><br><span class="line">                icon:&quot;none&quot;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>运行整个项目后，按照提示进行签到，前端页面显示依次为：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/bbf2f464fd38b23b49f3e953a8d63b4.jpg"></p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/f07bc71bf7be2d0d2c664d2db509090.jpg"></p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/9dacc695619534ffb92d55a4cb1b5ed.jpg"></p>
+<p>MySQL 数据库中所保存的人脸模型数据为：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220203195730.png"></p>
+<p>所保存的签到数据为：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220203195831.png"></p>
+<h2 id="检查当前是否可以签到"><a href="#检查当前是否可以签到" class="headerlink" title="检查当前是否可以签到"></a>检查当前是否可以签到</h2><p>在<code>onShow()</code>函数中发送Ajax请求，检查当前时刻能否签到</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">onShow: function() &#123;</span><br><span class="line">	let that = this;</span><br><span class="line">	that.ajax(that.url.validCanCheckIn, &#x27;GET&#x27;, null, function(resp) &#123;</span><br><span class="line">		let msg = resp.data.msg;</span><br><span class="line">		if (msg != &#x27;可以考勤&#x27;) &#123;</span><br><span class="line">			setTimeout(function() &#123;</span><br><span class="line">				uni.showToast(&#123;</span><br><span class="line">					title: msg,</span><br><span class="line">					icon: &#x27;none&#x27;</span><br><span class="line">				&#125;);</span><br><span class="line">			&#125;, 1000);</span><br><span class="line">			that.canCheckin = false;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>邮件发送测试结果：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220203202925.png"></p>
+
+      
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/" rel="tag"># 项目实战</a>
+              <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag"># 小程序</a>
+              <a href="/tags/Spring-Boot/" rel="tag"># Spring Boot</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/29/%E5%9C%A8%E7%BA%BF%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F6%EF%BC%9A%E4%BA%BA%E8%84%B8%E8%80%83%E5%8B%A4%E7%AD%BE%E5%88%B0%EF%BC%88%E4%B8%80%EF%BC%89/" rel="prev" title="办公系统 6. 人脸考勤签到（一）">
+      <i class="fa fa-chevron-left"></i> 办公系统 6. 人脸考勤签到（一）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/02/05/%E5%9C%A8%E7%BA%BF%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F8%EF%BC%9A%E4%BA%BA%E8%84%B8%E8%80%83%E5%8B%A4%E7%AD%BE%E5%88%B0%EF%BC%88%E4%B8%89%EF%BC%89/" rel="next" title="办公系统 8. 人脸考勤签到（三）">
+      办公系统 8. 人脸考勤签到（三） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AD%BE%E5%88%B0%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">签到业务流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E9%9C%80%E6%B1%82"><span class="nav-number">1.1.</span> <span class="nav-text">主要需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%9C%B0%E7%90%86%E4%BF%A1%E6%81%AF"><span class="nav-number">1.2.</span> <span class="nav-text">如何获取地理信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E5%AE%9A%E6%9F%90%E5%9C%B0%E5%8C%BA%E6%96%B0%E5%86%A0%E7%96%AB%E6%83%85%E7%9A%84%E9%A3%8E%E9%99%A9%E7%AD%89%E7%BA%A7"><span class="nav-number">1.3.</span> <span class="nav-text">如何判定某地区新冠疫情的风险等级</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%80%E9%80%9A%E8%85%BE%E8%AE%AF%E4%BD%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.</span> <span class="nav-text">开通腾讯位置服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E9%80%9A%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.1.</span> <span class="nav-text">开通服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%85%BE%E8%AE%AF%E4%BD%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1SDK"><span class="nav-number">2.2.</span> <span class="nav-text">腾讯位置服务SDK</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%8A%E5%AE%9A%E4%BD%8D%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2%E4%B8%BA%E7%9C%9F%E5%AE%9E%E5%9D%90%E6%A0%87"><span class="nav-number">3.</span> <span class="nav-text">把定位坐标转换为真实坐标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%AE%9A%E4%BD%8D%E5%9D%90%E6%A0%87"><span class="nav-number">3.1.</span> <span class="nav-text">获取定位坐标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%BE%91%E7%AD%BE%E5%88%B0%E9%A1%B5%E9%9D%A2"><span class="nav-number">3.2.</span> <span class="nav-text">编辑签到页面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8-Docker-%E4%B8%AD%E5%AE%89%E8%A3%85%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E9%95%9C%E5%83%8F"><span class="nav-number">4.</span> <span class="nav-text">在 Docker 中安装人脸识别镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Docker"><span class="nav-number">4.1.</span> <span class="nav-text">什么是 Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8Docker"><span class="nav-number">4.2.</span> <span class="nav-text">为什么要使用Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E5%92%8C%E5%AE%B9%E5%99%A8"><span class="nav-number">4.3.</span> <span class="nav-text">镜像和容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%97%ADSELINUX"><span class="nav-number">4.4.</span> <span class="nav-text">关闭SELINUX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Docker%E7%A8%8B%E5%BA%8F"><span class="nav-number">4.5.</span> <span class="nav-text">安装Docker程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E9%95%9C%E5%83%8F"><span class="nav-number">4.6.</span> <span class="nav-text">导入人脸识别镜像</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E7%A8%8B%E5%BA%8F"><span class="nav-number">5.</span> <span class="nav-text">运行人脸识别程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BADocker%E5%AE%B9%E5%99%A8"><span class="nav-number">5.1.</span> <span class="nav-text">创建Docker容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E7%A8%8B%E5%BA%8F-1"><span class="nav-number">5.2.</span> <span class="nav-text">运行人脸识别程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8"><span class="nav-number">5.3.</span> <span class="nav-text">接口调用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%BA%BA%E8%84%B8%E7%AD%BE%E5%88%B0%EF%BC%88%E6%8C%81%E4%B9%85%E5%B1%82%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">实现人脸签到（持久层）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%B4%E6%8A%A4%E5%91%98%E5%B7%A5%E4%BA%BA%E8%84%B8%E6%A8%A1%E5%9E%8B%E6%95%B0%E6%8D%AE"><span class="nav-number">6.1.</span> <span class="nav-text">维护员工人脸模型数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E7%AD%BE%E5%88%B0%E8%AE%B0%E5%BD%95"><span class="nav-number">6.2.</span> <span class="nav-text">保存签到记录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%BA%BA%E8%84%B8%E7%AD%BE%E5%88%B0%EF%BC%88%E4%B8%9A%E5%8A%A1%E5%B1%82%EF%BC%89"><span class="nav-number">7.</span> <span class="nav-text">实现人脸签到（业务层）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%BA%BA%E8%84%B8%E7%AD%BE%E5%88%B0%E7%A8%8B%E5%BA%8F%E7%9A%84-URL-%E8%B7%AF%E5%BE%84"><span class="nav-number">7.1.</span> <span class="nav-text">定义人脸签到程序的 URL 路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-Form-%E7%B1%BB%EF%BC%8C%E4%BF%9D%E5%AD%98%E7%AD%BE%E5%88%B0%E6%95%B0%E6%8D%AE"><span class="nav-number">7.2.</span> <span class="nav-text">定义 Form 类，保存签到数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C%E7%AD%BE%E5%88%B0"><span class="nav-number">7.3.</span> <span class="nav-text">利用人脸识别程序执行签到</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%89%80%E5%9C%A8%E5%9C%B0%E7%96%AB%E6%83%85%E9%A3%8E%E9%99%A9%E7%AD%89%E7%BA%A7"><span class="nav-number">8.</span> <span class="nav-text">查询所在地疫情风险等级</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%AE%9D%E6%9F%A5%E8%AF%A2%E9%A3%8E%E9%99%A9%E7%AD%89%E7%BA%A7"><span class="nav-number">8.1.</span> <span class="nav-text">利用本地宝查询风险等级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%8C%81%E4%B9%85%E5%B1%82%E4%BB%A3%E7%A0%81"><span class="nav-number">8.2.</span> <span class="nav-text">编写持久层代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E7%AD%BE%E5%88%B0%E4%B8%9A%E5%8A%A1%E5%B1%82%E4%BB%A3%E7%A0%81"><span class="nav-number">8.3.</span> <span class="nav-text">补充签到业务层代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E7%96%AB%E6%83%85%E5%91%8A%E8%AD%A6%E9%82%AE%E4%BB%B6"><span class="nav-number">9.</span> <span class="nav-text">发送疫情告警邮件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%87%E7%94%A8%E5%BC%82%E6%AD%A5%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6"><span class="nav-number">9.1.</span> <span class="nav-text">采用异步发送邮件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5Email%E9%82%AE%E4%BB%B6%E5%BA%93"><span class="nav-number">9.2.</span> <span class="nav-text">导入Email邮件库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE-SMTP-%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BF%A1%E6%81%AF"><span class="nav-number">9.3.</span> <span class="nav-text">设置 SMTP 服务器信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6"><span class="nav-number">9.4.</span> <span class="nav-text">实现异步发送邮件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%BA%BA%E8%84%B8%E7%AD%BE%E5%88%B0%EF%BC%88Web-%E5%B1%82%EF%BC%89"><span class="nav-number">10.</span> <span class="nav-text">实现人脸签到（Web 层）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%AD%98%E5%82%A8%E7%9A%84%E8%B7%AF%E5%BE%84"><span class="nav-number">10.1.</span> <span class="nav-text">设置上传图片存储的路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%BE%91Controller%E7%B1%BB"><span class="nav-number">10.2.</span> <span class="nav-text">编辑Controller类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E5%91%98%E5%B7%A5%E4%BA%BA%E8%84%B8%E6%A8%A1%E5%9E%8B%E6%95%B0%E6%8D%AE%EF%BC%88%E4%B8%9A%E5%8A%A1%E5%B1%82%EF%BC%89"><span class="nav-number">11.</span> <span class="nav-text">创建新员工人脸模型数据（业务层）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95"><span class="nav-number">11.1.</span> <span class="nav-text">编写抽象方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E5%88%9B%E5%BB%BA%E4%BA%BA%E8%84%B8%E6%A8%A1%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="nav-number">11.2.</span> <span class="nav-text">编写创建人脸模型方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E5%91%98%E5%B7%A5%E4%BA%BA%E8%84%B8%E6%A8%A1%E5%9E%8B%E6%95%B0%E6%8D%AE%EF%BC%88Web-%E5%B1%82%EF%BC%89"><span class="nav-number">12.</span> <span class="nav-text">创建新员工人脸模型数据（Web 层）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%BA%BA%E8%84%B8%E7%AD%BE%E5%88%B0%EF%BC%88%E7%A7%BB%E5%8A%A8%E7%AB%AF%EF%BC%89"><span class="nav-number">13.</span> <span class="nav-text">实现人脸签到（移动端）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%81%E8%A3%85Ajax%E8%AF%B7%E6%B1%82%E8%B7%AF%E5%BE%84"><span class="nav-number">13.1.</span> <span class="nav-text">封装Ajax请求路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E7%85%A7%E7%89%87%E6%89%A7%E8%A1%8C%E7%AD%BE%E5%88%B0"><span class="nav-number">13.2.</span> <span class="nav-text">上传照片执行签到</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E5%BD%93%E5%89%8D%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E7%AD%BE%E5%88%B0"><span class="nav-number">13.3.</span> <span class="nav-text">检查当前是否可以签到</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zodiacal</p>
+  <div class="site-description" itemprop="description">引出魔鬼的一种试炼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zodiacal</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">453k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:52</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

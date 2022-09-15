@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|EB Garamond:300,300italic,400,400italic,700,700italic|Source Code Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zodical416.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="蓝色的海洋宁静而悠远">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shiro 和 JWT 基础">
+<meta property="og:url" content="https://zodical416.github.io/2022/02/21/Shiro%20%E5%92%8C%20JWT%20%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Zodiacal">
+<meta property="og:description" content="蓝色的海洋宁静而悠远">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220221155420.png">
+<meta property="article:published_time" content="2022-02-21T09:50:09.263Z">
+<meta property="article:modified_time" content="2022-08-15T12:36:31.948Z">
+<meta property="article:author" content="Zodiacal">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="Shiro">
+<meta property="article:tag" content="JWT">
+<meta property="article:tag" content="项目实战">
+<meta property="article:tag" content="小程序">
+<meta property="article:tag" content="安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220221155420.png">
+
+<link rel="canonical" href="https://zodical416.github.io/2022/02/21/Shiro%20%E5%92%8C%20JWT%20%E5%9F%BA%E7%A1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Shiro 和 JWT 基础 | Zodiacal</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zodiacal</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://zodical416.github.io/2022/02/21/Shiro%20%E5%92%8C%20JWT%20%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zodiacal">
+      <meta itemprop="description" content="引出魔鬼的一种试炼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zodiacal">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Shiro 和 JWT 基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-02-21 17:50:09" itemprop="dateCreated datePublished" datetime="2022-02-21T17:50:09+08:00">2022-02-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-15 20:36:31" itemprop="dateModified" datetime="2022-08-15T20:36:31+08:00">2022-08-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">安全</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+            <div class="post-description">蓝色的海洋宁静而悠远</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>JWT（JSON Web Token），是一种跨域认证解决方案，<strong>规定了一种 token 的实现方式</strong>，是一种基于Token的轻量级认证模式。</p>
+<p>JWT一般被用来在身份提供者和服务提供者间传递被认证的用户身份信息，以便于从资源服务器获取资源，也可以增加一些额外的其它业务逻辑所必须的声明信息，该token也可直接被用于认证，也可被加密。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220221155420.png"></p>
+<p>创建 token 时需要用户 ID、创建日期以及所采用的加密算法</p>
+<h2 id="JWT-原理"><a href="#JWT-原理" class="headerlink" title="JWT 原理"></a>JWT 原理</h2><p>JWT 的原理是，服务器认证成功后，生成一个 JSON 对象，返回给客户端，之后客户端再与服务器进行通信时，都会发回这个 JSON 对象。服务器只需要这个对象就能够认证客户端身份。为了防止客户端篡改数据，服务器在生成这个对象的时候会带上签名。</p>
+<p>JWT 使得服务器无需保存任何 Session 数据了，服务器变成了无状态的，更容易实现扩展。</p>
+<p>JWT 认证包含三部分，头部 Header、荷载 payload、签名 signature。其中头部用于说明如何进行签名，声明了所采用的哈希算法等，荷载就是携带的数据，有官方定义的标准字段，也可以加入自己的数据。</p>
+<p>标准字段为 sub，常见的标准字段有：</p>
+<ul>
+<li>iss：该 JWT 的签发者</li>
+<li>sub：该 JWT 面向的用户</li>
+<li>aud：接收该 JWT 的一方</li>
+<li>exp：过期时间</li>
+<li>iat：签发时间</li>
+</ul>
+<p>签名是 JWT 认证的安全核心，通常是由 头部、荷载、密钥 所产生的哈希值，从而防止篡改</p>
+<h1 id="JWT-如何防止-token-被篡改"><a href="#JWT-如何防止-token-被篡改" class="headerlink" title="JWT 如何防止 token 被篡改"></a>JWT 如何防止 token 被篡改</h1><p>JWT 以紧凑的形式由三部分组成，分别是 头、有效载荷、签名。</p>
+<p>Header：一个 json 字符串，包括当前令牌名、加密算法，使用 base64 加密</p>
+<p>PayLoad：存放有效信息，使用 base64 加密</p>
+<p>Signature：整个数据的认证信息，一般根据前两步的数据，然后通过 header 中声明的加密方式进行加盐 secret 组合加密</p>
+<p>JWT 的组成部分中，能够被解密出明文的只有 header 和 payload，假如中间人修改了 payload，那么服务器能够根据 signature 来验证是否发生了篡改。具体过程是在服务端执行一次 <strong>signature = 加密算法(header + “.” + payload, 密钥)</strong> 然后对比 signature 是否一致，如果一致说明没有篡改。</p>
+<h2 id="Token-认证的优势"><a href="#Token-认证的优势" class="headerlink" title="Token 认证的优势"></a>Token 认证的优势</h2><p>相比于 Session 认证的方式来说，使用 token 进行身份认证主要有下面四个优势：</p>
+<ul>
+<li><p>无状态</p>
+<p>token 自身包含了身份验证所需要的所有信息，使得我们的服务器不需要存储 Session 信息，大大减轻了服务器端的压力。但是，这样的无状态也导致了它最大的缺点：当后端在 token 的有效期内想要废弃一个 token 或更改其权限时，不能立即生效，只能等到有效期过后才可以。</p>
+</li>
+<li><p>有效避免了 CSRF 攻击</p>
+<p>CSRF（Cross Site Request Forgery） 一般被翻译为 跨站请求伪造，指的是攻击者在网页链接中加入请求，从而通过用户的 cookie 向服务端发送请求所进行的攻击操作。导致这个问题很大的原因就是：Session 认证中 Cookie 中的 session_id 是由浏览器发送到服务端的，借助这个特性，攻击者就可以通过让用户误点攻击链接，达到攻击效果。</p>
+<p>那为什么 token 就不存在该问题呢？</p>
+<p>一般情况下在使用 JWT 时，在我们登录成功并获得 token 之后，一般会选择存放在 local storage 中。之后发送到服务端的每个请求都会带上这个 token，即使点击了非法链接，发送了请求到后端，但是并不会附加上这个 token，因此请求并不会得到响应。</p>
+<p>然而该方法并不能抵御 XSS 攻击，采用 XSS 脚本能够很容易地从 Stroage 中提取 token，因此为了避免 XSS 攻击，需要对用户输入的数据进行转义之后再存储到数据库中，这样在渲染 HTML 页面时就不会执行转义后的文字，抵御了 XSS 攻击。</p>
+</li>
+<li><p>适合移动端应用</p>
+<p>现代的 API 不仅仅和浏览器交互，正确编写一个 API 可以同时支持浏览器，还有原生移动平台，比如 IOS 或者 Android。原生移动平台并不一定和 cookie 能良好的兼容，在使用中会存在一些限制和需要注意的地方。另一方面，token 更容易在 IOS 和 Android 上实现，Token 也更容易实现物联网应用程序和服务，没有 Cookie 存储的概念。</p>
+</li>
+<li><p>单点登录友好</p>
+<p>使用 Session 进行身份认证的话，实现单点登录，需要我们把用户的 Session 信息保存在一台电脑上，并且还会遇到常见的 Cookie 跨域的问题。但是，使用 token 进行认证的话， token 被保存在客户端，不会存在这些问题。</p>
+</li>
+</ul>
+<h2 id="Token-认证常见问题及解决方法"><a href="#Token-认证常见问题及解决方法" class="headerlink" title="Token 认证常见问题及解决方法"></a>Token 认证常见问题及解决方法</h2><h3 id="注销登录等场景下，token-仍然有效"><a href="#注销登录等场景下，token-仍然有效" class="headerlink" title="注销登录等场景下，token 仍然有效"></a>注销登录等场景下，token 仍然有效</h3><p>与之类似的具体相关场景有：</p>
+<ol>
+<li>退出登录;</li>
+<li>修改密码;</li>
+<li>服务端修改了某个用户具有的权限或者角色；</li>
+<li>用户的帐户被删除/暂停;</li>
+<li>用户由管理员注销.</li>
+</ol>
+<p>这个问题不存在于 Session 认证方式中，因为在 Session 认证方式中，由于 Session 是存储在服务器端的，遇到这种情况的话服务端删除对应的 Session 记录即可。但是，token 一旦派发出去，如果后端不增加其他逻辑的话，它在失效之前都是有效的。对于该问题，主要有以下几种解决方法：</p>
+<ul>
+<li><strong>将 token 存入内存数据库：</strong> 可以将 token 存入 Redis 数据库中，如果需要让某个 token 失效就直接从 redis 中删除这个 token 即可。但是，这样会导致每次使用 token 发送请求都要先从 DB 中查询 token 是否存在的步骤，而且违背了 JWT 的无状态原则。</li>
+<li><strong>黑名单机制：</strong> 和上面的方式类似，使用内存数据库比如 redis 维护一个黑名单，如果想让某个 token 失效的话就直接将这个 token 加入到 黑名单 即可。然后，每次使用 token 进行请求的话都会先判断这个 token 是否存在于黑名单中。</li>
+<li><strong>修改密钥（Secret）：</strong> 为每个用户都创建一个专属密钥，如果我们想让某个 token 失效，我们直接修改对应用户的密钥即可。但是，这样相比于前两种内存数据库方式带来了更大的危害，比如：1) 如果服务是分布式的，则每次发出新的 token 时都必须在多台机器同步密钥。为此，你需要将密钥存储在数据库或其他外部服务中，这样和 Session 认证就没太大区别了；2) 如果用户同时在两个浏览器打开系统，或者在手机端也打开了系统，如果它从一个地方将账号退出，那么其他地方都要重新进行登录，这是不可取的。</li>
+<li><strong>保存令牌的有效期尽可能短并经常轮换</strong></li>
+</ul>
+<p>对于修改密码后，token 仍然有效的方式容易解决，就是使用用户密码的哈希值对 token 进行签名，如果密码发生更改，则任何先前的 token 都将自动无法验证。</p>
+<h3 id="token-的续签问题"><a href="#token-的续签问题" class="headerlink" title="token 的续签问题"></a>token 的续签问题</h3><p>token 过期后应该如何认证，如何实现动态刷新 token，从而避免用户经常需要重新登录？</p>
+<p>在 Session 认证中，通常的做法是：假如 session 的有效期30分钟，如果 30 分钟内用户有访问，就把 session 有效期延长30分钟。</p>
+<ul>
+<li><strong>类似于 Session 认证中的做法：</strong> 这种方案满足于大部分场景。假设服务端给的 token 有效期设置为30分钟，服务端每次进行校验时，如果发现 token 的有效期马上快过期了，服务端就重新生成 token 给客户端。客户端每次请求都检查新旧token，如果不一致，则更新本地的token。这种做法的问题是仅仅在快过期的时候请求才会更新 token ，对客户端不是很友好。</li>
+<li><strong>每次请求都返回新 token：</strong> 开销会比较大；</li>
+<li><strong>token 有效期设置到半夜：</strong> 这种方案是一种折衷的方案，保证了大部分用户白天可以正常登录，适用于对安全性要求不高的系统。</li>
+<li><strong>用户登录返回两个 token：</strong> 第一个是 accessToken ，它的过期时间就是所希望设置的 token 本身的过期时间，比如半个小时；另外一个是 refreshToken，它的过期时间更长一点，比如为1天。客户端登录后，将 accessToken和refreshToken 保存在本地，每次访问将 accessToken 传给服务端。服务端校验 accessToken 的有效性，如果过期的话，客户端就将 refreshToken 传给服务端。如果后传来的 refreshToken 有效，服务端就生成新的 accessToken 给客户端。否则，客户端就重新登录即可。该方法的不足在于：1) 需要客户端来配合；2) 用户注销的时候需要同时保证两个 token 都无效；3) 重新请求获取 token 的过程中会有短暂 token 不可用的情况。</li>
+</ul>
+<h1 id="Shiro"><a href="#Shiro" class="headerlink" title="Shiro"></a>Shiro</h1><p>利用 JWT Util 类生成 token，再将 token 返回到客户端后，就可以将 jwt 和 shiro 框架进行对接，这样 shiro 就会拦截所有的 http 请求，并验证所提交的 token 是否有效。</p>
+<h2 id="基本概念-1"><a href="#基本概念-1" class="headerlink" title="基本概念"></a>基本概念</h2><p>Apache Shiro 是一个强大且易用的 Java 安全框架,执行身份验证、授权、密码和会话管理。</p>
+<p>包含有三个核心组件：<strong>Subject、 SecurityManager 、 Realms</strong>.</p>
+<ul>
+<li><p>Subject：</p>
+<p>即“当前操作用户”。但是，在Shiro中，Subject这一概念并不仅仅指人，也可以是第三方进程、后台帐户（Daemon Account）或其他类似事物。它仅仅意味着“当前跟软件交互的东西”。</p>
+<p>Subject代表了当前用户的安全操作，SecurityManager则管理所有用户的安全操作。</p>
+</li>
+<li><p>SecurityManager：</p>
+<p>它是Shiro框架的核心，典型的Facade模式，Shiro通过SecurityManager来管理内部组件实例，并通过它来提供安全管理的各种服务。</p>
+</li>
+<li><p>Realm：</p>
+<p>Realm充当了Shiro与应用安全数据间的“桥梁”或者“连接器”。也就是说，当对用户执行认证（登录）和授权（访问控制）验证时，Shiro会从应用配置的Realm中查找用户及其权限信息。</p>
+<p>从这个意义上讲，Realm实质上是一个安全相关的DAO：它封装了数据源的连接细节，并在需要时将相关数据提供给Shiro。当配置Shiro时，你必须至少指定一个Realm，用于认证和（或）授权。配置多个Realm是可以的，但是至少需要一个。</p>
+<p>Shiro内置了可以连接大量安全数据源（又名目录）的Realm，如LDAP、关系数据库（JDBC）、类似INI的文本配置资源以及属性文件等。如果缺省的Realm不能满足需求，你还可以插入代表自定义数据源的自己的Realm实现。</p>
+</li>
+</ul>
+<h2 id="Shiro-与-Spring-Security"><a href="#Shiro-与-Spring-Security" class="headerlink" title="Shiro 与 Spring Security"></a>Shiro 与 Spring Security</h2><p>Shiro 提供了最简单的方式来实现权限认证，任意JavaWeb项目都可以使用Shiro框架，而Spring Security必须要使用在Spring项目中。</p>
+
+      
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
+              <a href="/tags/Shiro/" rel="tag"># Shiro</a>
+              <a href="/tags/JWT/" rel="tag"># JWT</a>
+              <a href="/tags/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/" rel="tag"># 项目实战</a>
+              <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag"># 小程序</a>
+              <a href="/tags/%E5%AE%89%E5%85%A8/" rel="tag"># 安全</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/16/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/" rel="prev" title="操作系统基础">
+      <i class="fa fa-chevron-left"></i> 操作系统基础
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/02/22/MySQL%20%E5%9F%BA%E7%A1%80%201/" rel="next" title="MySQL 基础 1">
+      MySQL 基础 1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JWT"><span class="nav-number">1.</span> <span class="nav-text">JWT</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JWT-%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">JWT 原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JWT-%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2-token-%E8%A2%AB%E7%AF%A1%E6%94%B9"><span class="nav-number">2.</span> <span class="nav-text">JWT 如何防止 token 被篡改</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Token-%E8%AE%A4%E8%AF%81%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-number">2.1.</span> <span class="nav-text">Token 认证的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Token-%E8%AE%A4%E8%AF%81%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">Token 认证常见问题及解决方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E9%94%80%E7%99%BB%E5%BD%95%E7%AD%89%E5%9C%BA%E6%99%AF%E4%B8%8B%EF%BC%8Ctoken-%E4%BB%8D%E7%84%B6%E6%9C%89%E6%95%88"><span class="nav-number">2.2.1.</span> <span class="nav-text">注销登录等场景下，token 仍然有效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#token-%E7%9A%84%E7%BB%AD%E7%AD%BE%E9%97%AE%E9%A2%98"><span class="nav-number">2.2.2.</span> <span class="nav-text">token 的续签问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shiro"><span class="nav-number">3.</span> <span class="nav-text">Shiro</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5-1"><span class="nav-number">3.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shiro-%E4%B8%8E-Spring-Security"><span class="nav-number">3.2.</span> <span class="nav-text">Shiro 与 Spring Security</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zodiacal</p>
+  <div class="site-description" itemprop="description">引出魔鬼的一种试炼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zodiacal</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">453k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:52</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

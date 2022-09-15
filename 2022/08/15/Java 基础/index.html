@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|EB Garamond:300,300italic,400,400italic,700,700italic|Source Code Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zodical416.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="忧伤浸透她的脸">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 基础">
+<meta property="og:url" content="https://zodical416.github.io/2022/08/15/Java%20%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Zodiacal">
+<meta property="og:description" content="忧伤浸透她的脸">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-08-15T12:28:53.639Z">
+<meta property="article:modified_time" content="2022-09-08T03:59:33.330Z">
+<meta property="article:author" content="Zodiacal">
+<meta property="article:tag" content="Java 基础">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://zodical416.github.io/2022/08/15/Java%20%E5%9F%BA%E7%A1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Java 基础 | Zodiacal</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zodiacal</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://zodical416.github.io/2022/08/15/Java%20%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zodiacal">
+      <meta itemprop="description" content="引出魔鬼的一种试炼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zodiacal">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java 基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-15 20:28:53" itemprop="dateCreated datePublished" datetime="2022-08-15T20:28:53+08:00">2022-08-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-09-08 11:59:33" itemprop="dateModified" datetime="2022-09-08T11:59:33+08:00">2022-09-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">Java 基础</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>10k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+            <div class="post-description">忧伤浸透她的脸</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="和-equals-的区别"><a href="#和-equals-的区别" class="headerlink" title="== 和 equals 的区别"></a>== 和 equals 的区别</h1><p>== 对于基本类型和引用类型的作用效果是不同的：</p>
+<ul>
+<li>对于基本数据类型来说，== 比较的是值。</li>
+<li>对于引用数据类型来说，== 比较的是对象的内存地址。</li>
+</ul>
+<p>equals() 作用不能用于判断基本数据类型的变量，只能用来判断两个对象是否相等。equals()方法存在于Object类中，而Object类是所有类的直接或间接父类。</p>
+<p>equals() 方法存在两种使用情况：</p>
+<ul>
+<li>类没有覆盖 equals()方法 ：通过equals()比较该类的两个对象时，等价于通过“==”比较这两个对象，使用的默认是 Object类equals()方法。</li>
+<li>类覆盖了 equals()方法 ：一般我们都覆盖 equals()方法来比较两个对象中的属性是否相等；若它们的属性相等，则返回 true(即，认为这两个对象相等)。</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="keyword">new</span> String(<span class="string">&quot;ab&quot;</span>); <span class="comment">// a 为一个引用</span></span><br><span class="line">String b = <span class="keyword">new</span> String(<span class="string">&quot;ab&quot;</span>); <span class="comment">// b为另一个引用,对象的内容一样</span></span><br><span class="line">String aa = <span class="string">&quot;ab&quot;</span>; <span class="comment">// 放在常量池中</span></span><br><span class="line">String bb = <span class="string">&quot;ab&quot;</span>; <span class="comment">// 从常量池中查找</span></span><br><span class="line">System.out.println(aa == bb);<span class="comment">// true</span></span><br><span class="line">System.out.println(a == b);<span class="comment">// false</span></span><br><span class="line">System.out.println(a.equals(b));<span class="comment">// true</span></span><br><span class="line">System.out.println(<span class="number">42</span> == <span class="number">42.0</span>);<span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>String 中的 equals 方法是被重写过的，因为 Object 的 equals 方法是比较的对象的内存地址，而 String 的 equals 方法比较的是对象的值。</p>
+<p>当创建 String 类型的对象时，虚拟机会在常量池中查找有没有已经存在的值和要创建的值相同的对象，如果有就把它赋给当前引用。如果没有就在常量池中重新创建一个 String 对象。</p>
+<p>String 类中的 equals()方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">        String anotherString = (String)anObject;</span><br><span class="line">        <span class="keyword">int</span> n = value.length;</span><br><span class="line">        <span class="keyword">if</span> (n == anotherString.value.length) &#123;</span><br><span class="line">            <span class="keyword">char</span> v1[] = value;</span><br><span class="line">            <span class="keyword">char</span> v2[] = anotherString.value;</span><br><span class="line">            <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (n-- != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (v1[i] != v2[i])</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="为什么重写-equals-时必须重写-hashCode-方法？"><a href="#为什么重写-equals-时必须重写-hashCode-方法？" class="headerlink" title="为什么重写 equals() 时必须重写 hashCode() 方法？"></a>为什么重写 equals() 时必须重写 hashCode() 方法？</h1><p>hashCode() 的作用是获取哈希码（int 整数），也称为散列码。这个哈希码的作用是确定该对象在哈希表中的索引位置。hashCode()定义在 JDK 的 Object 类中，这就意味着 Java 中的任何类都包含有 hashCode() 函数。另外需要注意的是： Object 的 hashCode() 方法是本地方法，也就是用 C 语言或 C++ 实现的，该方法通常用来将对象的内存地址转换为整数之后返回。</p>
+<p>当把对象加入 HashSet 时，HashSet 会先计算对象的 hashcode 值来判断对象加入的位置，同时也会与其他已经加入的对象的 hashcode 值作比较，如果没有相符的 hashcode，HashSet 会假设对象没有重复出现。但是如果发现有相同 hashcode 值的对象，这时会调用 equals() 方法来检查 hashcode 相等的对象是否真的相同。如果两者相同，HashSet 就不会让其加入操作成功。如果不同的话，就会重新散列到其他位置。这样我们就大大减少了 equals 的次数，相应就大大提高了执行速度。</p>
+<p>因此，重写 equals 方法时重写 hashCode 方法的目的就是，如果 equals 方法判断两个对象是相等的，那这两个对象的 hashCode 值也要相等，如果不重写 hashCode 方法，那么所得的两个方法就不相等了。</p>
+<h1 id="重写与重载的区别"><a href="#重写与重载的区别" class="headerlink" title="重写与重载的区别"></a>重写与重载的区别</h1><p>重写是子类对父类允许访问的方法的具体实现进行重新编写，返回值与形参都不能改变，也就是所谓的外壳不变，核心重写。重写的好处在于子类可以根据需要定义特定于自己的行为，但是重写不能抛出新的检查异常或者比被重写方法申明更加宽泛的异常。</p>
+<p>重载是指在同一个类里面，方法名字相同而参数不同，返回类型可以相同也可以不同。每个重载的方法都必须有一个独一无二的参数类型列表。最常见的重载就是构造器的重载。</p>
+<h2 id="重写规则"><a href="#重写规则" class="headerlink" title="重写规则"></a>重写规则</h2><ul>
+<li>参数列表与被重写方法的参数列表必须完全相同</li>
+<li>返回类型可以不相同，但是必须是父类返回值的派生类</li>
+<li>访问权限不能比父类更低，如果父类为 public，那么子类不能为 protected</li>
+<li>final 方法不能重写、static 方法不能重写，但是可以再次声明</li>
+<li>如果父类和子类在同一个包中，那么子类能够重写父类的所有方法，除了声明为 private 和 final 的方法；如果不在一个包中，那么只能重写声明为 public 和 protected 的非 final 方法</li>
+<li>构造方法不能被重写</li>
+</ul>
+<h2 id="重载规则"><a href="#重载规则" class="headerlink" title="重载规则"></a>重载规则</h2><ul>
+<li>被重载的方法必须改变参数列表、可以改变返回类型、可以改变访问修饰符、可以声明新的或更广的异常</li>
+</ul>
+<h1 id="抽象类中可不可以有-private-变量与方法"><a href="#抽象类中可不可以有-private-变量与方法" class="headerlink" title="抽象类中可不可以有 private 变量与方法"></a>抽象类中可不可以有 private 变量与方法</h1><p>都可以有，因为在抽象类中可以有具体的方法实现，在这些具体的方法实现中可以自行定义私有变量与方法</p>
+<p>同时在 Java 9 中，接口也能够定义私有方法，但是不能定义私有属性</p>
+<h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><p>就是两个或以上的进程，在执行过程中产生的阻塞现象</p>
+<h2 id="产生死锁的四个条件"><a href="#产生死锁的四个条件" class="headerlink" title="产生死锁的四个条件"></a>产生死锁的四个条件</h2><ul>
+<li>互斥：一个资源每次只能被一个进程所使用</li>
+<li>请求与保持：一个进程因请求资源而阻塞时，对已获得的资源保持不放</li>
+<li>不剥夺：进程已获得的资源，在未使用完时，不能强行剥夺</li>
+<li>循环等待：若干进程之间形成循环等待资源释放的关系</li>
+</ul>
+<h2 id="如何解决死锁？"><a href="#如何解决死锁？" class="headerlink" title="如何解决死锁？"></a>如何解决死锁？</h2><p>破坏死锁产生的四个条件即可</p>
+<h3 id="破坏请求与保持条件"><a href="#破坏请求与保持条件" class="headerlink" title="破坏请求与保持条件"></a>破坏请求与保持条件</h3><ol>
+<li>所有进程在开始运行之前，必须一次性申请其在整个运行过程中所需要的全部资源<br>优点：简单安全<br>缺点：降低了资源的利用率，造成资源浪费，使得进程经常发生饥饿现象</li>
+<li>允许进程只获取运行初期所需要的资源便开始运行，在运行过程中逐步释放掉分配到的已经使用完毕的资源，然后再去请求新资源。这样能够提高资源利用率，减少饥饿问题</li>
+</ol>
+<h3 id="破坏不剥夺条件"><a href="#破坏不剥夺条件" class="headerlink" title="破坏不剥夺条件"></a>破坏不剥夺条件</h3><p>可以让一个已经持有了一些资源的进程在提出的新资源请求没有得到满足时，必须释放已经获取的资源。这种方法很复杂，并且代价很大，因为需要资源的反复申请与释放，这不仅会延长进程的周转周期，还会影响系统吞吐量</p>
+<h3 id="破坏循环等待条件"><a href="#破坏循环等待条件" class="headerlink" title="破坏循环等待条件"></a>破坏循环等待条件</h3><p>将系统中的资源顺序编号，将紧缺稀少的资源采用较大的编号，申请时必须按照编号顺序进行，一个进程只有获得较小编号的资源才能申请较大编号的资源。</p>
+<h2 id="银行家算法"><a href="#银行家算法" class="headerlink" title="银行家算法"></a>银行家算法</h2><p>通常采用银行家算法来避免死锁，银行家算法的基本思路是，创建可利用资源向量、最大需求矩阵、分配矩阵以及需求矩阵四个数据结构。</p>
+<p>可利用资源向量用于表示系统中各种资源的剩余数量，由于系统中拥有的资源通常有多种，因此需要以数组来表示这些资源的种类，数组长度即为资源种类数。数组元素的初始值为系统中所配置的该类全部可用资源的大小，这个数值是随着这类资源的分配与回收动态变化的。</p>
+<p>最大需求矩阵用于表示各个进程对各种资源的最大需求量，由于可能存在多个进程，因此需要用矩阵来表示每个进程对于每种资源的需求</p>
+<p>分配矩阵用于表示已经分配给各个进程的各种资源的数目，与最大需求矩阵形式相同</p>
+<p>需求矩阵用于表示进程仍然需要的资源数目，系统可能无法一次满足某个进程的最大需求，因此会先分配给进程一部分资源保证进程能够执行。因此最大需求减去已分配资源，就是进程仍然需要的资源数量了。</p>
+<p>银行家算法就是通过对进程需求、占有和系统所拥有资源的实时统计，确保资源在分配给进程时不会造成死锁。</p>
+<h2 id="死锁的代码"><a href="#死锁的代码" class="headerlink" title="死锁的代码"></a>死锁的代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeadLock</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String LOCK_1 = <span class="string">&quot;lock1&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String LOCK_2 = <span class="string">&quot;lock2&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread threadA = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                    <span class="keyword">synchronized</span> (DeadLock.LOCK_1) &#123;</span><br><span class="line">                        System.out.println(Thread.currentThread().getName() + <span class="string">&quot; 锁住 lock1&quot;</span>);</span><br><span class="line">                        Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                        <span class="keyword">synchronized</span> (DeadLock.LOCK_2) &#123;</span><br><span class="line">                            System.out.println(Thread.currentThread().getName() + <span class="string">&quot; 锁住 lock2&quot;</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        Thread threadB = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                    <span class="keyword">synchronized</span> (DeadLock.LOCK_2) &#123;</span><br><span class="line">                        System.out.println(Thread.currentThread().getName() + <span class="string">&quot; 锁住 lock2&quot;</span>);</span><br><span class="line">                        Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                        <span class="keyword">synchronized</span> (DeadLock.LOCK_1) &#123;</span><br><span class="line">                            System.out.println(Thread.currentThread().getName() + <span class="string">&quot; 锁住 lock1&quot;</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        threadA.start();</span><br><span class="line">        threadB.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个代码中启动了两个线程，在每个线程中都试图获得 Lock1 和 Lock2，A 线程先获取 Lock1 再获取 Lock2，B 线程先获取 Lock2 再获取 Lock1，这样就构成了循环等待条件，两个线程都等待对方先释放锁，从而形成死锁。要想解决死锁，只需要更改获取锁的顺序即可，就把线程 B 改成先获取 Lock1 再获取 Lock2</p>
+<h1 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h1><p>常用的字符串拼接方式：加号拼接、StringBuilder、StringBuffer。由于 StringBuffer 是线程安全的，因此效率不如 StringBuilder</p>
+<p>“+”与StringBuilder差别不大，在采用加号进行拼接时，实际上是直接调用了 StringBuilder 来完成，但是在采用循环方式创建字符串时，每次加号拼接都会创建一个 StringBuilder 对象，因此最好采用 StringBuilder 来完成拼接</p>
+<h1 id="Java-基本数据类型"><a href="#Java-基本数据类型" class="headerlink" title="Java 基本数据类型"></a>Java 基本数据类型</h1><p>byte、short、int、long、char、double、float、boolean</p>
+<ul>
+<li>Java 使用 long 类型时需要在数值后加上 L，否则将作为整形进行解析</li>
+<li>八种基本数据类型都有对应的包装类：Byte、Short、Integer、Long、Character、Double、Float、Boolean</li>
+<li>基本数据类型存储于 Java 虚拟机栈的局部变量表中，包装类型属于对象类型，存放于堆中。</li>
+</ul>
+<h1 id="深拷贝、浅拷贝、引用拷贝"><a href="#深拷贝、浅拷贝、引用拷贝" class="headerlink" title="深拷贝、浅拷贝、引用拷贝"></a>深拷贝、浅拷贝、引用拷贝</h1><p>拷贝分为两大类：引用拷贝与对象拷贝，深拷贝与浅拷贝属于对象拷贝</p>
+<ul>
+<li>引用拷贝<br>对引用地址的拷贝，说明引用地址一样，指向堆中的对象也是同一个对象。如果对一个对象进行改变，其他对象也会跟着改变。</li>
+<li>对象拷贝<br>指 对某一对象进行拷贝，是创建了一个全新的对象，也就是内存中存在二个不同地址的对象，这二个对象的基本数据类型变量的内容值都是一样的，但所包含的对象变量的地址可能一样可能不一样，浅拷贝与深拷贝的区别就在这里。</li>
+</ul>
+<p>浅拷贝：</p>
+<p>当前对象里包含有对象变量，如果复制的对象中的对象变量和原对象里的对象地址值是相同的，即引用拷贝，则称之为浅拷贝。我们也可以称之为部分拷贝，即拷贝的不彻底。</p>
+<p>深拷贝：</p>
+<p>当前对象里包含有对象变量，如果复制的对象中的对象变量和原对象里的对象地址值是不同的，即创建了一个新的对象，则称之为深拷贝。我们也可以称之为完全拷贝，内部进行了彻底拷贝。</p>
+<h1 id="异常与错误"><a href="#异常与错误" class="headerlink" title="异常与错误"></a>异常与错误</h1><p>在 Java 中，所有的异常都有一个共同的祖先就是 java.lang 包中的 Throwable 类，Throwable 类中有两个重要的子类 Exception 与 Error。异常与错误的最基本区别就是，异常能够被程序本身处理，而错误是无法被处理的，只能尽量来避免</p>
+<ul>
+<li>异常：程序本身能够处理的异常，可以通过 catch 来捕获，异常又可分为 受检查异常(必须处理) 和不受检查异常(可以不进行处理)</li>
+<li>错误：属于程序无法处理的错误，无法通过 catch 来捕获，常见的错误有：Java 虚拟机运行错误、虚拟机内存不够错误、类定义错误等，这些错误发生时，JVM 一般会选择线程终止</li>
+</ul>
+<p>出现Error错误一般不是由于编写的代码出现问题，而是由于JVM运行这段代码出现了问题，比如堆溢出，配置文件出错等，这些你是无法人为的在你代码里可以保证的，必须要额外的去操作，重新配置虚拟机，修改配置文件等等。</p>
+<h2 id="受检查异常"><a href="#受检查异常" class="headerlink" title="受检查异常"></a>受检查异常</h2><p>编译器要求必须处置的异常，也就是对于某段代码，编译器要求必须对这段代码加 try……catch 或者 throws Exception。在代码还未运行时，编译器就会检查该代码，判断其是否会出现异常，从而要求对可能出现的异常做出必须的处理。</p>
+<p>处理方式：</p>
+<ul>
+<li>抛出，消极的处理方法，一直将其抛出到 Java 虚拟机进行处理</li>
+<li>捕获：采用 try……catch 进行捕获</li>
+</ul>
+<p>那么如何区分哪些异常是受检查异常呢，实际上，除了 RuntimeException 及其子类，以及错误，其他异常都是受检查异常</p>
+<h2 id="不受检查异常"><a href="#不受检查异常" class="headerlink" title="不受检查异常"></a>不受检查异常</h2><p>编译器不要求强制处置的异常，虽然有可能会出错，但是不会在编译时进行检查，例如 NullPointerException、IndexOutOfBoundsException、VirtualMachineError 等，又称为运行时异常</p>
+<p>处理方式：捕获、继续抛出、不处理，通常采用不处理方式</p>
+<h2 id="try-catch-finally"><a href="#try-catch-finally" class="headerlink" title="try-catch-finally"></a>try-catch-finally</h2><ul>
+<li>try 块：用于捕获异常，可以接零个或多个 catch 块，如果没有 catch 块，必须跟一个 finally 块</li>
+<li>catch 块：用于处理异常</li>
+<li>finally：无论是否捕获或处理异常，finally 块内的语句都会被执行。当在 try 或者 catch 块中遇到 return 语句时，finally 块将会在方法返回之前执行</li>
+</ul>
+<p>在以下三种特殊情况下，finally 块不会被执行：</p>
+<ul>
+<li>在 try 或 finally 块中用了 System.exit(int) 退出程序。不过如果该语句是在异常语句之后，那么 finally 依然会执行</li>
+<li>程序所在线程死亡</li>
+<li>关闭 CPU</li>
+</ul>
+<h3 id="JAVA中try、catch、finally带return的执行顺序"><a href="#JAVA中try、catch、finally带return的执行顺序" class="headerlink" title="JAVA中try、catch、finally带return的执行顺序"></a>JAVA中try、catch、finally带return的执行顺序</h3><p>当 try 中带有 return 时，会先执行 return 前的代码，之后暂时保存需要 return 的信息，再执行 finally 中的代码，最后再通过 return 返回之前保存的信息。</p>
+<p>当 catch 中带有 return 时，会先执行return前的代码，然后暂时保存需要return的信息，再执行finally中的代码，最后再通过return返回之前保存的信息。</p>
+<p>当 try、catch、finally 中都带有 return 时 / finally 中带有 return 时，try 与 catch 中的 return 会失效，在执行完 finally 中的 return 后，不会再执行 try 中的 return。这种写法编译会给予警告。</p>
+<h1 id="Lambda-表达式"><a href="#Lambda-表达式" class="headerlink" title="Lambda 表达式"></a>Lambda 表达式</h1><p>也称之为闭包，其本质是一个匿名函数（没有名称且不属于任何类的函数）。采用 Lambda 函数之后，能够简化函数式接口的使用，也就是对于只有一个抽象方法的普通接口，可以用 Lambda 表达式来简化代码的编写</p>
+<p>使用 Lambda 表达式的主要优点就是能够简化代码，减少类文件的产生，能够将功能作为参数向下传递。缺点就是影响了代码的可读性。</p>
+<h1 id="Autowired-和-Resource-区别对比"><a href="#Autowired-和-Resource-区别对比" class="headerlink" title="Autowired 和 Resource 区别对比"></a>Autowired 和 Resource 区别对比</h1><p>@Autowired 和 @Resource 都是做 bean 的注入时使用，两者都可以写在字段和 setter 方法上，如果都写在字段上，那么就不需要再写 setter 方法</p>
+<p>Autowired 与 Resource 的主要区别在于，Autowired按 byType 自动注入，Resource 按 byName 自动注入</p>
+<h1 id="Java-序列化"><a href="#Java-序列化" class="headerlink" title="Java 序列化"></a>Java 序列化</h1><p>目的是将一个 Java 对象转变为二进制流，从而持久化保存在硬盘中，避免程序运行结束后对象就从内存中消失。</p>
+<ul>
+<li>序列化：将 Java 对象转换为字节序列</li>
+<li>反序列化： 把字节序列恢复为原来的 Java 对象</li>
+</ul>
+<h2 id="对象序列化的方法"><a href="#对象序列化的方法" class="headerlink" title="对象序列化的方法"></a>对象序列化的方法</h2><p>在 Java 中，如果一个对象要想实现序列化，必须实现 Serializable 接口与 Externalizable 接口的其中之一</p>
+<h3 id="Serializable-接口"><a href="#Serializable-接口" class="headerlink" title="Serializable 接口"></a>Serializable 接口</h3><p>一个对象想要被序列化，那么它的类就要实现此接口或者它的子接口。这个对象的所有属性(包括 private 属性、引用的对象等)都可以被序列化和反序列化来保存，不想序列化的字段可以使用 transient 来修饰。</p>
+<ul>
+<li>transient 只能修饰变量，不能修饰类和方法</li>
+<li>transient 修饰的变量，在反序列化后变量值会被置为类型的默认值，例如 int 类型反序列化后变为 0</li>
+<li>static 变量不属于任何对象，因此无论有没有 transient 修饰，都不会被序列化</li>
+</ul>
+<h3 id="Externalizable-接口"><a href="#Externalizable-接口" class="headerlink" title="Externalizable 接口"></a>Externalizable 接口</h3><p>是 Serializable 接口的子类，通过 writeExternal() 和 readExternal() 方法，决定如何序列化和反序列化。序列化和反序列化方法需要自己实现，因此可以指定序列化哪些属性，transient 在这里是无效的</p>
+<h1 id="Java-中终止线程的方法"><a href="#Java-中终止线程的方法" class="headerlink" title="Java 中终止线程的方法"></a>Java 中终止线程的方法</h1><ul>
+<li>设置退出标志，使线程正常退出，也就是当 run() 方法完成后线程终止</li>
+<li>使用 interrupt() 方法中断线程</li>
+<li>使用 stop() 方法强行终止线程，但是该方法过于暴力，会强行将执行一半的线程终止，不会保证线程资源的正确释放。</li>
+</ul>
+<h2 id="使用退出标志终止线程"><a href="#使用退出标志终止线程" class="headerlink" title="使用退出标志终止线程"></a>使用退出标志终止线程</h2><p>一般 run() 方法执行完，线程就会正常结束。然而，有些线程是伺服线程，需要长时间的运行，只有在外部某些条件满足的情况下，才能关闭这些线程。因此可以设置一个标志位来控制线程运行的循环，并使用 volatile 关键字对其进行修饰，从而确保同一时刻仅有一个线程来修改标志位的值</p>
+<h2 id="使用-interrupt-方法中断当前线程"><a href="#使用-interrupt-方法中断当前线程" class="headerlink" title="使用 interrupt() 方法中断当前线程"></a>使用 interrupt() 方法中断当前线程</h2><p>使用该方法中断线程有两种情况：</p>
+<ol>
+<li>线程处于阻塞状态，如果使用了 sleep、wait 等方法，线程会处于阻塞状态，当调用线程的 interrupt 方法时，会抛出异常。需要先对该异常进行捕获，之后通过 break 来跳出循环，这样才能正常结束 run 方法</li>
+<li>线程处于未阻塞状态，使用 isInterrupted() 判断线程的中断标志来退出循环。当使用 interrupt() 方法时，中断标志就会置为 true，和利用自定义的标志来控制循环相似</li>
+</ol>
+<p>为什么要分成阻塞与非阻塞两种状态，主要区别就在于当处于阻塞状态时，如果发生 interrupt()，系统除了会抛出异常外，还会调用 interrupted() 函数，调用时能获取到中断状态为 true 的状态，调用结束后会复位中断状态为 false，所以异常抛出后通过 isInterrupted() 是获取不到中断状态为 true 的状态，从而无法退出循环。</p>
+<h2 id="使用-stop-方法终止线程"><a href="#使用-stop-方法终止线程" class="headerlink" title="使用 stop 方法终止线程"></a>使用 stop 方法终止线程</h2><p>也可以在程序中直接调用 thread.stop() 来强行终止线程，但是该方法不安全，并会破坏数据的一致性，造成错误，因此不推荐用 stop 方法终止线程</p>
+<h1 id="Object-类中的方法"><a href="#Object-类中的方法" class="headerlink" title="Object 类中的方法"></a>Object 类中的方法</h1><p>Object 类是所有类的父类，其位于 java.lang 包中，编译会自动导入。创建一个类时如果没有明确继承一个父类，那么会自动继承 Object</p>
+<p>Object 类中包含的方法有 Object()、getClass()、hashCode()、equals()、clone()、toString()、notify()、notifyAll()、wait(long)、wait(long,int)、wait()、finalize()共十二个方法</p>
+<p>对这些方法的简单介绍：</p>
+<p>Object() 是默认构造方法，clone 是创建并返回对象的一个副本，equals 是判断是否相等，finalize 是当垃圾回收器确定不存在对该对象的更多引用时，由垃圾回收器调用此方法，getClass 返回一个对象的运行时类，hashCode 返回对象的哈希值，notify 唤醒该对象监视器上等待的单个线程，notifyAll 唤醒所有线程，toString 返回对象的字符串表示，wait 使当前线程等待，wait(long timeout) 导致当前的线程等待调用此对象的notify()或notifyAll()，wait(long timeout, int nanos)：导致当前的线程等待，直到其他线程调用此对象的notify()或notifyAll()，或其他某个线程中断当前线程，或者已超过某个实际时间量</p>
+<h1 id="代码结构"><a href="#代码结构" class="headerlink" title="代码结构"></a>代码结构</h1><h2 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h2><p>模型，常常与持久化数据相互对应，如 MySQL 和 MongoDB 等。Model 承载的是数据的抽象，描述了一个数据的定义，Model 实例就是一组组的数据，Model 应该是一个纯数据的集合。</p>
+<h2 id="Util"><a href="#Util" class="headerlink" title="Util"></a>Util</h2><p>工具，常常用来描述与业务逻辑没有关系的数据处理。一般与私有方法进行对比，私有方法越多往往代码越乱，因此常见的重构逻辑就是从代码中抽象出若干个私有方法，最后再抽象出公用的 util</p>
+<p>如果可能，应该尽可能少用私有方法，而是将其转换为一个公用的 util，代表其与业务逻辑是不相干的。</p>
+<h2 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h2><p>服务，可能包含一系列的数据处理，也可能调用多个 util 或其他的服务。如果说 util 是工具，那么 Service 就是操作工具的人</p>
+<h2 id="Dao"><a href="#Dao" class="headerlink" title="Dao"></a>Dao</h2><p>与底层数据库通信，负责数据库的增删改查 CRUD。最佳实践是一个 Service 对应一个 Dao</p>
+<h2 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h2><p>控制中心，所有指令、调度都从此处发出。具体每个 Service 做什么事、谁的数据提供给谁，都是在 Controller 实现的。</p>
+<h1 id="类的设计原则"><a href="#类的设计原则" class="headerlink" title="类的设计原则"></a>类的设计原则</h1><h2 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h2><p>对扩展开放，对修改关闭。也就是说在实现一个新功能时，首先想的应该是扩展原有功能，而不是修改之前的功能。</p>
+<h2 id="里氏代换原则"><a href="#里氏代换原则" class="headerlink" title="里氏代换原则"></a>里氏代换原则</h2><p>面向对象设计的基本原则之一，指的是子类必须能够替换其基类。该原则是继承复用的基石，只有当子类能够替换基类，并且软件功能不受影响时，基类才能够被真正复用，子类也能够在基类基础上增加新的行为。</p>
+<h2 id="依赖倒转原则"><a href="#依赖倒转原则" class="headerlink" title="依赖倒转原则"></a>依赖倒转原则</h2><p>开闭原则的基础，具体指的是针对接口编程，依赖于抽象而不依赖于具体</p>
+<h2 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h2><p>使用多个隔离的接口，比使用单个接口要好，是基于高内聚、低耦合的思想实现的。</p>
+<h2 id="迪米特法则，即最少知道原则"><a href="#迪米特法则，即最少知道原则" class="headerlink" title="迪米特法则，即最少知道原则"></a>迪米特法则，即最少知道原则</h2><p>一个实体应当尽量少地与其他实体之间发生相互作用，使得系统功能模块相对独立</p>
+<h2 id="合成复用原则"><a href="#合成复用原则" class="headerlink" title="合成复用原则"></a>合成复用原则</h2><p>尽量使用合成/聚合的方式，而不是使用继承</p>
+<h1 id="Static-关键字"><a href="#Static-关键字" class="headerlink" title="Static 关键字"></a>Static 关键字</h1><p>用于修饰类的方法与成员变量</p>
+<h2 id="Static-方法"><a href="#Static-方法" class="headerlink" title="Static 方法"></a>Static 方法</h2><p>static方法一般称作静态方法，由于静态方法不依赖于任何对象就可以进行访问，因此对于静态方法来说，是没有this的，因为它不依附于任何对象，既然都没有对象，就谈不上this了。并且由于这个特性，在静态方法中不能访问类的非静态成员变量和非静态成员方法，因为非静态成员方法/变量都是必须依赖具体的对象才能够被调用。</p>
+<h2 id="Static-变量"><a href="#Static-变量" class="headerlink" title="Static 变量"></a>Static 变量</h2><p>static变量也称作静态变量，静态变量和非静态变量的区别是：静态变量被所有的对象所共享，在内存中只有一个副本，它当且仅当在类初次加载时会被初始化。而非静态变量是对象所拥有的，在创建对象的时候被初始化，存在多个副本，各个对象拥有的副本互不影响。</p>
+<p>static成员变量的初始化顺序按照定义的顺序进行初始化。</p>
+<h2 id="Static-代码块"><a href="#Static-代码块" class="headerlink" title="Static 代码块"></a>Static 代码块</h2><p>static关键字还有一个比较关键的作用就是 用来形成静态代码块以优化程序性能。static块可以置于类中的任何地方，类中可以有多个static块。在类初次被加载的时候，会按照static块的顺序来执行每个static块，并且只会执行一次。</p>
+<h1 id="final-关键字"><a href="#final-关键字" class="headerlink" title="final 关键字"></a>final 关键字</h1><p>final关键字可以用来修饰类、方法和变量</p>
+<h2 id="修饰类"><a href="#修饰类" class="headerlink" title="修饰类"></a>修饰类</h2><p>当用final修饰一个类时，表明这个类不能被继承。也就是说，如果一个类你永远不会让他被继承，就可以用final进行修饰。final类中的成员变量可以根据需要设为final，但是要注意final类中的所有成员方法都会被隐式地指定为final方法。</p>
+<h2 id="修饰方法"><a href="#修饰方法" class="headerlink" title="修饰方法"></a>修饰方法</h2><p>被 final 修饰的方法不能被重写，类的private方法会隐式地被指定为final方法。</p>
+<h2 id="修饰变量"><a href="#修饰变量" class="headerlink" title="修饰变量"></a>修饰变量</h2><p>对于一个final变量，如果是基本数据类型的变量，则其数值一旦在初始化之后便不能更改；如果是引用类型的变量，则在对其初始化之后便不能再让其指向另一个对象。</p>
+
+      
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java-%E5%9F%BA%E7%A1%80/" rel="tag"># Java 基础</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/08/15/Nginx%20%E5%9F%BA%E7%A1%80/" rel="prev" title="Nginx 基础">
+      <i class="fa fa-chevron-left"></i> Nginx 基础
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/08/15/Linux/" rel="next" title="Linux 基础">
+      Linux 基础 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%92%8C-equals-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">&#x3D;&#x3D; 和 equals 的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%87%8D%E5%86%99-equals-%E6%97%B6%E5%BF%85%E9%A1%BB%E9%87%8D%E5%86%99-hashCode-%E6%96%B9%E6%B3%95%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">为什么重写 equals() 时必须重写 hashCode() 方法？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E5%86%99%E4%B8%8E%E9%87%8D%E8%BD%BD%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.</span> <span class="nav-text">重写与重载的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%86%99%E8%A7%84%E5%88%99"><span class="nav-number">3.1.</span> <span class="nav-text">重写规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD%E8%A7%84%E5%88%99"><span class="nav-number">3.2.</span> <span class="nav-text">重载规则</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E7%B1%BB%E4%B8%AD%E5%8F%AF%E4%B8%8D%E5%8F%AF%E4%BB%A5%E6%9C%89-private-%E5%8F%98%E9%87%8F%E4%B8%8E%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">抽象类中可不可以有 private 变量与方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%BB%E9%94%81"><span class="nav-number">5.</span> <span class="nav-text">死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A7%E7%94%9F%E6%AD%BB%E9%94%81%E7%9A%84%E5%9B%9B%E4%B8%AA%E6%9D%A1%E4%BB%B6"><span class="nav-number">5.1.</span> <span class="nav-text">产生死锁的四个条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E6%AD%BB%E9%94%81%EF%BC%9F"><span class="nav-number">5.2.</span> <span class="nav-text">如何解决死锁？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A0%B4%E5%9D%8F%E8%AF%B7%E6%B1%82%E4%B8%8E%E4%BF%9D%E6%8C%81%E6%9D%A1%E4%BB%B6"><span class="nav-number">5.2.1.</span> <span class="nav-text">破坏请求与保持条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A0%B4%E5%9D%8F%E4%B8%8D%E5%89%A5%E5%A4%BA%E6%9D%A1%E4%BB%B6"><span class="nav-number">5.2.2.</span> <span class="nav-text">破坏不剥夺条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A0%B4%E5%9D%8F%E5%BE%AA%E7%8E%AF%E7%AD%89%E5%BE%85%E6%9D%A1%E4%BB%B6"><span class="nav-number">5.2.3.</span> <span class="nav-text">破坏循环等待条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95"><span class="nav-number">5.3.</span> <span class="nav-text">银行家算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="nav-number">5.4.</span> <span class="nav-text">死锁的代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#StringBuilder"><span class="nav-number">6.</span> <span class="nav-text">StringBuilder</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.</span> <span class="nav-text">Java 基本数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%B1%E6%8B%B7%E8%B4%9D%E3%80%81%E6%B5%85%E6%8B%B7%E8%B4%9D%E3%80%81%E5%BC%95%E7%94%A8%E6%8B%B7%E8%B4%9D"><span class="nav-number">8.</span> <span class="nav-text">深拷贝、浅拷贝、引用拷贝</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E4%B8%8E%E9%94%99%E8%AF%AF"><span class="nav-number">9.</span> <span class="nav-text">异常与错误</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%97%E6%A3%80%E6%9F%A5%E5%BC%82%E5%B8%B8"><span class="nav-number">9.1.</span> <span class="nav-text">受检查异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%8F%97%E6%A3%80%E6%9F%A5%E5%BC%82%E5%B8%B8"><span class="nav-number">9.2.</span> <span class="nav-text">不受检查异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#try-catch-finally"><span class="nav-number">9.3.</span> <span class="nav-text">try-catch-finally</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JAVA%E4%B8%ADtry%E3%80%81catch%E3%80%81finally%E5%B8%A6return%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-number">9.3.1.</span> <span class="nav-text">JAVA中try、catch、finally带return的执行顺序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lambda-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">10.</span> <span class="nav-text">Lambda 表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Autowired-%E5%92%8C-Resource-%E5%8C%BA%E5%88%AB%E5%AF%B9%E6%AF%94"><span class="nav-number">11.</span> <span class="nav-text">Autowired 和 Resource 区别对比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">12.</span> <span class="nav-text">Java 序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">12.1.</span> <span class="nav-text">对象序列化的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Serializable-%E6%8E%A5%E5%8F%A3"><span class="nav-number">12.1.1.</span> <span class="nav-text">Serializable 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Externalizable-%E6%8E%A5%E5%8F%A3"><span class="nav-number">12.1.2.</span> <span class="nav-text">Externalizable 接口</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-%E4%B8%AD%E7%BB%88%E6%AD%A2%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">13.</span> <span class="nav-text">Java 中终止线程的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%80%80%E5%87%BA%E6%A0%87%E5%BF%97%E7%BB%88%E6%AD%A2%E7%BA%BF%E7%A8%8B"><span class="nav-number">13.1.</span> <span class="nav-text">使用退出标志终止线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-interrupt-%E6%96%B9%E6%B3%95%E4%B8%AD%E6%96%AD%E5%BD%93%E5%89%8D%E7%BA%BF%E7%A8%8B"><span class="nav-number">13.2.</span> <span class="nav-text">使用 interrupt() 方法中断当前线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-stop-%E6%96%B9%E6%B3%95%E7%BB%88%E6%AD%A2%E7%BA%BF%E7%A8%8B"><span class="nav-number">13.3.</span> <span class="nav-text">使用 stop 方法终止线程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Object-%E7%B1%BB%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">14.</span> <span class="nav-text">Object 类中的方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84"><span class="nav-number">15.</span> <span class="nav-text">代码结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Model"><span class="nav-number">15.1.</span> <span class="nav-text">Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Util"><span class="nav-number">15.2.</span> <span class="nav-text">Util</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service"><span class="nav-number">15.3.</span> <span class="nav-text">Service</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dao"><span class="nav-number">15.4.</span> <span class="nav-text">Dao</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Controller"><span class="nav-number">15.5.</span> <span class="nav-text">Controller</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="nav-number">16.</span> <span class="nav-text">类的设计原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E9%97%AD%E5%8E%9F%E5%88%99"><span class="nav-number">16.1.</span> <span class="nav-text">开闭原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8C%E6%B0%8F%E4%BB%A3%E6%8D%A2%E5%8E%9F%E5%88%99"><span class="nav-number">16.2.</span> <span class="nav-text">里氏代换原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E5%80%92%E8%BD%AC%E5%8E%9F%E5%88%99"><span class="nav-number">16.3.</span> <span class="nav-text">依赖倒转原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99"><span class="nav-number">16.4.</span> <span class="nav-text">接口隔离原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99%EF%BC%8C%E5%8D%B3%E6%9C%80%E5%B0%91%E7%9F%A5%E9%81%93%E5%8E%9F%E5%88%99"><span class="nav-number">16.5.</span> <span class="nav-text">迪米特法则，即最少知道原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E6%88%90%E5%A4%8D%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">16.6.</span> <span class="nav-text">合成复用原则</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Static-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">17.</span> <span class="nav-text">Static 关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Static-%E6%96%B9%E6%B3%95"><span class="nav-number">17.1.</span> <span class="nav-text">Static 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Static-%E5%8F%98%E9%87%8F"><span class="nav-number">17.2.</span> <span class="nav-text">Static 变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Static-%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">17.3.</span> <span class="nav-text">Static 代码块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#final-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">18.</span> <span class="nav-text">final 关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E7%B1%BB"><span class="nav-number">18.1.</span> <span class="nav-text">修饰类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E6%96%B9%E6%B3%95"><span class="nav-number">18.2.</span> <span class="nav-text">修饰方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E5%8F%98%E9%87%8F"><span class="nav-number">18.3.</span> <span class="nav-text">修饰变量</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zodiacal</p>
+  <div class="site-description" itemprop="description">引出魔鬼的一种试炼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zodiacal</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">453k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:52</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

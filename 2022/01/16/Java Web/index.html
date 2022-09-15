@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|EB Garamond:300,300italic,400,400italic,700,700italic|Source Code Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zodical416.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="岂曰无衣，与子同袍。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Web">
+<meta property="og:url" content="https://zodical416.github.io/2022/01/16/Java%20Web/index.html">
+<meta property="og:site_name" content="Zodiacal">
+<meta property="og:description" content="岂曰无衣，与子同袍。">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/d0c49a626fc0d1947f3577fbc30fbda.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220113225905.png">
+<meta property="article:published_time" content="2022-01-16T08:25:05.177Z">
+<meta property="article:modified_time" content="2022-01-16T08:26:06.417Z">
+<meta property="article:author" content="Zodiacal">
+<meta property="article:tag" content="Java Web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zodical416/picto/master/d0c49a626fc0d1947f3577fbc30fbda.png">
+
+<link rel="canonical" href="https://zodical416.github.io/2022/01/16/Java%20Web/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Java Web | Zodiacal</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zodiacal</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://zodical416.github.io/2022/01/16/Java%20Web/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zodiacal">
+      <meta itemprop="description" content="引出魔鬼的一种试炼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zodiacal">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java Web
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-16 16:25:05 / 修改时间：16:26:06" itemprop="dateCreated datePublished" datetime="2022-01-16T16:25:05+08:00">2022-01-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-Web/" itemprop="url" rel="index"><span itemprop="name">Java Web</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+            <div class="post-description">岂曰无衣，与子同袍。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="xml-文件"><a href="#xml-文件" class="headerlink" title="xml 文件"></a>xml 文件</h1><p>XML：可扩展的标记性语言</p>
+<h2 id="主要作用"><a href="#主要作用" class="headerlink" title="主要作用"></a>主要作用</h2><ol>
+<li>用来保存数据，且数据具有自我描述性；</li>
+<li>可以作为项目或模块的配置文件；</li>
+<li>可以作为网络传输数据的格式（现在以 JSON 为主）</li>
+</ol>
+<h2 id="语法介绍"><a href="#语法介绍" class="headerlink" title="语法介绍"></a>语法介绍</h2><ul>
+<li>元素（标签）： 指的是从开始标签到结束标签的部分；</li>
+<li>属性：提供元素的额外信息，每个属性的值必须用  引号  引起来；</li>
+</ul>
+<h2 id="xml-解析技术"><a href="#xml-解析技术" class="headerlink" title="xml 解析技术"></a>xml 解析技术</h2><p>标记性文档，都可以使用 w3c 组织制定的 dom 技术来解析</p>
+<p>目前使用的解析技术：<strong>dom4j</strong></p>
+<h1 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h1><p>Tomcat 服务器是 Apache 软件基金会项目中的一个核心项目，是一个免费的开放源代码的 Web 应用服务器，属于轻量级应用服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试 JSP 程序的首选。</p>
+<h2 id="默认缺省端口号是什么，如何修改？"><a href="#默认缺省端口号是什么，如何修改？" class="headerlink" title="默认缺省端口号是什么，如何修改？"></a>默认缺省端口号是什么，如何修改？</h2><p>监听端口号：8080，需要进入 conf 文件中修改 server.xml 文件</p>
+<h2 id="利用-Tomcat-部署-Web-工程"><a href="#利用-Tomcat-部署-Web-工程" class="headerlink" title="利用 Tomcat 部署 Web 工程"></a>利用 Tomcat 部署 Web 工程</h2><ul>
+<li><p>方法一：</p>
+<p>只需要将 Web 工程的目录拷贝到 Tomcat 的 webapps 目录下即可；</p>
+<p>访问时：在浏览器输入访问地址，格式为：<a href="http://ip:port/工程名/目录/文件名">http://ip:port/工程名/目录/文件名</a></p>
+</li>
+<li><p>方法二：</p>
+<p>找到 conf/Catalina/localhost/ 创建 xml 文件如下</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-<span class="keyword">Context</span> 表示一个工程上下文 </span><br><span class="line">    <span class="keyword">Path</span> 表示工程访问路径</span><br><span class="line">    docBase 表示工程目录位置</span><br><span class="line">-&gt;</span><br><span class="line">&lt;<span class="keyword">Context</span> path = <span class="string">&quot;/abc&quot;</span> docBase = <span class="string">&quot;E:\book&quot;</span>/&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="手托-html-页面到浏览器和在浏览器中输入地址访问的区别"><a href="#手托-html-页面到浏览器和在浏览器中输入地址访问的区别" class="headerlink" title="手托 html 页面到浏览器和在浏览器中输入地址访问的区别"></a>手托 html 页面到浏览器和在浏览器中输入地址访问的区别</h2><p>手托 html 页面到浏览器，浏览器中地址为 html 文件路径，所使用的协议为 file:// 协议，浏览器直接读取路径，解析展示在浏览器上。</p>
+<p>输入地址采用的是 http 协议</p>
+<h2 id="在-Linux-部署项目："><a href="#在-Linux-部署项目：" class="headerlink" title="在 Linux 部署项目："></a>在 Linux 部署项目：</h2><p>先使用eclipse或IDEA把项目打成.war包，然后上传到Linux服务器，然后把项目放在Tomcat的bin目录下的webapps，再重启Tomcat就行了。</p>
+<h2 id="Tomcat-如何优化？"><a href="#Tomcat-如何优化？" class="headerlink" title="Tomcat 如何优化？"></a>Tomcat 如何优化？</h2><ol>
+<li>改最大连接数：Tomcat使用线程来处理接收的每个请求。maxThreads 值表示Tomcat可创建的最大的线程数。</li>
+<li>内存优化：</li>
+</ol>
+<h1 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h1><p>JavaEE 接口之一，JavaWeb 三大组件之一（Servlet 程序、Filter 过滤器、Listener 监听器），是运行在服务器上的小型 Java 程序，能够接收客户端发送的请求，并响应数据给客户端。</p>
+<h2 id="如何实现-Servlet-程序？"><a href="#如何实现-Servlet-程序？" class="headerlink" title="如何实现 Servlet 程序？"></a>如何实现 Servlet 程序？</h2><ol>
+<li>编写一个类实现 Servlet 接口；</li>
+<li>实现 service 方法，处理请求，并响应数据；</li>
+<li>到 web.xml 中配置 servlet 程序的访问地址</li>
+</ol>
+<h2 id="URL-地址如何定位到-Servlet-程序去访问？"><a href="#URL-地址如何定位到-Servlet-程序去访问？" class="headerlink" title="URL 地址如何定位到 Servlet 程序去访问？"></a>URL 地址如何定位到 Servlet 程序去访问？</h2><p><img src="https://raw.githubusercontent.com/zodical416/picto/master/d0c49a626fc0d1947f3577fbc30fbda.png"></p>
+<h2 id="Servlet-的生命周期"><a href="#Servlet-的生命周期" class="headerlink" title="Servlet 的生命周期"></a>Servlet 的生命周期</h2><ol>
+<li>执行 Servlet 构造器方法</li>
+<li>执行 init 初始化方法</li>
+<li>执行 service 方法</li>
+<li>执行 destroy 销毁方法</li>
+</ol>
+<p>第1、2步在第一次访问时创建 Servlet 程序会调用；第三步每次访问都会调用；第四步在web工程停止时会调用</p>
+<h2 id="通过继承-HttpServlet-实现-Servlet-程序"><a href="#通过继承-HttpServlet-实现-Servlet-程序" class="headerlink" title="通过继承 HttpServlet 实现 Servlet 程序"></a>通过继承 HttpServlet 实现 Servlet 程序</h2><ol>
+<li>编写一个类去继承 HttpServlet 类；</li>
+<li>根据业务需要重写 doGet 或 doPost 方法；</li>
+<li>到 web.xml 中去配置 Servlet 程序的访问地址</li>
+</ol>
+<h2 id="整个-Servlet-类的继承体系"><a href="#整个-Servlet-类的继承体系" class="headerlink" title="整个 Servlet 类的继承体系"></a>整个 Servlet 类的继承体系</h2><p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220113225905.png"></p>
+<h2 id="ServletConfig-类"><a href="#ServletConfig-类" class="headerlink" title="ServletConfig 类"></a>ServletConfig 类</h2><p>Servlet 程序的配置信息类</p>
+<h3 id="三大作用"><a href="#三大作用" class="headerlink" title="三大作用"></a>三大作用</h3><ol>
+<li>获取 Servlet 程序的别名 servlet-name 的值</li>
+<li>获取初始化参数 init-param</li>
+<li>获取 ServletContext 对象</li>
+</ol>
+<h2 id="ServletContext-类"><a href="#ServletContext-类" class="headerlink" title="ServletContext 类"></a>ServletContext 类</h2><ol>
+<li>是一个接口，表示 Servlet 上下文对象</li>
+<li>一个 web 工程，只有一个 ServletContext 对象实例</li>
+<li>ServletContext 对象是一个域对象</li>
+</ol>
+<ul>
+<li>域对象：可以像 Map 一样存取数据的对象，域指的是存取数据的操作范围</li>
+</ul>
+<h3 id="四个作用"><a href="#四个作用" class="headerlink" title="四个作用"></a>四个作用</h3><ol>
+<li>获取 web.xml 中配置的上下文参数 context-param</li>
+<li>获取当前的工程路径</li>
+<li>获取工程部署后在服务器磁盘上的绝对路径</li>
+<li>像 Map 一样存取数据</li>
+</ol>
+<h2 id="HttpServletRequest-类"><a href="#HttpServletRequest-类" class="headerlink" title="HttpServletRequest 类"></a>HttpServletRequest 类</h2><p>作用：只要有请求进入 Tomcat 服务器，服务器就会把请求过来的 HTTP 协议信息解析好封装到 Request 对象中，然后传递到 service 方法中</p>
+
+      
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java-Web/" rel="tag"># Java Web</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/16/1.%20IOC/" rel="prev" title="1. IOC">
+      <i class="fa fa-chevron-left"></i> 1. IOC
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/18/%E5%9C%A8%E7%BA%BF%E5%8A%9E%E5%85%AC%E7%B3%BB%E7%BB%9F1%EF%BC%9A%E5%B7%A5%E5%85%B7%E5%87%86%E5%A4%87/" rel="next" title="办公系统 1. 工具准备">
+      办公系统 1. 工具准备 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#xml-%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">xml 文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E4%BD%9C%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">主要作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.2.</span> <span class="nav-text">语法介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xml-%E8%A7%A3%E6%9E%90%E6%8A%80%E6%9C%AF"><span class="nav-number">1.3.</span> <span class="nav-text">xml 解析技术</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tomcat"><span class="nav-number">2.</span> <span class="nav-text">Tomcat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E7%BC%BA%E7%9C%81%E7%AB%AF%E5%8F%A3%E5%8F%B7%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%EF%BC%9F"><span class="nav-number">2.1.</span> <span class="nav-text">默认缺省端口号是什么，如何修改？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-Tomcat-%E9%83%A8%E7%BD%B2-Web-%E5%B7%A5%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">利用 Tomcat 部署 Web 工程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E6%89%98-html-%E9%A1%B5%E9%9D%A2%E5%88%B0%E6%B5%8F%E8%A7%88%E5%99%A8%E5%92%8C%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E8%BE%93%E5%85%A5%E5%9C%B0%E5%9D%80%E8%AE%BF%E9%97%AE%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.3.</span> <span class="nav-text">手托 html 页面到浏览器和在浏览器中输入地址访问的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8-Linux-%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%EF%BC%9A"><span class="nav-number">2.4.</span> <span class="nav-text">在 Linux 部署项目：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tomcat-%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%EF%BC%9F"><span class="nav-number">2.5.</span> <span class="nav-text">Tomcat 如何优化？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet"><span class="nav-number">3.</span> <span class="nav-text">Servlet</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0-Servlet-%E7%A8%8B%E5%BA%8F%EF%BC%9F"><span class="nav-number">3.1.</span> <span class="nav-text">如何实现 Servlet 程序？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL-%E5%9C%B0%E5%9D%80%E5%A6%82%E4%BD%95%E5%AE%9A%E4%BD%8D%E5%88%B0-Servlet-%E7%A8%8B%E5%BA%8F%E5%8E%BB%E8%AE%BF%E9%97%AE%EF%BC%9F"><span class="nav-number">3.2.</span> <span class="nav-text">URL 地址如何定位到 Servlet 程序去访问？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">3.3.</span> <span class="nav-text">Servlet 的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E7%BB%A7%E6%89%BF-HttpServlet-%E5%AE%9E%E7%8E%B0-Servlet-%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.4.</span> <span class="nav-text">通过继承 HttpServlet 实现 Servlet 程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E4%B8%AA-Servlet-%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF%E4%BD%93%E7%B3%BB"><span class="nav-number">3.5.</span> <span class="nav-text">整个 Servlet 类的继承体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ServletConfig-%E7%B1%BB"><span class="nav-number">3.6.</span> <span class="nav-text">ServletConfig 类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E5%A4%A7%E4%BD%9C%E7%94%A8"><span class="nav-number">3.6.1.</span> <span class="nav-text">三大作用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ServletContext-%E7%B1%BB"><span class="nav-number">3.7.</span> <span class="nav-text">ServletContext 类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E4%B8%AA%E4%BD%9C%E7%94%A8"><span class="nav-number">3.7.1.</span> <span class="nav-text">四个作用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HttpServletRequest-%E7%B1%BB"><span class="nav-number">3.8.</span> <span class="nav-text">HttpServletRequest 类</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zodiacal</p>
+  <div class="site-description" itemprop="description">引出魔鬼的一种试炼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zodiacal</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">453k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:52</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

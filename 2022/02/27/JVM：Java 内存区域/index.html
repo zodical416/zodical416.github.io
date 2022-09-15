@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|EB Garamond:300,300italic,400,400italic,700,700italic|Source Code Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zodical416.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="有情有义有时有米无炊">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM：Java 内存区域">
+<meta property="og:url" content="https://zodical416.github.io/2022/02/27/JVM%EF%BC%9AJava%20%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/index.html">
+<meta property="og:site_name" content="Zodiacal">
+<meta property="og:description" content="有情有义有时有米无炊">
+<meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220210161135.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220211104844.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220211110709.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220211111630.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220211113850.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220211113909.png">
+<meta property="article:published_time" content="2022-02-27T15:46:38.432Z">
+<meta property="article:modified_time" content="2022-08-15T12:36:36.918Z">
+<meta property="article:author" content="Zodiacal">
+<meta property="article:tag" content="Java 基础">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="JVM">
+<meta property="article:tag" content="内存区域">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zodical416/picto/master/20220210161135.png">
+
+<link rel="canonical" href="https://zodical416.github.io/2022/02/27/JVM%EF%BC%9AJava%20%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>JVM：Java 内存区域 | Zodiacal</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zodiacal</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://zodical416.github.io/2022/02/27/JVM%EF%BC%9AJava%20%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zodiacal">
+      <meta itemprop="description" content="引出魔鬼的一种试炼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zodiacal">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JVM：Java 内存区域
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-02-27 23:46:38" itemprop="dateCreated datePublished" datetime="2022-02-27T23:46:38+08:00">2022-02-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-08-15 20:36:36" itemprop="dateModified" datetime="2022-08-15T20:36:36+08:00">2022-08-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+            <div class="post-description">有情有义有时有米无炊</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>对于 Java 程序员来说，在虚拟机自动内存管理机制下，不再需要像 C/C++ 程序员那样为每一个 new 操作去写对应的 delete/free 操作，不容易出现内存泄漏和内存溢出的问题。正是因为 Java 程序员把内存控制权力交给 Java 虚拟机，一旦出现内存泄漏和溢出方面的问题，如果不了解虚拟机是怎样使用内存的，那么排查错误将会是一个非常艰巨的任务。</p>
+<h1 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h1><p>JDK 1.8 ：</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220210161135.png"></p>
+<p>线程私有的：程序计数器、虚拟机栈、本地方法栈</p>
+<p>线程共享的：堆、方法区、直接内存</p>
+<h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><p>一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器。字节码解释器工作时通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等功能都需要依赖这个计数器来完成。</p>
+<p>为了线程切换后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各线程之间计数器互不影响，独立存储，我们称这类内存区域为“线程私有”的内存。</p>
+<p>综上，程序计数器有两个作用：</p>
+<ul>
+<li>字节码解释器通过改变程序计数器来依次读取指令，从而实现代码的流程控制</li>
+<li>在多线程的情况下，程序计数器用于记录当前线程执行的位置，从而当线程被切换回来的时候能够知道该线程上次运行到哪儿了。</li>
+</ul>
+<p>程序计数器是唯一一个不会出现 <code>OutOfMemoryError</code> 的内存区域，它的生命周期随着线程的创建而创建，随着线程的结束而死亡。</p>
+<h2 id="Java-虚拟机栈"><a href="#Java-虚拟机栈" class="headerlink" title="Java 虚拟机栈"></a>Java 虚拟机栈</h2><p>与程序计数器一样，Java 虚拟机栈也是线程私有的，它的生命周期和线程相同，描述的是 Java 方法执行的内存模型，每次方法调用的数据都是通过栈传递的。</p>
+<p>Java 虚拟机栈是由一个个栈帧组成，而每个栈帧中都拥有：局部变量表、操作数栈、动态链接、方法出口信息。局部变量表主要存放了编译期可知的各种数据类型、对象引用</p>
+<p>Java 虚拟机栈会出现两种错误：<code>StackOverFlowError</code> 和 <code>OutOfMemoryError</code>。</p>
+<ul>
+<li><code>StackOverFlowError</code>：若 Java 虚拟机栈的内存大小不允许动态扩展，那么当线程请求栈的深度超过当前 Java 虚拟机栈的最大深度的时候，就抛出该错误。</li>
+<li><code>OutOfMemoryError</code>： Java 虚拟机栈的内存大小可以动态扩展， 如果虚拟机在动态扩展栈时无法申请到足够的内存空间，则抛出该错误</li>
+</ul>
+<blockquote>
+<p>方法/函数如何调用？<br>Java 栈中保存的主要内容是栈帧，每一次函数调用都会有一个对应的栈帧被压入 Java 栈，每一个函数调用结束后，都会有一个栈帧被弹出。</p>
+<p>Java 方法有两种返回方式：return 语句、抛出异常</p>
+</blockquote>
+<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>虚拟机栈为虚拟机执行 Java 方法 （也就是字节码）服务，而本地方法栈则为虚拟机使用到的 Native 方法服务。</p>
+<blockquote>
+<p>本地方法：一个native method就是一个Java调用非Java代码的接口。本地方法是这样的一种方法：该方法的实现由非Java语言实现的，比如C。</p>
+</blockquote>
+<p>本地方法被执行的时候，在本地方法栈也会创建一个栈帧，用于存放该本地方法的局部变量表、操作数栈、动态链接、出口信息。方法执行完毕后相应的栈帧也会出栈并释放内存空间，也会出现 <code>StackOverFlowError</code> 和 <code>OutOfMemoryError</code> 两种错误。</p>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>Java 虚拟机所管理的内存中最大的一块，Java 堆是所有线程共享的一块内存区域，在虚拟机启动时创建。<strong>此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例以及数组都在这里分配内存。</strong></p>
+<p>Java 堆是垃圾收集器管理的主要区域，因此也被称作<strong>GC 堆（Garbage Collected Heap）。</strong> 从垃圾回收的角度，由于现在收集器基本都采用分代垃圾收集算法，所以 Java 堆还可以细分为：新生代和老年代。在之前的版本中，堆内存被划分为以下的三个部分：新生代、老生代和永生代。JDK 1.8 之后，永生代被移除了，取而代之的是元空间，元空间使用的是直接内存。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220211104844.png" alt="img"></p>
+<h2 id="JVM-中的堆与栈"><a href="#JVM-中的堆与栈" class="headerlink" title="JVM 中的堆与栈"></a>JVM 中的堆与栈</h2><ul>
+<li>栈，可以看做是方法的运行模型，所有方法的调用都是通过栈帧来进行的，JVM 会为每个线程分配一个栈区，并且进行以帧为单位的 压栈和出栈 操作。当线程进入一个 Java 方法时，就会在压入一个栈帧，该栈帧用来保存当前线程的状态（包括参数、局部变量、中间计算过程以及所产生的数据），当退出方法时，会销毁栈中的内容</li>
+<li>堆，唯一目的是存放对象实例，一个 JVM 对应一个堆，堆内存被所有的线程共享，因此可以说堆主要是用来存放对象的，栈主要是用来执行程序的</li>
+<li>栈的性能比堆要快，但是分配内存时，栈中存放的数据大小以及生存周期都是在编译时确定的，缺乏灵活性；堆可以动态分配内存大小，垃圾回收器会自动回收不需要的数据，灵活性较强</li>
+<li>Java 函数中基本类型和对象的 <strong>引用</strong> 都是在栈内存中分配，而 Java 中所有对象的存储空间都是在堆中进行分配的。也就是说在建立一个对象后，在两个地方都分配内存。</li>
+<li>Java 运行速度慢的一部分原因也是因为，除了基本数据类型，其他的都是在堆中进行内存分配。堆不像栈是连续的空间，因此速度较慢，同时又由于针对堆的 GC，也影响了对象的创建速度。</li>
+</ul>
+<h1 id="堆和栈的区别"><a href="#堆和栈的区别" class="headerlink" title="堆和栈的区别"></a>堆和栈的区别</h1><p>这里说的堆和栈是操作系统中的堆和栈，主要区别有以下几点：</p>
+<p>Java 的堆是一个运行时数据区，其中存储类的对象，也是垃圾回收的主要目标区域。对象通过 new 等指令建立，堆内存一般不需要代码显式释放，而是由垃圾回收来自动负责，堆的存储顺序是随意的。</p>
+<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>方法区与 Java 堆一样，是各个线程共享的内存区域，它用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。</p>
+<blockquote>
+<p>方法区和永久代的关系：方法区和永久代的关系很像 Java 中接口和类的关系，类实现了接口，而永久代就是 HotSpot 虚拟机对虚拟机规范中方法区的一种实现方式。也就是说，方法区是 Java 虚拟机规范中的定义，是一种规范，而永久代是 HotSpot 的一种实现。</p>
+</blockquote>
+<h3 id="为什么放弃永久代？"><a href="#为什么放弃永久代？" class="headerlink" title="为什么放弃永久代？"></a>为什么放弃永久代？</h3><ol>
+<li>整个永久代有一个 JVM 本身设置的固定大小上限，无法进行调整，而元空间使用的是直接内存，受本机可用内存的限制，虽然元空间仍旧可能溢出，但是比原来出现的几率会更小。</li>
+<li>元空间里面存放的是类的元数据，数量由系统的实际可用空间来控制，这样能加载的类就更多了。</li>
+</ol>
+<h2 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h2><p>运行时常量池是方法区的一部分，常量池中主要存放有两大类常量：字面量和符号引用。字面量比较接近于Java语言层面的常量概念，如文本字符串、声明为final的常量值等。符号引用顾名思义，就是引用；</p>
+<h2 id="直接内存"><a href="#直接内存" class="headerlink" title="直接内存"></a>直接内存</h2><p>直接内存并不是虚拟机运行时数据区的一部分，也不是虚拟机规范中定义的内存区域，但是这部分内存也被频繁地使用。而且也可能导致 OutOfMemoryError 错误出现。</p>
+<h1 id="HotSpot-虚拟机对象"><a href="#HotSpot-虚拟机对象" class="headerlink" title="HotSpot 虚拟机对象"></a>HotSpot 虚拟机对象</h1><h2 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h2><p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220211110709.png"></p>
+<h3 id="类加载检查"><a href="#类加载检查" class="headerlink" title="类加载检查"></a>类加载检查</h3><p>虚拟机遇到一条 new 指令时，首先将去检查这个指令的参数是否能在常量池中定位到这个类的符号引用，并且检查这个符号引用代表的类是否已被加载、解析和初始化过。如果没有，那必须先执行相应的类加载过程。</p>
+<h3 id="分配内存"><a href="#分配内存" class="headerlink" title="分配内存"></a>分配内存</h3><p>对象所需的内存大小在类加载完成后便可确定，为对象分配空间的任务等同于把一块确定大小的内存从 Java 堆中划分出来。<strong>分配方式有 “指针碰撞” 和 “空闲列表” 两种</strong>。选择哪种分配方式由 Java 堆是否规整决定，而 Java 堆是否规整又由所采用的垃圾收集器是否带有压缩整理功能决定。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220211111630.png"></p>
+<p><strong>内存分配并发问题：</strong></p>
+<p>在创建对象的时候有一个很重要的问题，就是线程安全，通常来讲，虚拟机采用两种方式来保证线程安全：</p>
+<ul>
+<li>CAS+失败重试： CAS 是乐观锁的一种实现方式。所谓乐观锁就是，每次不加锁而是假设没有冲突而去完成某项操作，如果因为冲突失败就重试，直到成功为止。虚拟机采用 CAS 配上失败重试的方式保证更新操作的原子性。</li>
+<li>TLAB：为每一个线程预先在 Eden 区分配一块儿内存，JVM 在给线程中的对象分配内存时，首先在 TLAB 分配，当对象大于 TLAB 中的剩余内存或 TLAB 的内存已用尽时，再采用上述的 CAS 进行内存分配。</li>
+</ul>
+<h3 id="初始化零值"><a href="#初始化零值" class="headerlink" title="初始化零值"></a>初始化零值</h3><p>内存分配完成后，虚拟机需要将分配到的内存空间都初始化为零值（不包括对象头），这一步操作保证了对象的实例字段在 Java 代码中可以不赋初始值就直接使用，程序能访问到这些字段的数据类型所对应的零值。</p>
+<h3 id="设置对象头"><a href="#设置对象头" class="headerlink" title="设置对象头"></a>设置对象头</h3><p>初始化零值完成之后，虚拟机要对对象进行必要的设置，例如这个对象是哪个类的实例、如何才能找到类的元数据信息、对象的哈希码、对象的 GC 分代年龄等信息。这些信息存放在对象头中。</p>
+<h3 id="执行-init-方法"><a href="#执行-init-方法" class="headerlink" title="执行 init 方法"></a>执行 init 方法</h3><p>在上面工作都完成之后，从虚拟机的视角来看，一个新的对象已经产生了，但从 Java 程序的视角来看，对象创建才刚开始，<code>&lt;init&gt;</code> 方法还没有执行，所有的字段都还为零。所以一般来说，执行 new 指令之后会接着执行 <code>&lt;init&gt;</code> 方法，把对象按照程序员的意愿进行初始化，这样一个真正可用的对象才算完全产生出来。</p>
+<h2 id="对象的内存布局"><a href="#对象的内存布局" class="headerlink" title="对象的内存布局"></a>对象的内存布局</h2><p>在 Hotspot 虚拟机中，对象在内存中的布局可以分为 3 块区域：对象头、实例数据和对齐填充。</p>
+<p>Hotspot 虚拟机的对象头包括两部分信息，第一部分用于存储对象自身的运行时数据（例如哈希码、GC 分代年龄、锁状态标志等等），另一部分是类型指针，即对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。</p>
+<p>实例数据部分是对象真正存储的有效信息，也是在程序中所定义的各种类型的字段内容。</p>
+<p>对齐填充部分不是必然存在的，也没有什么特别的含义，仅仅起占位作用。</p>
+<h2 id="对象的访问定位"><a href="#对象的访问定位" class="headerlink" title="对象的访问定位"></a>对象的访问定位</h2><p>对象的访问方式由虚拟机实现而定，目前主流的访问方式有 ① 使用句柄和 ② 直接指针两种。</p>
+<blockquote>
+<p>句柄：一个数字，一般和当前系统下的整数的位数一样，比如32bit系统下就是4个字节。该数字是一个对象的唯一标示，和对象一一对应。</p>
+</blockquote>
+<h3 id="句柄"><a href="#句柄" class="headerlink" title="句柄"></a>句柄</h3><p>如果使用句柄的话，那么 Java 堆中将会划分出一块内存来作为句柄池，reference 中存储的就是对象的句柄地址，而句柄中包含了对象实例数据与类型数据各自的具体地址信息；</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220211113850.png"></p>
+<h3 id="直接指针"><a href="#直接指针" class="headerlink" title="直接指针"></a>直接指针</h3><p>如果使用直接指针访问，那么 Java 堆对象的布局中就必须考虑如何放置访问类型数据的相关信息，而 reference 中存储的直接就是对象的地址。</p>
+<p><img src="https://raw.githubusercontent.com/zodical416/picto/master/20220211113909.png"></p>
+
+      
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java-%E5%9F%BA%E7%A1%80/" rel="tag"># Java 基础</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
+              <a href="/tags/JVM/" rel="tag"># JVM</a>
+              <a href="/tags/%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/" rel="tag"># 内存区域</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/26/Java%20%E5%B9%B6%E5%8F%91-%E8%BF%9B%E9%98%B6/" rel="prev" title="Java 并发-进阶">
+      <i class="fa fa-chevron-left"></i> Java 并发-进阶
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/01/JVM%EF%BC%9AJava%20%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" rel="next" title="JVM：Java 垃圾回收机制">
+      JVM：Java 垃圾回收机制 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9F"><span class="nav-number">2.</span> <span class="nav-text">运行时数据区域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">程序计数器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88"><span class="nav-number">2.2.</span> <span class="nav-text">Java 虚拟机栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88"><span class="nav-number">2.3.</span> <span class="nav-text">本地方法栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86"><span class="nav-number">2.4.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM-%E4%B8%AD%E7%9A%84%E5%A0%86%E4%B8%8E%E6%A0%88"><span class="nav-number">2.5.</span> <span class="nav-text">JVM 中的堆与栈</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A0%86%E5%92%8C%E6%A0%88%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.</span> <span class="nav-text">堆和栈的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA"><span class="nav-number">3.1.</span> <span class="nav-text">方法区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%94%BE%E5%BC%83%E6%B0%B8%E4%B9%85%E4%BB%A3%EF%BC%9F"><span class="nav-number">3.1.1.</span> <span class="nav-text">为什么放弃永久代？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="nav-number">3.2.</span> <span class="nav-text">运行时常量池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%86%85%E5%AD%98"><span class="nav-number">3.3.</span> <span class="nav-text">直接内存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HotSpot-%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.</span> <span class="nav-text">HotSpot 虚拟机对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">4.1.</span> <span class="nav-text">对象的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%A3%80%E6%9F%A5"><span class="nav-number">4.1.1.</span> <span class="nav-text">类加载检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98"><span class="nav-number">4.1.2.</span> <span class="nav-text">分配内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E9%9B%B6%E5%80%BC"><span class="nav-number">4.1.3.</span> <span class="nav-text">初始化零值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%AF%B9%E8%B1%A1%E5%A4%B4"><span class="nav-number">4.1.4.</span> <span class="nav-text">设置对象头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C-init-%E6%96%B9%E6%B3%95"><span class="nav-number">4.1.5.</span> <span class="nav-text">执行 init 方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80"><span class="nav-number">4.2.</span> <span class="nav-text">对象的内存布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BF%E9%97%AE%E5%AE%9A%E4%BD%8D"><span class="nav-number">4.3.</span> <span class="nav-text">对象的访问定位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%A5%E6%9F%84"><span class="nav-number">4.3.1.</span> <span class="nav-text">句柄</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E6%8C%87%E9%92%88"><span class="nav-number">4.3.2.</span> <span class="nav-text">直接指针</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zodiacal</p>
+  <div class="site-description" itemprop="description">引出魔鬼的一种试炼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zodiacal</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">453k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:52</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

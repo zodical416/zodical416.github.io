@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|EB Garamond:300,300italic,400,400italic,700,700italic|Source Code Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zodical416.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="面试总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试总结">
+<meta property="og:url" content="https://zodical416.github.io/2022/05/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Zodiacal">
+<meta property="og:description" content="面试总结">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-05-17T09:48:26.421Z">
+<meta property="article:modified_time" content="2022-05-20T03:46:45.928Z">
+<meta property="article:author" content="Zodiacal">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="计算机网络">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://zodical416.github.io/2022/05/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>面试总结 | Zodiacal</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zodiacal</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://zodical416.github.io/2022/05/17/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zodiacal">
+      <meta itemprop="description" content="引出魔鬼的一种试炼">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zodiacal">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          面试总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-05-17 17:48:26" itemprop="dateCreated datePublished" datetime="2022-05-17T17:48:26+08:00">2022-05-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-20 11:46:45" itemprop="dateModified" datetime="2022-05-20T11:46:45+08:00">2022-05-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">面试</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+            <div class="post-description">面试总结</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="深拷贝与浅拷贝的区别"><a href="#深拷贝与浅拷贝的区别" class="headerlink" title="深拷贝与浅拷贝的区别"></a>深拷贝与浅拷贝的区别</h1><h2 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h2><p>创建一个新对象，该对象有着原始对象属性值的一份精确拷贝。如果属性为基本类型，拷贝的就是基本类型的值，如果属性为引用类型，拷贝的就是内存地址。</p>
+<h2 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h2><p>将一个对象从内存中完整拷贝一份出来，在堆内存中开辟一个新的区域来存放新对象，并且对新对象进行修改不会影响原对象</p>
+<p>301 适合永久重定向，代表所请求的资源已被永久定位到新位置，比较常用的场景是域名跳转。例如对 <a target="_blank" rel="noopener" href="http://www.baidu.com/">http://www.baidu.com</a> 的访问会跳转到 <a target="_blank" rel="noopener" href="https://www.baidu.com/">https://www.baidu.com</a></p>
+<p>302 是临时重定向，即请求的资源现在临时从不同的 URL 响应请求。适合用来做临时跳转，比如未登录的用户访问用户中心会自动跳转到登录、访问 404 页面会重新定向到首页</p>
+<p>总之，302 重定向只是暂时重定向，浏览器会抓取新内容并保留旧内容</p>
+<p>301重定向是永久重定向，浏览器抓取新内容的同时将旧网址替换为了重定向后的网址</p>
+<h1 id="手写一个堆"><a href="#手写一个堆" class="headerlink" title="手写一个堆"></a>手写一个堆</h1><p>堆可分为大根堆和小根堆，其存储形式是一颗完全二叉树，通过数组来进行保存。如果是大根堆，那么父节点大于等于子节点，根节点是最大的。如果是小根堆，那么父节点小于等于子节点，根节点是最小的。</p>
+<h2 id="小根堆"><a href="#小根堆" class="headerlink" title="小根堆"></a>小根堆</h2><p>时间复杂度</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class <span class="title">MinHeap</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 实际存放元素个数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 数组存储元素</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] data = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 交换方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> tmp = data[a];</span><br><span class="line">        data[a] = data[b];</span><br><span class="line">        data[b] = tmp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 大数下沉，将当前节点与其较小的孩子进行交换，并将当前节点更新为交换后的孩子节点</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">goDown</span><span class="params">(<span class="keyword">int</span> idx)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 获得孩子节点的下标</span></span><br><span class="line">        <span class="keyword">int</span> son = idx * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(son &lt;= size) &#123;</span><br><span class="line">            <span class="keyword">if</span>(son + <span class="number">1</span> &lt; size &amp;&amp; data[son + <span class="number">1</span>] &lt; data[son]) &#123;</span><br><span class="line">                son++; <span class="comment">// 比较左右两个孩子哪个更小</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(data[idx] &lt; data[son]) &#123;</span><br><span class="line">                <span class="keyword">break</span>; <span class="comment">// 若当前节点比孩子节点小，则不需要交换，退出循环</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                swap(idx, son);</span><br><span class="line">                idx = son;</span><br><span class="line">                son = idx * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 小数上浮，将当前节点与父节点相比，若小于则交换，并将当前节点更新为父节点</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">goUp</span><span class="params">(<span class="keyword">int</span> idx)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> father = (idx - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">while</span>(father &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(data[idx] &gt;= data[father]) &#123;</span><br><span class="line">                <span class="keyword">break</span>; <span class="comment">// 父节点小于当前节点，不用上浮</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                swap(idx, father);</span><br><span class="line">                idx = father;</span><br><span class="line">                father = (idx - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 插入方法，每次都在最后一个插入，并上浮到合适位置</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MinHeap <span class="title">push</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        data[size] = value;</span><br><span class="line">        goUp(size++);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 弹出根元素的方法，让根元素与尾元素交换，并让当前的根元素下沉</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        swap(<span class="number">0</span>, --size);</span><br><span class="line">        goDown(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> data[size];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测试方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mian</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MinHeap heap = <span class="keyword">new</span> MinHeap();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 乱序添加1~9</span></span><br><span class="line">        heap.push(<span class="number">8</span>).push(<span class="number">5</span>).push(<span class="number">9</span>)</span><br><span class="line">                .push(<span class="number">4</span>).push(<span class="number">2</span>).push(<span class="number">3</span>)</span><br><span class="line">                .push(<span class="number">6</span>).push(<span class="number">7</span>).push(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">while</span>(heap.size &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            System.out.print(heap.pop());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="大根堆"><a href="#大根堆" class="headerlink" title="大根堆"></a>大根堆</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MaxHeap</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> len = arr.length;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = len / <span class="number">2</span>;i &gt;= <span class="number">0</span>;i--) &#123;</span><br><span class="line">            heapAdjust(arr, i, len);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.pringln(Arrays.toStirng(arr));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// k : 需要调整的堆节点，len : 数组长度</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">heapAdjust</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> k, <span class="keyword">int</span> len)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> tmp = arr[k]; <span class="comment">// 暂存该节点，避免覆盖</span></span><br><span class="line">        <span class="comment">// i 指向 k 的左孩子</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span> * k + <span class="number">1</span>;i &lt; len;i++) &#123;</span><br><span class="line">            <span class="comment">// 判断是否有右孩子，并指向较大的那个节点</span></span><br><span class="line">            <span class="keyword">if</span>(i &lt; len - <span class="number">1</span> &amp;&amp; arr[i] &lt; arr[i + <span class="number">1</span>]) &#123;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 父节点和孩子结点相同或者父节点大于孩子结点则跳出该次循环</span></span><br><span class="line">            <span class="keyword">if</span>(arr[i] &lt;= tmp) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                arr[k] = arr[i]; <span class="comment">// 将孩子结点放到父节点</span></span><br><span class="line">                k = i; <span class="comment">// 父节点重新指向</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        arr[k] = tmp; <span class="comment">// 初始父节点k（arr[0]）找到了合适的位置</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HeapSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* </span></span><br><span class="line"><span class="comment">     * (最大)堆的向下调整算法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 注: 数组实现的堆中，第N个节点的左孩子的索引值是(2N+1)，右孩子的索引是(2N+2)。</span></span><br><span class="line"><span class="comment">     *     其中，N为数组下标索引值，如数组中第1个数对应的N为0。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 参数说明: </span></span><br><span class="line"><span class="comment">     *     a -- 待排序的数组</span></span><br><span class="line"><span class="comment">     *     start -- 被下调节点的起始位置(一般为0，表示从第1个开始)</span></span><br><span class="line"><span class="comment">     *     end   -- 截至范围(一般为数组中最后一个元素的索引)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">maxHeapDown</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> c = start;            <span class="comment">// 当前(current)节点的位置</span></span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">2</span>*c + <span class="number">1</span>;        <span class="comment">// 左(left)孩子的位置</span></span><br><span class="line">        <span class="keyword">int</span> tmp = a[c];            <span class="comment">// 当前(current)节点的大小</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (; l &lt;= end; c=l,l=<span class="number">2</span>*l+<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">// &quot;l&quot;是左孩子，&quot;l+1&quot;是右孩子</span></span><br><span class="line">            <span class="keyword">if</span> ( l &lt; end &amp;&amp; a[l] &lt; a[l+<span class="number">1</span>])</span><br><span class="line">                l++;        <span class="comment">// 左右两孩子中选择较大者，即m_heap[l+1]</span></span><br><span class="line">            <span class="keyword">if</span> (tmp &gt;= a[l])</span><br><span class="line">                <span class="keyword">break</span>;        <span class="comment">// 调整结束</span></span><br><span class="line">            <span class="keyword">else</span> &#123;            <span class="comment">// 交换值</span></span><br><span class="line">                a[c] = a[l];</span><br><span class="line">                a[l]= tmp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 堆排序(从小到大)</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 参数说明: </span></span><br><span class="line"><span class="comment">     *     a -- 待排序的数组</span></span><br><span class="line"><span class="comment">     *     n -- 数组的长度</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">heapSortAsc</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i,tmp;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 从(n/2-1) --&gt; 0逐次遍历。遍历之后，得到的数组实际上是一个(最大)二叉堆。</span></span><br><span class="line">        <span class="keyword">for</span> (i = n / <span class="number">2</span> - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">            maxHeapDown(a, i, n-<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 从最后一个元素开始对序列进行调整，不断的缩小调整的范围直到第一个元素</span></span><br><span class="line">        <span class="keyword">for</span> (i = n - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="comment">// 交换a[0]和a[i]。交换后，a[i]是a[0...i]中最大的。</span></span><br><span class="line">            tmp = a[<span class="number">0</span>];</span><br><span class="line">            a[<span class="number">0</span>] = a[i];</span><br><span class="line">            a[i] = tmp;</span><br><span class="line">            <span class="comment">// 调整a[0...i-1]，使得a[0...i-1]仍然是一个最大堆。</span></span><br><span class="line">            <span class="comment">// 即，保证a[i-1]是a[0...i-1]中的最大值。</span></span><br><span class="line">            maxHeapDown(a, <span class="number">0</span>, i-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* </span></span><br><span class="line"><span class="comment">     * (最小)堆的向下调整算法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 注: 数组实现的堆中，第N个节点的左孩子的索引值是(2N+1)，右孩子的索引是(2N+2)。</span></span><br><span class="line"><span class="comment">     *     其中，N为数组下标索引值，如数组中第1个数对应的N为0。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 参数说明: </span></span><br><span class="line"><span class="comment">     *     a -- 待排序的数组</span></span><br><span class="line"><span class="comment">     *     start -- 被下调节点的起始位置(一般为0，表示从第1个开始)</span></span><br><span class="line"><span class="comment">     *     end   -- 截至范围(一般为数组中最后一个元素的索引)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">minHeapDown</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> c = start;            <span class="comment">// 当前(current)节点的位置</span></span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">2</span>*c + <span class="number">1</span>;        <span class="comment">// 左(left)孩子的位置</span></span><br><span class="line">        <span class="keyword">int</span> tmp = a[c];            <span class="comment">// 当前(current)节点的大小</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (; l &lt;= end; c=l,l=<span class="number">2</span>*l+<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">// &quot;l&quot;是左孩子，&quot;l+1&quot;是右孩子</span></span><br><span class="line">            <span class="keyword">if</span> ( l &lt; end &amp;&amp; a[l] &gt; a[l+<span class="number">1</span>])</span><br><span class="line">                l++;        <span class="comment">// 左右两孩子中选择较小者</span></span><br><span class="line">            <span class="keyword">if</span> (tmp &lt;= a[l])</span><br><span class="line">                <span class="keyword">break</span>;        <span class="comment">// 调整结束</span></span><br><span class="line">            <span class="keyword">else</span> &#123;            <span class="comment">// 交换值</span></span><br><span class="line">                a[c] = a[l];</span><br><span class="line">                a[l]= tmp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 堆排序(从大到小)</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 参数说明: </span></span><br><span class="line"><span class="comment">     *     a -- 待排序的数组</span></span><br><span class="line"><span class="comment">     *     n -- 数组的长度</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">heapSortDesc</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i,tmp;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 从(n/2-1) --&gt; 0逐次遍历每。遍历之后，得到的数组实际上是一个最小堆。</span></span><br><span class="line">        <span class="keyword">for</span> (i = n / <span class="number">2</span> - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">            minHeapDown(a, i, n-<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 从最后一个元素开始对序列进行调整，不断的缩小调整的范围直到第一个元素</span></span><br><span class="line">        <span class="keyword">for</span> (i = n - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="comment">// 交换a[0]和a[i]。交换后，a[i]是a[0...i]中最小的。</span></span><br><span class="line">            tmp = a[<span class="number">0</span>];</span><br><span class="line">            a[<span class="number">0</span>] = a[i];</span><br><span class="line">            a[i] = tmp;</span><br><span class="line">            <span class="comment">// 调整a[0...i-1]，使得a[0...i-1]仍然是一个最小堆。</span></span><br><span class="line">            <span class="comment">// 即，保证a[i-1]是a[0...i-1]中的最小值。</span></span><br><span class="line">            minHeapDown(a, <span class="number">0</span>, i-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">int</span> a[] = &#123;<span class="number">20</span>,<span class="number">30</span>,<span class="number">90</span>,<span class="number">40</span>,<span class="number">70</span>,<span class="number">110</span>,<span class="number">60</span>,<span class="number">10</span>,<span class="number">100</span>,<span class="number">50</span>,<span class="number">80</span>&#125;;</span><br><span class="line"></span><br><span class="line">        System.out.printf(<span class="string">&quot;before sort:&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;a.length; i++)</span><br><span class="line">            System.out.printf(<span class="string">&quot;%d &quot;</span>, a[i]);</span><br><span class="line">        System.out.printf(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">        heapSortAsc(a, a.length);            <span class="comment">// 升序排列</span></span><br><span class="line">        <span class="comment">//heapSortDesc(a, a.length);        // 降序排列</span></span><br><span class="line"></span><br><span class="line">        System.out.printf(<span class="string">&quot;after  sort:&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;a.length; i++)</span><br><span class="line">            System.out.printf(<span class="string">&quot;%d &quot;</span>, a[i]);</span><br><span class="line">        System.out.printf(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Linux-查找一个字的命令"><a href="#Linux-查找一个字的命令" class="headerlink" title="Linux 查找一个字的命令"></a>Linux 查找一个字的命令</h1><p>查找某字符串的命令：grep</p>
+<h1 id="同时有大量用户登录系统，怎么处理"><a href="#同时有大量用户登录系统，怎么处理" class="headerlink" title="同时有大量用户登录系统，怎么处理"></a>同时有大量用户登录系统，怎么处理</h1><h1 id="负载均衡原理"><a href="#负载均衡原理" class="headerlink" title="负载均衡原理"></a>负载均衡原理</h1><p>为了避免单机性能瓶颈、解决单点故障的隐患，部署多台 tomcat 服务器，让客户端随机访问其中一台机器。然而如果让客户端来选择所要访问的机器的话，如果有服务器宕机了，客户端是无法提前感知到的，最终导致其连接到已经宕机的服务器上。因此，需要在服务器端前面加一个负载均衡层，一般采用 Nginx 来完成</p>
+<p>同时，考虑到这样的架构所有流量最终都会打到 服务器 上，需要进行鉴权，因此又在 Nginx 层后面加了一个 网关 层。这样让网关鉴权通过之后才会将流量转发到服务器，除此之外，网关还能起到风控、协议转换、流量控制的作用。</p>
+<p>由于动态请求与静态请求都打到 tomcat，在流量大时会导致其承受不必要的压力，而对于静态资源，tomcat 每次从磁盘加载文件比较影响性能，因此对 Nginx 进行进一步优化，即如果是动态请求，则经过 网关 打到 tomcat，而对于静态请求，则打到静态资源服务器上。这就是所说的动静分离，将动态资源与静态资源分开，这样使 tomcat 专注于处理动态请求，静态请求利用 Nginx 的 proxy cache 等功能，提升处理能力。</p>
+<p>HTML 是静态的，ASP、PHP、JSP 等页面是动态的</p>
+<p>为了避免 Nginx 发生故障，也需要部署至少两台机器，以主备的形式存在。备 Nginx 会通过 keepalived 机制，即发送心跳包，来及时感知主 Nginx 的存活，发现宕机则自己转为主 Nginx</p>
+<p>由于 Nginx 工作在应用层，因此其需要与 客户端 和 服务端 各建立一个 TCP 连接，而 TCP Socket 与 接收、发送缓存区 等都非常消耗内存，这导致连接数量较多时 Nginx 的抗负载能力急剧下降。</p>
+<p>为了解决这一问题，又提出了工作在传输层的负载均衡器 LVS。其类似于路由器，只负责转发包而不需要建立连接，因此不需要维护额外的 TCP 连接。</p>
+<p>那么 LVS 负载均衡器是如何工作的呢？</p>
+<p>负载均衡器在接收到第一个来自客户端的 SYN 请求时，通过负载均衡算法选择一个最佳的服务器，并对报文中的目标 IP 地址进行修改（改为后端服务器 IP），直接转发给该服务器。TCP 的连接建立，也就是三次握手，是由客户端与服务器直接建立的，负载均衡器只是起一个转发作用。为此，可以在 Nginx 上再加一层 LVS，让 LVS 来承接所有流量。</p>
+<p>同时，由于 LVS 属于 Linux 的内核模块，工作在内核态，而 Nginx 工作在用户态，因此在性能与稳定性上 Nginx 都不如 LVS。</p>
+<h1 id="负载均衡的方法"><a href="#负载均衡的方法" class="headerlink" title="负载均衡的方法"></a>负载均衡的方法</h1><h2 id="HTTP-重定向负载均衡"><a href="#HTTP-重定向负载均衡" class="headerlink" title="HTTP 重定向负载均衡"></a>HTTP 重定向负载均衡</h2><ol>
+<li>请求到负载均衡服务器</li>
+<li>根据均衡算法，返回 304，重定向到实际负责计算的服务器 ip，并返回给浏览器</li>
+<li>然后浏览器直接请求实际负责计算的服务器</li>
+<li>最后实际计算的服务器响应到客户端浏览器</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>请求经过两次服务器(负载均衡服务器、实际计算服务器)，增加了响应时间</li>
+<li>暴露了实际负载的服务器的公网 ip，降低了安全性</li>
+</ol>
+<h2 id="DNS-负载均衡"><a href="#DNS-负载均衡" class="headerlink" title="DNS 负载均衡"></a>DNS 负载均衡</h2><ol>
+<li>用户请求域名，请求到 DNS 服务器</li>
+<li>DNS 服务返回解析的 IP 地址到客户端，并不暴露给浏览器来进行重定向</li>
+<li>客户端拿到服务器 IP， 对服务器进行请求</li>
+<li>计算服务器返回相关的响应信息</li>
+</ol>
+<p>改进：</p>
+<ol>
+<li>不用每次都请求负载的 ip，可以缓存起来，重复使用来提高性能</li>
+<li>dns 不必暴露实际计算的服务器 ip，提高安全性</li>
+</ol>
+<h2 id="反向代理负载均衡"><a href="#反向代理负载均衡" class="headerlink" title="反向代理负载均衡"></a>反向代理负载均衡</h2><ol>
+<li>客户端发起请求到负载均衡服务器，服务器根据算法得到负载 ip</li>
+<li>负载均衡服务器构造请求，请求内网负载的计算服务器</li>
+<li>计算服务器返回响应结果给负载均衡服务器</li>
+<li>负载均衡服务器返回响应结果给客户端</li>
+</ol>
+<p>缺点：基于 http 层做的负载均衡，效率较低；适用于较小的集群</p>
+<h2 id="IP-层负载均衡"><a href="#IP-层负载均衡" class="headerlink" title="IP 层负载均衡"></a>IP 层负载均衡</h2><p>对网络层 ip 进行替换，不需要在 http 层工作，直接在操作系统内核的 ip 数据包中替换地址，效率比基于 HTTP 层的反向代理更高</p>
+<ol>
+<li>客户端请求负载均衡服务器</li>
+<li>负载均衡服务器修改目的 ip 为内网机器的 ip</li>
+<li>内网机器计算完毕，响应 ip 改为负载均衡服务器 ip 的内网地址</li>
+<li>负载均衡服务器修改响应的 ip 为自己的外网 ip， 返回结果给客户端</li>
+</ol>
+<p>缺点：请求和响应都需要经过负载均衡服务器进行 ip 层替换，响应数据会成为后期瓶颈</p>
+<h2 id="数据链路层负载均衡"><a href="#数据链路层负载均衡" class="headerlink" title="数据链路层负载均衡"></a>数据链路层负载均衡</h2><p>解决响应数据体量过大、效率低的问题，通过修改数据链路层的 Mac 地址，ip 使用虚拟 ip 来实现负载均衡</p>
+<ol>
+<li>客户端请求负载均衡服务器</li>
+<li>负载均衡服务器替换 Mac 地址为计算服务器，ip 为负载均衡服务器ip</li>
+<li>计算服务器直接响应数据给客户端</li>
+</ol>
+<p>吞吐量最高</p>
+<h1 id="负载均衡算法"><a href="#负载均衡算法" class="headerlink" title="负载均衡算法"></a>负载均衡算法</h1><p>常用的负载均衡算法有 轮询、随机、最少链接、源地址散列、加权 等方式</p>
+<h2 id="轮询法"><a href="#轮询法" class="headerlink" title="轮询法"></a>轮询法</h2><p>将所有请求依次分发到每台服务器上，均衡地对待每一台后端服务器，不关心服务器的连接数与负载情况。轮询的策略目的在于请求的绝对均衡，但是在实际情况下，可能服务器并不完全一样，导致有些性能高的服务器不能完全发挥出来</p>
+<h2 id="随机法"><a href="#随机法" class="headerlink" title="随机法"></a>随机法</h2><p>根据服务器列表的大小随机获取其中的一台来进行访问，对于完全随机的情况，当调用量增大时，实际的访问效果会越来越接近于轮询</p>
+<h2 id="源地址哈希法"><a href="#源地址哈希法" class="headerlink" title="源地址哈希法"></a>源地址哈希法</h2><p>思想是获取客户端访问的 ip 地址，通过 hash 函数计算出一个 hash 值，用该 hash 值对服务器列表的大小进行取模，得到的值就是要访问的服务器序号</p>
+<p>该方法的好处是，在服务器列表不变的条件下，每次客户端访问的都会是同一个服务器，利用这个特性无需额外操作就可以利用 session 来保存状态</p>
+<h2 id="加权轮询法"><a href="#加权轮询法" class="headerlink" title="加权轮询法"></a>加权轮询法</h2><p>是对轮询法的优化，考虑到不同的服务器性能不同，所以不能一概而论，需要给性能较低的服务器低权重，性能高的给高权重。</p>
+<h2 id="加权随机法"><a href="#加权随机法" class="headerlink" title="加权随机法"></a>加权随机法</h2><p>与加权轮询法相似，该方法同样根据后端服务器不同的配置和负载情况来配置不同的权重，不同的是，它根据权重来随机选择服务器而不是按照大小顺序。</p>
+<h2 id="最小连接数法"><a href="#最小连接数法" class="headerlink" title="最小连接数法"></a>最小连接数法</h2><p>请求次数的均衡并不代表负载的均衡，因此提出了最小连接法，该方法更加灵活和智能。由于后台服务器的配置不尽相同，对于请求的处理有快有慢，因此最小连接法正是根据后端服务器的当前连接情况，动态选取其中当前积压的连接请求数最少的一台来处理当前请求，尽可能提高后台服务器的利用率，将负载合理地分流到每一台服务器。</p>
+<h1 id="Spring-在-controller-中创建对象的问题"><a href="#Spring-在-controller-中创建对象的问题" class="headerlink" title="Spring 在 controller 中创建对象的问题"></a>Spring 在 controller 中创建对象的问题</h1><h1 id="Java-异常处理"><a href="#Java-异常处理" class="headerlink" title="Java 异常处理"></a>Java 异常处理</h1><h1 id="一致性哈希"><a href="#一致性哈希" class="headerlink" title="一致性哈希"></a>一致性哈希</h1><h1 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h1>
+      
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"># 计算机网络</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/06/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/" rel="prev" title="项目总结">
+      <i class="fa fa-chevron-left"></i> 项目总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/18/URL%20%E7%9F%AD%E9%93%BE%E5%AE%9E%E7%8E%B0/" rel="next" title="URL 短链实现">
+      URL 短链实现 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">深拷贝与浅拷贝的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%85%E6%8B%B7%E8%B4%9D"><span class="nav-number">1.1.</span> <span class="nav-text">浅拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="nav-number">1.2.</span> <span class="nav-text">深拷贝</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%E5%A0%86"><span class="nav-number">2.</span> <span class="nav-text">手写一个堆</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E6%A0%B9%E5%A0%86"><span class="nav-number">2.1.</span> <span class="nav-text">小根堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E6%A0%B9%E5%A0%86"><span class="nav-number">2.2.</span> <span class="nav-text">大根堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E6%8E%92%E5%BA%8F"><span class="nav-number">2.3.</span> <span class="nav-text">堆排序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-%E6%9F%A5%E6%89%BE%E4%B8%80%E4%B8%AA%E5%AD%97%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">Linux 查找一个字的命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F%EF%BC%8C%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">同时有大量用户登录系统，怎么处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%8E%9F%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">负载均衡原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">6.</span> <span class="nav-text">负载均衡的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-%E9%87%8D%E5%AE%9A%E5%90%91%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">6.1.</span> <span class="nav-text">HTTP 重定向负载均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">6.2.</span> <span class="nav-text">DNS 负载均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">6.3.</span> <span class="nav-text">反向代理负载均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP-%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">6.4.</span> <span class="nav-text">IP 层负载均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">6.5.</span> <span class="nav-text">数据链路层负载均衡</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">负载均衡算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AE%E8%AF%A2%E6%B3%95"><span class="nav-number">7.1.</span> <span class="nav-text">轮询法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%B3%95"><span class="nav-number">7.2.</span> <span class="nav-text">随机法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E5%9C%B0%E5%9D%80%E5%93%88%E5%B8%8C%E6%B3%95"><span class="nav-number">7.3.</span> <span class="nav-text">源地址哈希法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E6%9D%83%E8%BD%AE%E8%AF%A2%E6%B3%95"><span class="nav-number">7.4.</span> <span class="nav-text">加权轮询法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E6%9D%83%E9%9A%8F%E6%9C%BA%E6%B3%95"><span class="nav-number">7.5.</span> <span class="nav-text">加权随机法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%B3%95"><span class="nav-number">7.6.</span> <span class="nav-text">最小连接数法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-%E5%9C%A8-controller-%E4%B8%AD%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">8.</span> <span class="nav-text">Spring 在 controller 中创建对象的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">9.</span> <span class="nav-text">Java 异常处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C"><span class="nav-number">10.</span> <span class="nav-text">一致性哈希</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="nav-number">11.</span> <span class="nav-text">信号量</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zodiacal</p>
+  <div class="site-description" itemprop="description">引出魔鬼的一种试炼</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zodiacal</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">453k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:52</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
