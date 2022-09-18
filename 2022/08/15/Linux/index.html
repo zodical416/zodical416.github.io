@@ -28,7 +28,7 @@
 <meta property="og:description" content="哒哒哒">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-08-15T12:29:23.072Z">
-<meta property="article:modified_time" content="2022-09-15T13:42:03.944Z">
+<meta property="article:modified_time" content="2022-09-18T09:16:05.094Z">
 <meta property="article:author" content="Zodiacal">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="Linux 服务器">
@@ -192,7 +192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-15 21:42:03" itemprop="dateModified" datetime="2022-09-15T21:42:03+08:00">2022-09-15</time>
+                <time title="修改时间：2022-09-18 17:16:05" itemprop="dateModified" datetime="2022-09-18T17:16:05+08:00">2022-09-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -210,14 +210,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5k</span>
+              <span>6.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>6 分钟</span>
             </span>
             <div class="post-description">哒哒哒</div>
 
@@ -298,11 +298,32 @@
 <p>当一个子进程结束时，其实它没有被真正地销毁，而是会留下一个数据结构，这个剩下来的数据结构就是所谓的僵尸进程。原来进程表中的数据会被该进程的退出码、执行时所用的 CPU 时间等数据所取代，这些数据会一直保存到系统将它传递给它的父进程为止。因此，僵尸进程的出现时间就是在子进程终止、父进程尚未接收这些数据之间。</p>
 <p>此时，该僵尸子进程已经放弃了几乎所有的内存空间，没有任何可执行代码，也不能被调度，仅仅在进程列表中保留一个位置，记载该进程的退出状态信息供其他进程收集，除此之外，僵尸进程不再占有任何存储空间。僵尸进程需要父进程对其进行处理，如果父进程先于子进程结束了，那么子进程会变为孤儿进程，孤儿进程将被 init 进程领养，并由 init 进程完成状态收集工作。但是，如果父进程是一个循环，不会结束，那么子进程就会一直保存僵尸状态，造成系统中大量僵尸进程的残留。</p>
 <h3 id="如何杀死僵尸进程"><a href="#如何杀死僵尸进程" class="headerlink" title="如何杀死僵尸进程"></a>如何杀死僵尸进程</h3><p>僵尸进程不能被 kill 命令杀死，因此可以找到僵尸进程的父进程，将该进程的父进程杀死，之后僵尸进程会被 init 进程所领养，并合理地对资源进行回收。</p>
-<h1 id="基础指令"><a href="#基础指令" class="headerlink" title="基础指令"></a>基础指令</h1><h1 id="查看端口"><a href="#查看端口" class="headerlink" title="查看端口"></a>查看端口</h1><p>查看端口占用情况可以使用 Lsof 和 netstat 命令</p>
+<h1 id="关闭窗口后应用也会关闭"><a href="#关闭窗口后应用也会关闭" class="headerlink" title="关闭窗口后应用也会关闭"></a>关闭窗口后应用也会关闭</h1><p>可以使用 nohup 命令让程序在窗口关闭后继续在后台运行</p>
+<h1 id="基础指令"><a href="#基础指令" class="headerlink" title="基础指令"></a>基础指令</h1><h2 id="查看端口状态：Lsof-和-netstat"><a href="#查看端口状态：Lsof-和-netstat" class="headerlink" title="查看端口状态：Lsof 和 netstat"></a>查看端口状态：Lsof 和 netstat</h2><p>查看端口占用情况可以使用 Lsof 和 netstat 命令</p>
 <p>Lsof 是一个列出当前系统打开文件的工具，查看端口占用的语法格式为：Lsof -i: 端口号</p>
 <p>netstat -tunlp 用于显示 tcp、udp 的端口和进程等相关情况，语法格式：netstat -tunlp | grep 端口号</p>
 <p>在查看到端口占用的进程后，可以用 kill 命令杀掉进程，语法格式： kill -9 PID</p>
-<h2 id="ps-命令"><a href="#ps-命令" class="headerlink" title="ps 命令"></a>ps 命令</h2><p>使用格式：“ps[参数]”</p>
+<h2 id="创建文件夹：mkdir"><a href="#创建文件夹：mkdir" class="headerlink" title="创建文件夹：mkdir"></a>创建文件夹：mkdir</h2><p>创建一个空白目录：mkdir test1</p>
+<p>递归创建多个目录：mkdir -p test2/test22</p>
+<p>创建权限为 777 的目录：mkdir -m 777 test3</p>
+<p>创建新目录并显示信息：mkdir -v test4</p>
+<h2 id="创建文件：vi-或-touch"><a href="#创建文件：vi-或-touch" class="headerlink" title="创建文件：vi 或 touch"></a>创建文件：vi 或 touch</h2><p>touch 能够创建一个空白的文档，touch filename 能够创建一个名为 filename 的空白文档</p>
+<p>vi 能够创建一个处于编辑状态的空白文档，只有在保存退出之后才算创建成功，文件的属性与 touch 是相同的</p>
+<h2 id="查找文件：find、locate"><a href="#查找文件：find、locate" class="headerlink" title="查找文件：find、locate"></a>查找文件：find、locate</h2><p>用于在指定目录下查找文件： <strong>find &lt;指定目录&gt; &lt;指定条件&gt; &lt;指定动作&gt;</strong></p>
+<p>locate实际上是 find -name 的另一种写法，但是速度更快，因为它不搜索具体的目录，而是搜索一个数据库</p>
+<h2 id="文件与文件夹重命名：mv"><a href="#文件与文件夹重命名：mv" class="headerlink" title="文件与文件夹重命名：mv"></a>文件与文件夹重命名：mv</h2><p>文件重命名：使用移动的命令来改名：mv filename1 filename2    #将文件名filename1改成filename2</p>
+<p>文件夹重命名： mv /a /b/c    #将/a目录移动到/b下，并重命名为c</p>
+<h2 id="设置-更改文件权限：chmod"><a href="#设置-更改文件权限：chmod" class="headerlink" title="设置/更改文件权限：chmod"></a>设置/更改文件权限：chmod</h2><p>例如 chmod 754 filename 意思就是将 filename 的权限修改为 754</p>
+<p>文件或目录的权限共分为三种：只读、只写、可执行，操作文件的用户有三种：文件所有者、群组用户、其他用户。读取权限为4，写入权限为2，执行权限为1</p>
+<p>因此，777 代表对于任意用户，权限都是可读可写可执行的</p>
+<p>754代表，对于文件所有者是可读可写可运行的，对于群组用户，是可读可运行的，对于其他用户，是只读权限。</p>
+<p>根据这个规律，能够推测出所有对应的组合</p>
+<h2 id="查看文件属性：ls"><a href="#查看文件属性：ls" class="headerlink" title="查看文件属性：ls"></a>查看文件属性：ls</h2><p>ls -a 查看所有文件；ls -l 查看详细属性</p>
+<p>lsattr 查看文件的扩展属性，如果文件被chattr +i  添加了写保护，用lsattr可以看到添加的属性</p>
+<p>file 查看文件类型，stat 查看文件状态</p>
+<h2 id="后台执行命令：-amp-和-nohup"><a href="#后台执行命令：-amp-和-nohup" class="headerlink" title="后台执行命令：&amp; 和 nohup"></a>后台执行命令：&amp; 和 nohup</h2><p>当在前台运行某个作业时，终端被该作业占据；可以在命令后面加上&amp; 实现后台运行。例如：sh test.sh &amp;</p>
+<p>使用 &amp; 命令后，作业被提交到后台运行，当前控制台没有被占用，但是一但把当前控制台关掉(退出帐户时)，作业就会停止运行。nohup 命令可以在你退出帐户之后继续运行相应的进程。</p>
+<h2 id="查看进程：ps-命令"><a href="#查看进程：ps-命令" class="headerlink" title="查看进程：ps  命令"></a>查看进程：ps  命令</h2><p>使用格式：“ps[参数]”</p>
 <h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
 <li>-a：显示所有进程</li>
 <li>-u：用户以及其他详细信息</li>
@@ -316,25 +337,25 @@
 <li>Z（僵死）：进程已经终止，但进程描述符依然存在，直到父进程调用 wait4() 系统函数后将进程释放</li>
 <li>T（停止）：系统收到停止信号后停止运行</li>
 </ul>
-<h2 id="top-命令"><a href="#top-命令" class="headerlink" title="top 命令"></a>top 命令</h2><p>用于动态监视进程活动与系统负载等信息</p>
-<h2 id="pidof-命令"><a href="#pidof-命令" class="headerlink" title="pidof 命令"></a>pidof 命令</h2><p>用于查询某个指定服务进程的 PID 值，例如</p>
+<h2 id="查看总体运行状态与-CPU-占用率：top-命令"><a href="#查看总体运行状态与-CPU-占用率：top-命令" class="headerlink" title="查看总体运行状态与 CPU 占用率：top 命令"></a>查看总体运行状态与 CPU 占用率：top 命令</h2><p>使用格式：top [参数]，功能：显示当前系统正在执行的进程的相关信息，包括进程ID、内存占用率、CPU占用率等</p>
+<h2 id="新建用户：useradd"><a href="#新建用户：useradd" class="headerlink" title="新建用户：useradd"></a>新建用户：useradd</h2><p>useradd -m 用户名，代表新建用户；之后进行密码的设置，passwd 用户名，代表设置密码</p>
+<p>删除用户：userdel</p>
+<p>在root权限下，useradd只是创建了一个用户名，如 （useradd +用户名 ），它并没有在/home目录下创建同名文件夹，也没有创建密码，因此利用这个用户登录系统，是登录不了的，为了避免这样的情况出现，可以用 （useradd -m +用户名）的方式创建，它会在/home目录下创建同名文件夹，然后利用（ passwd + 用户名）为指定的用户名设置密码。</p>
+<p>可以直接利用adduser创建新用户（adduser +用户名）这样在/home目录下会自动创建同名文件夹</p>
+<p>删除用户，只需使用一个简单的命令“userdel 用户名”即可。不过最好将它留在系统上的文件也删除掉，也可以使用“userdel -r 用户名”来实现这一目的。</p>
+<h2 id="查询pid值：pidof-命令"><a href="#查询pid值：pidof-命令" class="headerlink" title="查询pid值：pidof 命令"></a>查询pid值：pidof 命令</h2><p>用于查询某个指定服务进程的 PID 值，例如</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">pidof</span> sshd</span><br><span class="line"><span class="number">2156</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="CPU-使用情况"><a href="#CPU-使用情况" class="headerlink" title="CPU 使用情况"></a>CPU 使用情况</h2><ol>
+<h2 id="CPU-使用情况：top-等"><a href="#CPU-使用情况：top-等" class="headerlink" title="CPU 使用情况：top 等"></a>CPU 使用情况：top 等</h2><ol>
 <li>top：使用 top 查看 CPU 使用情况，能够看到总体的系统运行状态与 CPU 的利用率</li>
 <li>vmstat</li>
 <li>free-m：查看内存占用率</li>
 </ol>
-<h2 id="磁盘空间满了怎么解决"><a href="#磁盘空间满了怎么解决" class="headerlink" title="磁盘空间满了怎么解决"></a>磁盘空间满了怎么解决</h2><ol>
-<li>查看是不是真的磁盘空间不足，输入命令：df -lh 查看磁盘信息</li>
-<li>定位最大文件目录，输入命令：cd/ 进入根目录，du -h max-depth = 1，寻找当前目录，看哪个文件夹占用空间最大</li>
-<li>定位最大文件，输入命令：ls -lhs：将文件按从大到小顺序排列</li>
-<li>确认文件未被占用：用 rm -f + 文件名 删除文件，不过通过 rm 删除文件只是会让文件从文件系统的目录结构上解除链接，如果文件是打开的，那么进程仍然可以读取文件，磁盘空间也会被一直占用。因此需要判断文件是否被占用，用 isof|grep deleted，意思是查找带有 deleted 字段的文件，并根据所得结果找到占用该文件的进程号，并用 kill 杀掉进程</li>
-</ol>
-<h2 id="怎么查日志"><a href="#怎么查日志" class="headerlink" title="怎么查日志"></a>怎么查日志</h2><h3 id="tail"><a href="#tail" class="headerlink" title="tail"></a>tail</h3><p>tail -f info.log：动态查看实时输出 info.log 日志</p>
+<h2 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h2><h3 id="head：查看前几行"><a href="#head：查看前几行" class="headerlink" title="head：查看前几行"></a>head：查看前几行</h3><p><strong>head -n 20 info.log：</strong> 查看info.log日志的前20行内容</p>
+<h3 id="tail：查看后几行"><a href="#tail：查看后几行" class="headerlink" title="tail：查看后几行"></a>tail：查看后几行</h3><p>tail -f info.log：动态查看实时输出 info.log 日志</p>
 <p>tail -n 200 info.log：查看 info.log 日志的后 200 行</p>
 <p>tail -f info.log | grep “11”：动态查看含有关键字 11 的日志</p>
-<h3 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h3><p>cat info.log：查看info.log的全部日志内容</p>
+<h3 id="cat：查看中间行数"><a href="#cat：查看中间行数" class="headerlink" title="cat：查看中间行数"></a>cat：查看中间行数</h3><p>cat info.log：查看info.log的全部日志内容</p>
 <p>cat info.log | grep  “java”：查看info.log的java关键字关联的全部内容</p>
 <p>cat info.log | grep -A 5 “java”：查看info.log的java关键字后5行关联的全部内容</p>
 <p>cat info.log | grep -B 10 “java”：查看info.log的java关键字前10行关联的全部内容</p>
@@ -342,7 +363,6 @@
 <h3 id="less"><a href="#less" class="headerlink" title="less"></a>less</h3><p>less info.log：从头开始查看info.log日志内容</p>
 <h3 id="more"><a href="#more" class="headerlink" title="more"></a>more</h3><p><strong>more info.log：</strong> 查看info.log的日志内容，按下方<strong>附加</strong>操作滚动日志内容</p>
 <p><strong>more info.log |grep “test”：</strong> 查看全部<strong>关键字test关联内容</strong></p>
-<h3 id="head"><a href="#head" class="headerlink" title="head"></a>head</h3><p><strong>head -n 20 info.log：</strong> 查看info.log日志的前20行内容</p>
 <h2 id="怎么查看文件"><a href="#怎么查看文件" class="headerlink" title="怎么查看文件"></a>怎么查看文件</h2><p>可以通过 less、cat、more 等命令均可用来查看文件内容，主要区别有“</p>
 <p>cat 是一次性显示整个文件的内容，还可以将多个文件连接起来显示，适用于文件内容比较少的情况；</p>
 <p>more 和 less 一般适用于显示文件内容超过一屏的情况，并且提供翻页的功能。more 比 cat 更加强大，提供分页显示的功能，less 比 more 更加强大，提供翻页、跳转、查找等命令。而且 more 和 less 都支持用空格显示下一页，按键 b 显示上一页</p>
@@ -352,6 +372,12 @@
 <p>第三步：读取到输入流末尾时，运行 END 语句块</p>
 <p>要统计出现次数最多的 ip 可以采用以下的脚本：</p>
 <p>cat test.txt | awk ‘{print }’</p>
+<h1 id="磁盘空间满了、日志内容很多各怎么解决"><a href="#磁盘空间满了、日志内容很多各怎么解决" class="headerlink" title="磁盘空间满了、日志内容很多各怎么解决"></a>磁盘空间满了、日志内容很多各怎么解决</h1><h2 id="磁盘空间满了怎么解决"><a href="#磁盘空间满了怎么解决" class="headerlink" title="磁盘空间满了怎么解决"></a>磁盘空间满了怎么解决</h2><ol>
+<li>查看是不是真的磁盘空间不足，输入命令：df -lh 查看磁盘信息</li>
+<li>定位最大文件目录，输入命令：cd/ 进入根目录，du -h max-depth = 1，寻找当前目录，看哪个文件夹占用空间最大</li>
+<li>定位最大文件，输入命令：ls -lhs：将文件按从大到小顺序排列</li>
+<li>确认文件未被占用：用 rm -f + 文件名 删除文件，不过通过 rm 删除文件只是会让文件从文件系统的目录结构上解除链接，如果文件是打开的，那么进程仍然可以读取文件，磁盘空间也会被一直占用。因此需要判断文件是否被占用，用 isof|grep deleted，意思是查找带有 deleted 字段的文件，并根据所得结果找到占用该文件的进程号，并用 kill 杀掉进程</li>
+</ol>
 <h2 id="日志内容很多怎么办"><a href="#日志内容很多怎么办" class="headerlink" title="日志内容很多怎么办"></a>日志内容很多怎么办</h2><p>每天对日志文件进行归档整理，或者每当日志文件满 500M 就进行归档。具体方法为首先获取当天日期，然后对日志进行切割，切割的大小能够自定义，如定义为按 60M 大小对日志进行切割。</p>
 <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">split</span>  -b <span class="number">65535000</span> -d -a <span class="number">4</span>  myout.txt  ./<span class="keyword">log</span>/<span class="keyword">log</span><span class="number">_</span>$&#123;current_date&#125;<span class="number">_</span> </span><br></pre></td></tr></table></figure>
 
@@ -359,7 +385,20 @@
 <p>日志文件切割完之后，就可以将日志文件删除了，否则就失去切割文件的意义了。删除的方法可以用以下方式：</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat <span class="regexp">/dev/</span><span class="keyword">null</span> &gt; nohup.out </span><br></pre></td></tr></table></figure>
 
-<h1 id="Git-命令"><a href="#Git-命令" class="headerlink" title="Git 命令"></a>Git 命令</h1>
+<h1 id="vi-命令"><a href="#vi-命令" class="headerlink" title="vi 命令"></a>vi 命令</h1><h2 id="删除行：dd"><a href="#删除行：dd" class="headerlink" title="删除行：dd"></a>删除行：dd</h2><p>1、按Esc键进入正常模式。</p>
+<p>2、将光标放在要删除的行上。</p>
+<p>3、键入dd并按Enter键以删除该行。</p>
+<p>注：多次按dd将删除多行。</p>
+<h2 id="删除多行：dd"><a href="#删除多行：dd" class="headerlink" title="删除多行：dd"></a>删除多行：dd</h2><p>要一次删除多行，请在dd命令前添加要删除的行数，例如，要删除五行，请执行以下操作：</p>
+<p>1、按Esc键进入正常模式。</p>
+<p>2、将光标放在要删除的第一行上。</p>
+<p>3、键入5dd并按Enter键以删除接下来的五行。</p>
+<h2 id="插入：命令行模式下按下-i"><a href="#插入：命令行模式下按下-i" class="headerlink" title="插入：命令行模式下按下 i"></a>插入：命令行模式下按下 i</h2><p>vi 文件名，按”I”进入insert模式，可以正常文本编辑</p>
+<h2 id="退出并保存"><a href="#退出并保存" class="headerlink" title="退出并保存"></a>退出并保存</h2><p>按下冒号键</p>
+<p>：w filename，代表将文件以 filename 的名称保存</p>
+<p>：wq，存盘并退出 vi</p>
+<p>：q！，不存盘强制退出 vi</p>
+
       
       <div>
     
@@ -451,7 +490,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">Linux 中的进程与线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%8E%E6%89%A7%E8%A1%8C"><span class="nav-number">1.1.1.</span> <span class="nav-text">创建与执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-number">1.1.2.</span> <span class="nav-text">进程描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="nav-number">1.1.3.</span> <span class="nav-text">进程状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fork-%E4%B8%8E-vfork"><span class="nav-number">1.1.4.</span> <span class="nav-text">fork 与 vfork</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%80%E5%87%BA"><span class="nav-number">1.1.5.</span> <span class="nav-text">退出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.3.</span> <span class="nav-text">僵尸进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A7%E7%94%9F%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.3.1.</span> <span class="nav-text">产生原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%9D%80%E6%AD%BB%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">如何杀死僵尸进程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">基础指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%AB%AF%E5%8F%A3"><span class="nav-number">3.</span> <span class="nav-text">查看端口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ps-%E5%91%BD%E4%BB%A4"><span class="nav-number">3.1.</span> <span class="nav-text">ps 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0"><span class="nav-number">3.1.1.</span> <span class="nav-text">参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#top-%E5%91%BD%E4%BB%A4"><span class="nav-number">3.2.</span> <span class="nav-text">top 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pidof-%E5%91%BD%E4%BB%A4"><span class="nav-number">3.3.</span> <span class="nav-text">pidof 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU-%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5"><span class="nav-number">3.4.</span> <span class="nav-text">CPU 使用情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E6%BB%A1%E4%BA%86%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3"><span class="nav-number">3.5.</span> <span class="nav-text">磁盘空间满了怎么解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E6%9F%A5%E6%97%A5%E5%BF%97"><span class="nav-number">3.6.</span> <span class="nav-text">怎么查日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tail"><span class="nav-number">3.6.1.</span> <span class="nav-text">tail</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cat"><span class="nav-number">3.6.2.</span> <span class="nav-text">cat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#less"><span class="nav-number">3.6.3.</span> <span class="nav-text">less</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#more"><span class="nav-number">3.6.4.</span> <span class="nav-text">more</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#head"><span class="nav-number">3.6.5.</span> <span class="nav-text">head</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6"><span class="nav-number">3.7.</span> <span class="nav-text">怎么查看文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E6%97%A5%E5%BF%97%E9%87%8C%E5%87%BA%E7%8E%B0%E7%9A%84%E6%9C%80%E5%A4%9A%E7%9A%84-ip"><span class="nav-number">3.8.</span> <span class="nav-text">统计日志里出现的最多的 ip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E5%86%85%E5%AE%B9%E5%BE%88%E5%A4%9A%E6%80%8E%E4%B9%88%E5%8A%9E"><span class="nav-number">3.9.</span> <span class="nav-text">日志内容很多怎么办</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">Git 命令</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">Linux 中的进程与线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%8E%E6%89%A7%E8%A1%8C"><span class="nav-number">1.1.1.</span> <span class="nav-text">创建与执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-number">1.1.2.</span> <span class="nav-text">进程描述符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="nav-number">1.1.3.</span> <span class="nav-text">进程状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fork-%E4%B8%8E-vfork"><span class="nav-number">1.1.4.</span> <span class="nav-text">fork 与 vfork</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%80%E5%87%BA"><span class="nav-number">1.1.5.</span> <span class="nav-text">退出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.3.</span> <span class="nav-text">僵尸进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A7%E7%94%9F%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.3.1.</span> <span class="nav-text">产生原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%9D%80%E6%AD%BB%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">如何杀死僵尸进程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E7%AA%97%E5%8F%A3%E5%90%8E%E5%BA%94%E7%94%A8%E4%B9%9F%E4%BC%9A%E5%85%B3%E9%97%AD"><span class="nav-number">2.</span> <span class="nav-text">关闭窗口后应用也会关闭</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">基础指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%AB%AF%E5%8F%A3%E7%8A%B6%E6%80%81%EF%BC%9ALsof-%E5%92%8C-netstat"><span class="nav-number">3.1.</span> <span class="nav-text">查看端口状态：Lsof 和 netstat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9%EF%BC%9Amkdir"><span class="nav-number">3.2.</span> <span class="nav-text">创建文件夹：mkdir</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%EF%BC%9Avi-%E6%88%96-touch"><span class="nav-number">3.3.</span> <span class="nav-text">创建文件：vi 或 touch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E6%96%87%E4%BB%B6%EF%BC%9Afind%E3%80%81locate"><span class="nav-number">3.4.</span> <span class="nav-text">查找文件：find、locate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8E%E6%96%87%E4%BB%B6%E5%A4%B9%E9%87%8D%E5%91%BD%E5%90%8D%EF%BC%9Amv"><span class="nav-number">3.5.</span> <span class="nav-text">文件与文件夹重命名：mv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE-%E6%9B%B4%E6%94%B9%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90%EF%BC%9Achmod"><span class="nav-number">3.6.</span> <span class="nav-text">设置&#x2F;更改文件权限：chmod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7%EF%BC%9Als"><span class="nav-number">3.7.</span> <span class="nav-text">查看文件属性：ls</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E5%8F%B0%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4%EF%BC%9A-amp-%E5%92%8C-nohup"><span class="nav-number">3.8.</span> <span class="nav-text">后台执行命令：&amp; 和 nohup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%EF%BC%9Aps-%E5%91%BD%E4%BB%A4"><span class="nav-number">3.9.</span> <span class="nav-text">查看进程：ps  命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0"><span class="nav-number">3.9.1.</span> <span class="nav-text">参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%80%BB%E4%BD%93%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81%E4%B8%8E-CPU-%E5%8D%A0%E7%94%A8%E7%8E%87%EF%BC%9Atop-%E5%91%BD%E4%BB%A4"><span class="nav-number">3.10.</span> <span class="nav-text">查看总体运行状态与 CPU 占用率：top 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E7%94%A8%E6%88%B7%EF%BC%9Auseradd"><span class="nav-number">3.11.</span> <span class="nav-text">新建用户：useradd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2pid%E5%80%BC%EF%BC%9Apidof-%E5%91%BD%E4%BB%A4"><span class="nav-number">3.12.</span> <span class="nav-text">查询pid值：pidof 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU-%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5%EF%BC%9Atop-%E7%AD%89"><span class="nav-number">3.13.</span> <span class="nav-text">CPU 使用情况：top 等</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97"><span class="nav-number">3.14.</span> <span class="nav-text">查看日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#head%EF%BC%9A%E6%9F%A5%E7%9C%8B%E5%89%8D%E5%87%A0%E8%A1%8C"><span class="nav-number">3.14.1.</span> <span class="nav-text">head：查看前几行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tail%EF%BC%9A%E6%9F%A5%E7%9C%8B%E5%90%8E%E5%87%A0%E8%A1%8C"><span class="nav-number">3.14.2.</span> <span class="nav-text">tail：查看后几行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cat%EF%BC%9A%E6%9F%A5%E7%9C%8B%E4%B8%AD%E9%97%B4%E8%A1%8C%E6%95%B0"><span class="nav-number">3.14.3.</span> <span class="nav-text">cat：查看中间行数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#less"><span class="nav-number">3.14.4.</span> <span class="nav-text">less</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#more"><span class="nav-number">3.14.5.</span> <span class="nav-text">more</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6"><span class="nav-number">3.15.</span> <span class="nav-text">怎么查看文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E6%97%A5%E5%BF%97%E9%87%8C%E5%87%BA%E7%8E%B0%E7%9A%84%E6%9C%80%E5%A4%9A%E7%9A%84-ip"><span class="nav-number">3.16.</span> <span class="nav-text">统计日志里出现的最多的 ip</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E6%BB%A1%E4%BA%86%E3%80%81%E6%97%A5%E5%BF%97%E5%86%85%E5%AE%B9%E5%BE%88%E5%A4%9A%E5%90%84%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3"><span class="nav-number">4.</span> <span class="nav-text">磁盘空间满了、日志内容很多各怎么解决</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E6%BB%A1%E4%BA%86%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3"><span class="nav-number">4.1.</span> <span class="nav-text">磁盘空间满了怎么解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E5%86%85%E5%AE%B9%E5%BE%88%E5%A4%9A%E6%80%8E%E4%B9%88%E5%8A%9E"><span class="nav-number">4.2.</span> <span class="nav-text">日志内容很多怎么办</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-%E5%91%BD%E4%BB%A4"><span class="nav-number">5.</span> <span class="nav-text">vi 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%A1%8C%EF%BC%9Add"><span class="nav-number">5.1.</span> <span class="nav-text">删除行：dd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%A4%9A%E8%A1%8C%EF%BC%9Add"><span class="nav-number">5.2.</span> <span class="nav-text">删除多行：dd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%EF%BC%9A%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%A8%A1%E5%BC%8F%E4%B8%8B%E6%8C%89%E4%B8%8B-i"><span class="nav-number">5.3.</span> <span class="nav-text">插入：命令行模式下按下 i</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%80%E5%87%BA%E5%B9%B6%E4%BF%9D%E5%AD%98"><span class="nav-number">5.4.</span> <span class="nav-text">退出并保存</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -465,7 +504,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -514,12 +553,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">453k</span>
+    <span title="站点总字数">476k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:52</span>
+    <span title="站点阅读时长">7:13</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
